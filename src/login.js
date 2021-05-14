@@ -4,17 +4,18 @@ const Login = (props) => {
     const {email, setEmail, password, setPassword, passwordError, emailError, handleLogin, handleLogout, handleSignup, hasAccount, setHasAccount, confirmPassword, setConfirmPassword, clearErrors, clearInputs} = props
     return ( <section className = "login">
         <div className ="loginContainer">
+            <keytitle> $TONK$ </keytitle>
             <label>Username</label>
             <input type = "text" autoFocus required value = {email} onChange = {(e) => setEmail(e.target.value)}/>
             <p className = "errorMsg">{emailError}</p>
             <label>Password</label> 
-            <input type = "text" autoFocus required value = {password} onChange = {(e) => setPassword(e.target.value)}/>
+            <input type = "password" autoFocus required value = {password} onChange = {(e) => setPassword(e.target.value)}/>
             <p className = "errorMsg">{passwordError}</p>
             
             {!hasAccount ? (
                 <>
                 <label>Confirm Password</label> 
-                <input type = "text" autoFocus required value = {confirmPassword} onChange = {(e) => setConfirmPassword(e.target.value)}/>
+                <input type = "password" autoFocus required value = {confirmPassword} onChange = {(e) => setConfirmPassword(e.target.value)}/>
                 </> ) : <></>
             }
             <div className = "btnContainer">

@@ -1,15 +1,14 @@
 import React from 'react'
 
-const Stonks = ({handleLogout}) => {
+const Hero = ({handleLogout}) => {
     return (
-        <section className = "Hero">
+        <section className = "hero">
             <nav>
-                <h2>Stonks</h2>
+                <h2>Welcome</h2>
                 <button onClick = {handleLogout}>Logout</button>
         
             </nav>
-
         </section>
     )
 }
-export default Stonks
+export default Hero;

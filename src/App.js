@@ -3,8 +3,9 @@ import React, {useEffect, useState} from 'react'
 import {BrowserRouter as Router, Switch, Route, BrowserRouter} from 'react-router-dom'
 import fire from './fire'
 import Login from './login'
-import Stonks from './stonks'
+import Hero from './Hero'
 import Forget from './forget'
+import "./App.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -110,7 +111,7 @@ const App = () => {
         </Route>
         <Route path = '/'>
         {user ? (
-          <Stonks handleLogout = {handleLogout}/>)
+          <Hero handleLogout = {handleLogout}/>)
           : (
             <Login email = {email} 
         setEmail  = {setEmail}
