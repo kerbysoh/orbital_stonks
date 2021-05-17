@@ -130,3 +130,62 @@ button {
   padding: 8px 0;
   background: #010303;
 }
+
+.all__news {
+  margin: 50px auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+}
+
+.news {
+  max-width: 500px;
+  padding: 30px;
+  border: 2.5px solid rgb(44, 42, 42);
+  border-radius: 20px;
+}
+
+.news__title {
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgb(53, 51, 51);
+}
+
+.head__text {
+  margin-top: 20px;
+}
+
+.news__desc {
+  padding-top: 10px;
+  line-height: 25px;
+  font-size: 14px;
+  padding-bottom: 10px;
+}
+
+.news__author {
+  margin-right: 10px;
+  color: rgb(49, 48, 48);
+}
+
+.news__published {
+  margin-right: 10px;
+}
+
+.news__source,
+.news__published {
+  display: inline-block;
+  margin-top: 5px;
+  color: rgb(51, 50, 50);
+}
+
+.head__text {
+  text-align: center;
+  font-family: "Franklin Gothic Medium";
+  font-weight: bold;
+}
+
+.news_img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-block-size: 10rem;
+}

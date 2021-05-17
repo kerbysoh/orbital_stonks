@@ -1,10 +1,13 @@
 import './App.css';
-import React, {useEffect, useState} from 'react'
-import {BrowserRouter as Router, Switch, Route, BrowserRouter} from 'react-router-dom'
+import React, {useEffect, useState, useContext} from 'react'
+import {BrowserRouter as Router, Switch, Route, BrowserRouter, Link} from 'react-router-dom'
 import fire from './fire'
 import Login from './login'
 import Hero from './Hero'
 import Forget from './forget'
+import News from './components/News'
+import {NewsContext} from './NewsContext'
+import Chat from './chat'
 import "./App.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -19,6 +22,7 @@ const App = () => {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [emailReset, setEmailReset] = useState('')
   const [emailResetError, setEmailResetError] = useState('')
+  const db = fire.firestore()
   const clearInputs = () => {
     setEmail('')
     setPassword('')
@@ -96,19 +100,23 @@ const App = () => {
   useEffect(() => {
     authListener()
   }, [])
-  
-
     
     return (
       
       <div className = "App">
       <Router>
       <Switch>
-        
-        
+      <Route path = '/chat'>
+          {user ? (<Chat user = {user} db = {db}/>) : (<Link to = {'/login'}>Log in</Link> )}
+      </Route>
         <Route path = '/forget'>
           <Forget emailReset = {emailReset} setEmailReset = {setEmailReset} handleForget = {handleForget} emailResetError = {emailResetError} setEmailResetError = {setEmailResetError}/>
         </Route>
+
+        <Route path = '/components/News'>
+          {user ? <News /> : <Link to = {'/'}>Log in</Link>}
+        </Route>
+
         <Route path = '/'>
         {user ? (
           <Hero handleLogout = {handleLogout}/>)
