@@ -9,7 +9,7 @@ const Hero = ({handleLogout}) => {
                 <button onClick = {handleLogout}>Logout</button>
             </nav>
             <button>
-                <Link to = {'/components/News'}>NEWS</Link>
+                <Link to = {'/components/News'}>News</Link>
             </button>
             <button><Link to = {"/chat"}> Chat </Link></button>
         </section>

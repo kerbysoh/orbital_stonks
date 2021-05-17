@@ -6,7 +6,6 @@ import Login from './login'
 import Hero from './Hero'
 import Forget from './forget'
 import News from './components/News'
-import {NewsContext} from './NewsContext'
 import Chat from './chat'
 import "./App.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
