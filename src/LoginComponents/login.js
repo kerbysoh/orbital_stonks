@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link }  from 'react-router-dom'
 const Login = (props) => {
-    const {email, setEmail, password, setPassword, passwordError, emailError, handleLogin, handleLogout, handleSignup, hasAccount, setHasAccount, confirmPassword, setConfirmPassword, clearErrors, clearInputs} = props
+    const {email, setEmail, password, setPassword, passwordError, emailError, handleLogin, handleSignup, hasAccount, setHasAccount, confirmPassword, setConfirmPassword, clearErrors, clearInputs} = props
     return ( <section className = "login">
         <div className ="loginContainer">
             <keytitle> $TONK$ </keytitle>

@@ -2,7 +2,7 @@ import React from 'react'
 import { Link }  from 'react-router-dom'
 
 const forget = (props) => {
-    const {emailReset, setEmailReset, handleForget, emailResetError, setEmailResetError} = props
+    const {emailReset, setEmailReset, handleForget, emailResetError} = props
     return (
         <section className = "login">
             <div className ="loginContainer">

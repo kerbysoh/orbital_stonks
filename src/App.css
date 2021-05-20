@@ -135,19 +135,19 @@ button {
   margin: 50px auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 20px;
+  grid-gap: 20px;  
 }
 
 .news {
   max-width: 500px;
   padding: 30px;
-  border: 2.5px solid rgb(44, 42, 42);
+  border: 2.5px solid rgb(56, 55, 55);
   border-radius: 20px;
 }
 
 .news__title {
   padding-bottom: 14px;
-  border-bottom: 1px solid rgb(53, 51, 51);
+  border-bottom: 1px solid rgb(158, 157, 157);
 }
 
 .head__text {
@@ -181,6 +181,7 @@ button {
   text-align: center;
   font-family: "Franklin Gothic Medium";
   font-weight: bold;
+  text-decoration: underline;
 }
 
 .news_img {
@@ -188,4 +189,31 @@ button {
   margin-left: auto;
   margin-right: auto;
   max-block-size: 10rem;
+}
+
+click {
+  border: 100;
+  outline: 100;
+  width: 100%;
+  padding: 6px 0;
+  color: #fff;
+  font-size: 12px;
+  letter-spacing: 1px;
+  background: rgb(70, 68, 68);
+  cursor: pointer;
+}
+
+.search {
+  justify-content: center;
+}
+
+.news_page {
+  width: 100%;
+  min-height: 100vh;
+  background: radial-gradient(
+    ellipse at left bottom,
+    rgb(223, 235, 241) 0%,
+    rgba(179, 184, 187, 0.9) 59%,
+    rgba(140, 145, 150, 0.9) 100%
+  );
 }

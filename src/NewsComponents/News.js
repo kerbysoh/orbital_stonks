@@ -1,4 +1,4 @@
-import React, {useEffect , useState} from 'react'
+import React, {useState} from 'react'
 import NewsArticle from "./NewsArticle";
 import {Link} from 'react-router-dom'
 import axios from 'axios'
@@ -20,17 +20,24 @@ function News() {
     }
     
     return (
-    <div>
-      <h1 className="head__text">DAILY STONKS NEWS</h1>
-      <SearchBox placeholder = 'Search...' handleChange = {(e) => setSearch(e.target.value)}></SearchBox><button onClick = {handleSearch}> Search </button>
-      <button><Link to = {'/'}>Home</Link></button>
-      <div className="all__news">
-        {data ? data.articles.map((news) => (
-              <NewsArticle data={news} key={news.url}/>
-            ))
-          : "Loading"}
+      <div className="news_page">
+        <button>
+          <Link to={"/"}>Home</Link>
+        </button>
+        <h1 className="head__text">DAILY STONKS NEWS</h1>
+        <SearchBox
+          placeholder="Search..."
+          handleChange={(e) => setSearch(e.target.value)}
+        ></SearchBox>
+        <click onClick={handleSearch}> Search </click>
+        <div className="all__news">
+          {data
+            ? data.articles.map((news) => (
+                <NewsArticle data={news} key={news.url} />
+              ))
+            : "Loading"}
+        </div>
       </div>
-    </div>
-  );
+    );
 }
 export default News;

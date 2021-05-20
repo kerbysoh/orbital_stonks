@@ -1,11 +1,12 @@
 import './App.css';
-import React, {useEffect, useState, useContext} from 'react'
-import {BrowserRouter as Router, Switch, Route, BrowserRouter, Link} from 'react-router-dom'
+import React, {useEffect, useState} from 'react'
+import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom'
 import fire from './fire'
-import Login from './login'
+import Login from './LoginComponents/login'
 import Hero from './Hero'
-import Forget from './forget'
-import News from './components/News'
+import Forget from "./LoginComponents/forget";
+import Trade from './TradeComponents/Trade'
+import News from './NewsComponents/News'
 import Chat from './chat'
 import "./App.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -45,6 +46,8 @@ const App = () => {
         case "auth/wrong-password":
           setPasswordError(err.message)
           break
+        default:
+          break
       }
     })
   }
@@ -78,25 +81,27 @@ const App = () => {
         case "auth/weak-password":
           setPasswordError(err.message)
           break
+        default:
+          break
       }
     })
   }
   const handleLogout = () => {
     fire.auth().signOut();
   }
-  const authListener = () => {
-    fire.auth().onAuthStateChanged(user => {
-      if (user) {
-        clearInputs()
-        clearErrors()
-        setUser(user)
-
-      } else {
-        setUser('')
-      }
-    })
-  }
   useEffect(() => {
+    const authListener = () => {
+      fire.auth().onAuthStateChanged(user => {
+        if (user) {
+          clearInputs()
+          clearErrors()
+          setUser(user)
+  
+        } else {
+          setUser('')
+        }
+      })
+    }
     authListener()
   }, [])
     
@@ -106,14 +111,18 @@ const App = () => {
       <Router>
       <Switch>
       <Route path = '/chat'>
-          {user ? (<Chat user = {user} db = {db}/>) : (<Link to = {'/login'}>Log in</Link> )}
+          {user ? (<Chat user = {user} db = {db}/>) : (<Link to = {'/LoginComponents/login'}>Log in</Link> )}
       </Route>
-        <Route path = '/forget'>
+        <Route path = '/LoginComponents/forget'>
           <Forget emailReset = {emailReset} setEmailReset = {setEmailReset} handleForget = {handleForget} emailResetError = {emailResetError} setEmailResetError = {setEmailResetError}/>
         </Route>
 
-        <Route path = '/components/News'>
+        <Route path = '/NewsComponents/News'>
           {user ? <News /> : <Link to = {'/'}>Log in</Link>}
+        </Route>
+
+        <Route path = '/TradeComponents/Trade'>
+          {user ? <Trade /> : <Link to = {'/'}>Log in</Link>}
         </Route>
 
         <Route path = '/'>
