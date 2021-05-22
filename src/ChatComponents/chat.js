@@ -1,23 +1,24 @@
 import React, {useState, useEffect} from 'react'
 import firebase from 'firebase/app'
-import fire from './fire'
+import {Link} from 'react-router-dom'
+import fire from '../fire'
 import 'firebase/firestore'
 
 var prevUser = ''
 
 const Chat = (props) => {
-    const [messages, setMessages] = useState([])
-    const [newMessage, setNewMessage] = useState('')
-    const [receiver, setReceiver] = useState('')
-    const [people, setPeople] = useState([])
-    const [open, setOpen] = useState(false)
-    const [messageDisplay, setMessageDisplay] = useState('')
-    const [newUser, setNewUser] = useState(false)
-    const [seeUser, setSeeUser] = useState(false)
-    const [currUser, setCurrUser] = useState('')
+    const [messages, setMessages] = useState([]) // collection of latest 100 messages in database
+    const [newMessage, setNewMessage] = useState('') // new message string
+    const [receiver, setReceiver] = useState(prevUser) //who receives the new message
+    const [people, setPeople] = useState([]) //list of users currently having chats with
+    const [open, setOpen] = useState(false) // boolean to store whether or not to display chat and input boxes
+    const [messageDisplay, setMessageDisplay] = useState('') //users of which messages to be displayed
+    const [newUser, setNewUser] = useState(false) //boolean to store whether new chat is initiated
+    const [seeUser, setSeeUser] = useState(false) // display users talking to
+    const [currUser, setCurrUser] = useState('') // current user of which messages are displayed -> for "You are talking to ..."
     const db = firebase.firestore()
     const userEmail = fire.auth().currentUser.email
-    
+
     const newFunc = () => {
         setCurrUser('')
         setSeeUser(true)
@@ -52,7 +53,7 @@ const Chat = (props) => {
             const unsubscribe = db
             .collection('messages')
             .orderBy('createdAt')
-            .limit(100)
+            .limit(10000)
             .onSnapshot(querySnapshot => {
                 const data = querySnapshot.docs.map(doc => ({
                     ...doc.data(),
@@ -82,12 +83,12 @@ const Chat = (props) => {
             )
         }
         setNewMessage('')
-        setReceiver(prevUser)
         setNewUser(false)
         prevUser = receiver
     }
     return (
         <div>
+        <button><Link to = '/'>Home</Link></button>
         <button onClick = {newFunc}>View chats</button>
         <button onClick = {handleNew}>New chat</button>
         {currUser ? <> <h2>You're talking to: {currUser}</h2></> : <></>}
@@ -100,8 +101,8 @@ const Chat = (props) => {
 
         
         <ul>
-            {messages.map(message => {
-                if ((userEmail === message.receiver || userEmail === message.email) && (messageDisplay === message.email || messageDisplay === message.receiver ) && (message.receiver !== '')) {
+            {messages.map((message) => {
+                if ((userEmail === message.receiver || userEmail === message.email) && (messageDisplay === message.email || messageDisplay === message.receiver ) && (message.receiver !== '') && (receiver !== '')) {
                     return (<li key = {message.id}>{message.email} {message.text}</li>) 
                 }
                 return <></>
@@ -113,8 +114,8 @@ const Chat = (props) => {
             </>
             : <></>
             }
-            <label>Message: </label><input type = "text" value = {newMessage} onChange = {handleOnChange} placeholder = "Type your message here"></input>
-            <button type = "submit" disabled = {!newMessage}>Send</button>
+            {(currUser || newUser) ? <><label>Message: </label><input type = "text" value = {newMessage} onChange = {handleOnChange} placeholder = "Type your message here"></input>
+            <button type = "submit" disabled = {!newMessage}>Send</button></> : <></>}
         </form>
         </>) : <></>}
         

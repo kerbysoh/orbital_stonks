@@ -7,7 +7,7 @@ import Hero from './Hero'
 import Forget from "./LoginComponents/forget";
 import Trade from './TradeComponents/Trade'
 import News from './NewsComponents/News'
-import Chat from './chat'
+import Chat from './ChatComponents/chat'
 import "./App.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -110,18 +110,18 @@ const App = () => {
       <div className = "App">
       <Router>
       <Switch>
-      <Route path = '/chat'>
-          {user ? (<Chat user = {user} db = {db}/>) : (<Link to = {'/LoginComponents/login'}>Log in</Link> )}
+      <Route path = '/Chat'>
+          {user ? (<Chat user = {user} db = {db}/>) : (<Link to = {'/Login'}>Log in</Link> )}
       </Route>
-        <Route path = '/LoginComponents/forget'>
+        <Route path = '/Forget'>
           <Forget emailReset = {emailReset} setEmailReset = {setEmailReset} handleForget = {handleForget} emailResetError = {emailResetError} setEmailResetError = {setEmailResetError}/>
         </Route>
 
-        <Route path = '/NewsComponents/News'>
+        <Route path = '/News'>
           {user ? <News /> : <Link to = {'/'}>Log in</Link>}
         </Route>
 
-        <Route path = '/TradeComponents/Trade'>
+        <Route path = '/Trade'>
           {user ? <Trade /> : <Link to = {'/'}>Log in</Link>}
         </Route>
 

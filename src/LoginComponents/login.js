@@ -35,7 +35,7 @@ const Login = (props) => {
                 }
             </div>
         
-            <Link to = {"/forget"}> Reset Password </Link>
+            <Link to = {"/Forget"}> Reset Password </Link>
         </div>
     </section> )
 }

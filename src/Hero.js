@@ -8,9 +8,9 @@ const Hero = ({handleLogout}) => {
                 <h2>Welcome</h2>
                 <button onClick = {handleLogout}>Logout</button>
             </nav>
-            <button><Link to = {'/NewsComponents/News'}>News</Link></button>
-            <button><Link to = {"/chat"}>Chat</Link></button>
-            <button><Link to = {"/TradeComponents/Trade"}>Trade</Link></button>
+            <button><Link to = {'/News'}>News</Link></button>
+            <button><Link to = {"/Chat"}>Chat</Link></button>
+            <button><Link to = {"/Trade"}>Trade</Link></button>
         </section>
     )
 }
