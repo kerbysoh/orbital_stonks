@@ -135,7 +135,7 @@ button {
   margin: 50px auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 20px;  
+  grid-gap: 20px;
 }
 
 .news {
@@ -195,16 +195,67 @@ click {
   border: 100;
   outline: 100;
   width: 100%;
-  padding: 6px 0;
-  color: #fff;
+  padding: 4px 0;
+  color: rgb(54, 54, 54);
   font-size: 12px;
   letter-spacing: 1px;
-  background: rgb(70, 68, 68);
   cursor: pointer;
+  margin-left: 0.5rem;
+  border-radius: 3px;
+  text-decoration: underline;
+}
+clickfriends {
+  border: 100;
+  outline: 100;
+  width: 100%;
+  padding: 4px 0;
+  color: rgb(54, 54, 54);
+  font-size: 16px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  text-align: center;
+  border-radius: 3px;
+  background-color: rgb(163, 190, 206);
+}
+
+clickfriends:hover {
+  opacity: 1;
+  background-color: #636768;
+}
+
+btn {
+  padding: 6px 20px;
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #616664;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 9px #999;
+  margin-left: 0.5rem;
+}
+
+btn:hover {
+  background-color: #242524;
+}
+
+btn:active {
+  background-color: #282928;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }
 
 .search {
-  justify-content: center;
+  width: 300px;
+  padding: 15px;
+  border-radius: 15px;
+  background: #e8e9e9;
+  resize: none;
+  margin-top: 5px;
+  min-height: 15px;
 }
 
 .news_page {
@@ -216,4 +267,181 @@ click {
     rgba(179, 184, 187, 0.9) 59%,
     rgba(140, 145, 150, 0.9) 100%
   );
+}
+
+.stocks {
+  text-align: center;
+  font-family: "Franklin Gothic Medium";
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.all_stocks {
+  margin: 50px auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+}
+
+.stocks_page {
+  width: 100%;
+  min-height: 100vh;
+  background: radial-gradient(
+    ellipse at left bottom,
+    rgb(83, 155, 197) 0%,
+    rgba(59, 114, 151, 0.9) 59%,
+    rgba(38, 76, 110, 0.9) 100%
+  );
+}
+
+.chatTitle {
+  text-align: center;
+  font-family: "Courier New";
+  max-width: 300px;
+  padding: 4px;
+  background-color: rgb(197, 212, 238);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1rem;
+  width: 10em;
+  border-radius: 5px;
+}
+
+.chatPage {
+  width: 100%;
+  min-height: 100vh;
+  background: radial-gradient(
+    ellipse at left bottom,
+    rgb(83, 155, 197) 0%,
+    rgba(59, 114, 151, 0.9) 59%,
+    rgba(38, 76, 110, 0.9) 100%
+  );
+}
+
+/* Chat CSS */
+.open-button {
+  background-color: #555;
+  color: rgb(255, 255, 255);
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* The popup chat - hidden by default */
+.chat-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #ffffff;
+  z-index: 9;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: rgb(172, 200, 214);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Full-width textarea */
+.form-container textarea {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #b9c3d4;
+  resize: none;
+  min-height: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* When the textarea gets focus, do something */
+.form-container textarea:focus {
+  background-color: rgb(190, 217, 238);
+  outline: none;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Set a style for the submit/send button */
+.form-container .btn {
+  background-color: #04aa6d;
+  color: rgb(146, 181, 214);
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 10px;
+  opacity: 0.8;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover,
+.open-button:hover {
+  opacity: 1;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.listPeople {
+  text-align: center;
+  font-family: "Courier New";
+  max-width: 300px;
+  background-color: rgb(197, 212, 238);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1rem;
+  width: auto;
+  border-radius: 5px;
+}
+
+.listMsg {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 300px;
+  background-color: rgb(197, 212, 238);
+}
+
+.listFriends {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1000px;
+  background-color: rgb(197, 212, 238);
+  text-align: center;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+.friendSearch {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #b9c3d4;
+  resize: none;
+  min-height: 200px;
+  margin-left: auto;
+  margin-right: auto;
 }

@@ -38,8 +38,16 @@ const ViewFriends = () => {
     return (
         <>
         <button><Link to = '/Friends'>Add Friends</Link></button>
-        {Object.keys(friends).map((key, i) => {
-            return <h1 key = {i}>{key}</h1>
+        {Object.values(friends).map((key, i) => {
+            return (
+                <h1 className = 'listFriends' key = {i}>
+                    Name: {key.firstname} {key.lastname} Email: {key.email}
+                    {/* Description: {key.Description}, 
+                    Gender: {key.gender}, 
+                    DOB: {key.dob.toDate().toDateString()} */}
+                </h1>
+            )
+            
         })}
         </>
     )

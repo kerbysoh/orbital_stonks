@@ -3,7 +3,6 @@ import firebase from 'firebase/app'
 import {Link} from 'react-router-dom'
 import fire from '../fire'
 import 'firebase/firestore'
-
 var prevUser = ''
 
 const Chat = (props) => {
@@ -87,20 +86,28 @@ const Chat = (props) => {
         prevUser = receiver
     }
     return (
-        <div>
+        
+        <div  className="chatPage">
         <button><Link to = '/'>Home</Link></button>
         <button onClick = {newFunc}>View chats</button>
-        <button onClick = {handleNew}>New chat</button>
-        {currUser ? <> <h2>You're talking to: {currUser}</h2></> : <></>}
+        <button class="open-button" onClick={handleNew}>New Chat</button>
+        {currUser ? <> <h2 className = 'chatTitle'>{currUser}</h2></> : <></>}
+
         {open ?  (<>
         {seeUser ? (<> <ul>
             {people.map((person) => {
-            return (<li key = {person}><button onClick ={ () => {setMessageDisplay(person) ; setReceiver(person) ; setSeeUser(false); setCurrUser(person)} }>{person}</button></li>)
+            return (
+            <li className = "listPeople" key = {person}>
+                <button onClick ={ () => {setMessageDisplay(person) ; setReceiver(person) ; setSeeUser(false); setCurrUser(person)} }>
+                    {person}
+                </button>
+                </li>
+                )
         })}
         </ul> </>) : (<></>)}
 
         
-        <ul>
+        <ul className = 'listMsg'>
             {messages.map((message) => {
                 if ((userEmail === message.receiver || userEmail === message.email) && (messageDisplay === message.email || messageDisplay === message.receiver ) && (message.receiver !== '') && (receiver !== '')) {
                     return (<li key = {message.id}>{message.email} {message.text}</li>) 
@@ -108,13 +115,16 @@ const Chat = (props) => {
                 return <></>
                 })}
         </ul>
-        <form onSubmit = {handleOnSubmit}>
+        <form onSubmit = {handleOnSubmit} class="form-container">
             {newUser ? <>
-                <label>Send to: </label><input type = "text" value = {receiver} onChange = {handleReceiver}></input>
+                <label for="msg"><b>Send to: </b></label>
+                <input type = "text" value = {receiver} onChange = {handleReceiver} ></input>
             </>
             : <></>
             }
-            {(currUser || newUser) ? <><label>Message: </label><input type = "text" value = {newMessage} onChange = {handleOnChange} placeholder = "Type your message here"></input>
+            {(currUser || newUser) ? <>
+            <label for="msg"><b>Message</b></label>
+            <textarea type = "text" value = {newMessage} onChange = {handleOnChange} placeholder="Type message.." name="msg" required></textarea>
             <button type = "submit" disabled = {!newMessage}>Send</button></> : <></>}
         </form>
         </>) : <></>}

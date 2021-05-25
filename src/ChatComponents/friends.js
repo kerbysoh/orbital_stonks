@@ -44,7 +44,7 @@ const Friends = () => {
         var str = currSearch.email
         str = str.slice(0, str.length - 4)
         db.collection("friends").doc(`${userEmail}`).update({
-            [str] : currSearch.email
+            [str] : currSearch
         })
     }
     const handleFriendSearch = () => {
@@ -60,17 +60,28 @@ const Friends = () => {
     }
     return (
 
-        <div>
-            <button><Link to = '/viewfriends'>View friends</Link></button>
+        <div className = "chatPage">
             <button><Link to = '/'>Home</Link></button>
-            <SearchBox
+            <button><Link to = '/viewfriends'>View Followed Friends</Link></button>
+        <SearchBox className = "friendSearch"
         placeholder="Key in user email"
         handleChange={(e) => setSearch(e.target.value)}
         ></SearchBox>
-        <button onClick={handleFriendSearch}> Search for user </button>
-    <h1>{currSearch.email} {currSearch.firstname} {currSearch.lastname} {currSearch.gender} {currSearch.Description}</h1> 
-    {(searchOn && currSearch.email !== userEmail) ? <button onClick = {handleAddFriend}>Follow</button> : <></>}
+        <clickfriends onClick={handleFriendSearch}> Search for user </clickfriends>
+        {
+            searchOn ?
+            <h3> 
+            
+                Suggested: {currSearch.email} {currSearch.firstname} {currSearch.lastname} {currSearch.gender} {currSearch.Description}
 
+                {(searchOn && currSearch.email !== userEmail) ? 
+                <clickfriends onClick = {handleAddFriend}>Follow
+                </clickfriends> : <></>}
+            </h3> : null
+        }
+            
+            
+        
         </div>
     )
 }
