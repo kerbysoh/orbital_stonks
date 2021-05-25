@@ -7,12 +7,27 @@ import Hero from './Hero'
 import Forget from "./LoginComponents/forget";
 import Trade from './TradeComponents/Trade'
 import News from './NewsComponents/News'
+import ViewFriends from './ChatComponents/viewFriends'
+import Friends from './ChatComponents/friends'
+import firebase from 'firebase/app'
 import Chat from './ChatComponents/chat'
+import 'firebase/firestore'
 import "./App.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
+
 const App = () => {
+  const [firstName, setFirstName] = useState('')
+  const [firstNameError, setFirstNameError] = useState('')
+  const [lastNameError, setLastNameError] = useState('')
+  const [genderError, setGenderError] = useState('')
+  const [dobError, setDobError] = useState('')
+  const [descriptionError, setDescriptionError] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [gender, setGender] = useState('')
+  const [description, setDescription] = useState('')
+  const [dob, setDob] = useState('')
   const [user, setUser] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -22,14 +37,27 @@ const App = () => {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [emailReset, setEmailReset] = useState('')
   const [emailResetError, setEmailResetError] = useState('')
-  const db = fire.firestore()
+  const db = firebase.firestore()
   const clearInputs = () => {
     setEmail('')
+    setDob('')
+    setDescription('')
+    setGender('')
+    setFirstName('')
+    setLastName('')
     setPassword('')
+    setConfirmPassword('')
+    setEmailReset('')
   }
   const clearErrors= () => {
     setEmailError('')
     setPasswordError('')
+    setDescriptionError('')
+    setGenderError('')
+    setFirstNameError('')
+    setLastNameError('')
+    setDobError('')
+    setEmailResetError('')
   }
   const handleLogin = () => {
     clearErrors()
@@ -64,11 +92,27 @@ const App = () => {
     )
   }
   const handleSignup = () => {
+    var newDate = new Date(`${dob}T00:00:00`)
     clearErrors()
     if (password !== confirmPassword) {
       setPasswordError('Passwords do not match')
     }
-    else
+    if (newDate.getTime() !== newDate.getTime()) {
+      setDobError('Date is not valid')
+    }
+    if (gender === '') {
+      setGenderError('Gender is not indicated. Please click on either of the 3 buttons')
+    }
+    if (firstName === '') {
+      setFirstNameError('Please key in your first name')
+    }
+    if (lastName === '') {
+      setLastNameError('Please key in your last name')
+    }
+    if (description === '') {
+      setDescriptionError('Please key in a short description about yourself')
+    }
+    else {
     fire
     .auth()
     .createUserWithEmailAndPassword(email, password)
@@ -85,6 +129,24 @@ const App = () => {
           break
       }
     })
+    fire.auth().onAuthStateChanged(user => {
+      if (user) {
+        if (db) {
+          db.collection('users').doc(`${email}`).set({
+          email: email,
+          Description: description,
+          firstname : firstName,
+          lastname: lastName,
+          gender: gender,
+          dob: new firebase.firestore.Timestamp.fromDate(newDate)
+        })
+        db.collection('friends').doc(`${email}`).set({})
+        db.collection('Stocks').doc(`${email}`).set({})
+    }
+      }
+    })
+  }
+
   }
   const handleLogout = () => {
     fire.auth().signOut();
@@ -120,7 +182,12 @@ const App = () => {
         <Route path = '/News'>
           {user ? <News /> : <Link to = {'/'}>Log in</Link>}
         </Route>
-
+        <Route path = '/Friends'>
+          {user ? <Friends  /> : <Link to = {'/'}>Log in</Link>}
+        </Route>
+        <Route path = '/viewFriends'>
+          {user ? <ViewFriends  /> : <Link to = {'/'}>Log in</Link>}
+        </Route>
         <Route path = '/Trade'>
           {user ? <Trade /> : <Link to = {'/'}>Log in</Link>}
         </Route>
@@ -144,6 +211,26 @@ const App = () => {
         setConfirmPassword = {setConfirmPassword}
         clearErrors = {clearErrors}
         clearInputs = {clearInputs}
+        description = {description}
+        setDescription = {setDescription}
+        gender = {gender}
+        setGender = {setGender}
+        firstName = {firstName}
+        setFirstName = {setFirstName}
+        lastName = {lastName}
+        setLastName = {setLastName}
+        dob = {dob}
+        setDob = {setDob}
+        firstNameError = {firstNameError}
+        setFirstNameError = {setFirstNameError}
+        lastNameError = {lastNameError}
+        setLastNameError = {setLastNameError}
+        dobError = {dobError}
+        setDobError = {setDobError}
+        descriptionError = {descriptionError}
+        setDescriptionError = {setDescriptionError}
+        genderError = {genderError}
+        setGenderError = {setGenderError}
         />
           )
 

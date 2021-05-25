@@ -11,6 +11,7 @@ const Hero = ({handleLogout}) => {
             <button><Link to = {'/News'}>News</Link></button>
             <button><Link to = {"/Chat"}>Chat</Link></button>
             <button><Link to = {"/Trade"}>Trade</Link></button>
+            <button><Link to = {"/Friends"}>Friends</Link></button>
         </section>
     )
 }

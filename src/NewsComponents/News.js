@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
-import NewsArticle from "./NewsArticle";
+import NewsArticle from "./NewsArticle"
 import {Link} from 'react-router-dom'
 import axios from 'axios'
-import SearchBox from '../Search/SearchBox';
+import SearchBox from '../Search/SearchBox'
 
 function News() {
 
