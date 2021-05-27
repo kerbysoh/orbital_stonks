@@ -24,12 +24,10 @@ const ViewFriends = () => {
             })
             db.collection('friends')
             .doc(fire.auth().currentUser.email)
-            .get()
-            .then ((doc) => {
-                if (doc.exists) {
-                    console.log(doc.data());
-                } 
+            .onSnapshot((doc) => {
+                if (doc.exists) { 
                 setFriends(doc.data())
+                }
             })
             
             return unsubscribe

@@ -1,37 +1,71 @@
-import React ,{useState, useRef} from 'react'
+import React ,{useState, useRef, useEffect} from 'react'
+import 'firebase/firestore'
+import firebase from 'firebase/app'
+import fire from '../fire'
+import SearchBox from '../Search/SearchBox';
 
 function InputStock() {
-    const [data,setData]=useState(null)
-    const [print, setPrint]=useState(false)
-    const input = useRef();
-    const [watchList, setNewListItem] = useState([]);
+    const db = firebase.firestore()
+    const [stocks, setStocks] = useState([])
+    const userEmail = fire.auth().currentUser.email
+    const [search, setSearch] = useState('')
+    const API_KEY = 'TQ6LE1RSC9LBHZTL';
+    const [currSearch, setCurrSearch] = useState({})
+    const [searchOn, setSearchOn] = useState(false)
 
-    function addToList(val){
-        val.preventDefault();
-        setNewListItem([...watchList, input.current.value]);
-        console.log(watchList.target.val);
+
+    const handleAddStock = () => {
+        
+        db.collection("Stocks").doc(`${userEmail}`).update({
+            [search] : search
+        })
     }
 
-    function getData(val){
-    console.log(val.target.value)
-    setData(val.target.value)
-    setPrint(false)
-  }
+    const handleStockSearch = () => {
+        setSearchOn(false)
+        var stock = new String()
+          
+          let API_Call =  `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${search}&apikey=${API_KEY}`;
+          
+          fetch(API_Call)
+            .then(
+              function(response){
+                return response.json();
+                
+              }
+            )
+            .then(
+              function(data){
+                console.log(data)
+                if(data.Symbol) {
+                  stock = search
+                  setSearchOn(true)
+                  setCurrSearch(stock)
+                } else {
+                  setSearchOn(false)
+                }
+              }
+            )         
+        
+    }
 
     return (
         <div className="InputStock">
-     {
-       print?
-       <h1> {data}</h1>
-       :null
-     }
-    <input type="text" onChange={getData} ref={input}/>
-    <btn ref={input} onClick={()=>setPrint(true) & addToList}>Add to Watchlist</btn>
-    <h1>
-        {watchList.map((item, b) => (
-          <li key={b}>{item}</li>
-        ))}
-      </h1>
+    <SearchBox className = "friendSearch"
+        placeholder="Stock ticker..."
+        handleChange={(e) => {setSearch(e.target.value); {setSearchOn(false)}}}></SearchBox>
+    <clickfriends onClick={handleStockSearch} > Search for Stock </clickfriends>
+        {
+            searchOn ?
+            <h3> 
+                Suggested: {search} 
+                <clickfriends onClick = {handleAddStock}>Add to Watchlist</clickfriends>
+            </h3> : null
+        }
+        <>
+        
+        
+        </>
     </div>
     )
 }

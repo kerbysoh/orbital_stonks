@@ -1,98 +1,133 @@
-import React from 'react';
-import Plot from 'react-plotly.js';
+import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom';
-import InputStock from './InputStock';
-import UseStateArray from './UseStateArray';
+import 'firebase/firestore'
+import firebase from 'firebase/app'
+import fire from '../fire'
+import SearchBox from '../Search/SearchBox';
 
-class Stock extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            stockChartXValues: [],
-            stockChartYValues: []
-        }
-    }
+const Stock = () => {
+    const db = firebase.firestore()
+    const [stocks, setStocks] = useState([])
+    const userEmail = fire.auth().currentUser.email
+    const [search, setSearch] = useState('')
+    const API_KEY = 'TQ6LE1RSC9LBHZTL';
+    const [currSearch, setCurrSearch] = useState({})
+    const [searchOn, setSearchOn] = useState(false)
+    const [stock, setStock] = useState([])
+    const [users, setUsers] = useState([])
+    const[input,  setInput] = useState('')
 
-    componentDidMount() {
-        this.fetchStock();
-    }
-
-    fetchStock() {
-        const pointerToThis = this;
-        console.log(pointerToThis);
-        let StockSymbol = 'AMZN'
-        const API_KEY = 'TQ6LE1RSC9LBHZTL';
-        let API_Call =  `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${StockSymbol}&outputsize=compact&apikey=${API_KEY}`;
-        let stockChartXValuesFunction = [];
-        let stockChartYValuesFunction = [];
-
-        fetch(API_Call)
-            .then(
-                function(response) {
-                    return response.json();
-                }
-            )
-            .then(
-                function(data) {
-                    //console.log(data);
-
-                    for(var key in data['Time Series (Daily)']) {
-                        stockChartXValuesFunction.push(key);
-                        stockChartYValuesFunction.push(data['Time Series (Daily)'][key]['1. open']);
-                    }
-                    pointerToThis.setState({
-                        stockChartXValues: stockChartXValuesFunction,
-                        stockChartYValues: stockChartYValuesFunction
-
-                    })
-                }
-            )
-    }
+    const handleAddStock = () => {
         
-    render() {
-        return (
-            <div className = "stocks_page">
-                <button className = 'stocks_button'>
-                    <Link to={"/"}>Home</Link>
+        db.collection("Stocks").doc(`${userEmail}`).update({
+            [search] : search
+        })
+    }
+
+    const handleStockSearch = () => {
+        setSearchOn(false)
+        var stock = new String()
+          
+          let API_Call =  `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${search}&apikey=${API_KEY}`;
+          
+          fetch(API_Call)
+            .then(
+              function(response){
+                return response.json();
+                
+              }
+            )
+            .then(
+              function(data){
+                console.log(data)
+                if(data.Symbol) {
+                  stock = search
+                  setSearchOn(true)
+                  setCurrSearch(stock)
+                } else {
+                  setSearchOn(false)
+                }
+              }
+            )         
+    }
+
+    useEffect (()=> {
+        if (db) {
+            const unsubscribe = db
+            db.collection('users')
+            .limit(10000)
+            .onSnapshot(querySnapshot => {
+                const data = querySnapshot.docs.map(doc => ({
+                    ...doc.data(),
+                    id: doc.id,
+
+                })) 
+                setUsers(data)
+            })
+            db.collection('Stocks')
+            .doc(fire.auth().currentUser.email)
+            .onSnapshot((doc) => {
+                if (doc.exists) {
+                    setStock(doc.data())
+                } 
+            })
+            
+            return unsubscribe
+        }
+    }, [db])
+
+    const removeItem = (id) => {
+        db.collection("Stocks").doc(fire.auth().currentUser.email).update({
+            [id]: firebase.firestore.FieldValue.delete()
+        })
+        db.collection('Stocks').doc(fire.auth().currentUser.email).get()
+        .then((docSnapshot) => {
+            if (!docSnapshot.exists) {
+                db.collection('Stocks').doc(fire.auth().currentUser.email).set({})
+        }
+    })
+};
+
+    return (
+        
+        <div className = "stocks_page">
+            
+            <button className = 'stocks_button'>
+                <Link to={"/"}>Home</Link>
                 </button>
                 <h1 className = "stocks">Stock Market Charts</h1>
-                <InputStock></InputStock>
-                <UseStateArray></UseStateArray>
-                <div className = "all_stocks">
-                    <Plot
-                    data={[
+                <div className="InputStock">
+                <SearchBox className = "friendSearch"
+                    placeholder="Stock ticker..."
+                    handleChange={(e) => {setSearch(e.target.value); {setSearchOn(false)}}}></SearchBox>
+                <clickfriends onClick={handleStockSearch} > Search for Stock </clickfriends>
                     {
-                        x: this.state.stockChartXValues,
-                        y: this.state.stockChartYValues,
-                        type: 'scatter',
-                        mode: 'lines',
-                        marker: {color: 'black'},
-                    } /* ,
-                    {type: 'bar', x: this.state.stockChartXValues, y: this.state.stockChartYValues}, */
-                    ]}
-                    layout={{width: 640, height: 440, title:'AMZN', plot_bgcolor:'transparent', paper_bgcolor: 'transparent'}}
-                />
-                
+                        searchOn ?
+                        <h3> 
+                            Suggested: {search} 
+                            <clickfriends onClick = {handleAddStock}>Add to Watchlist</clickfriends>
+                        </h3> : null
+                    }
                 </div>
+                {Object.values(stock).map((key, i) => {
+                return (
+                    <div>
+                    <h1 key = {i}>
+                        Stock: {key}
+                        <click onClick ={() => removeItem(key)}>Remove</click>
+                    </h1>
+            
+                    <h2 key = {key}><Link to = {{ pathname:'/StockGraphs', aboutProps: {
+                        name: key
+                    }}}>View stock data</Link></h2>
+                    </div>
+            
+                )
                 
-            </div>
+            })}
+        </div>
         )
-    }
 }
+
 
 export default Stock;
-
-/* import React from "react";
-
-function Stock({ data }) {
-  return (
-    <div className="news">
-            <h2 className="news__title">{data.title}</h2>
-            <img className ="news_img" src={data.urlToImage} alt = "Not Available"></img>
-            <p className="news__desc">{data.description}
-            </p>
-    </div>
-  );
-}
-
-export default Stock; */
