@@ -1,37 +1,56 @@
-import React from 'react'
+import React ,{useState, useRef, Component} from 'react'
 import {Link} from 'react-router-dom'
 
-function openForm() {
-  document.getElementById("myForm").style.display = "block";
+class Trade extends Component {
+    constructor(props) {
+        super(props);
+        this.onHandleAmountChange = this.onHandleAmountChange.bind(this);  
+        this.state = {
+            amount: '',
+            regexp : /^[0-9\b]+$/,
+            print: false
+        }   
+    }
+    
+
+    onHandleAmountChange = e => {
+        let amount = e.target.value;
+
+        // if value is not blank, then test the regex
+        if (amount === '' || this.state.regexp.test(amount)) {
+            this.setState({ [e.target.name]: amount })
+        }
+    };
+
+    setPrintTrue = () => {
+      this.setState({print: true})
     }
 
-    function closeForm() {
-  document.getElementById("myForm").style.display = "none";
+    setPrintFalse = () => {
+      this.setState({print: false})
     }
 
-function Trade() {
-    
-    return (
-        <>
-        <button class="open-button" onClick={openForm}>Chat</button>
-
-        <div class="chat-popup" id="myForm">
-        <form action="/action_page.php" class="form-container">
-            <h1>Chat</h1>
-
-            <label for="msg"><b>Message</b></label>
-            <textarea placeholder="Type message.." name="msg" required></textarea>
-
-            <button type="submit" class="btn">Send</button>
-            <button type="button" class="btn cancel" onClick={closeForm}>Close</button>
-        </form>
-        </div>
-        <button><Link to = '/'>Home</Link></button>
-        
-        </>
-    )
-    
+    render() {
+        return (
+            <>
+            <div className="chatPage">
+              <button><Link to = '/'>Home</Link></button>
+                < label >Type in amount : </ label >
+                < input
+                    type="amount" name="amount" placeholder="Amount..."
+                    value={this.state.amount}
+                    onChange={this.onHandleAmountChange} onClick={this.setPrintFalse}
+                />
+                <btn onClick={this.setPrintTrue}>Set Current Amount</btn>
+                {
+                  this.state.print?
+                  <header className="price-display">Investing: ${this.state.amount}</header> : null
+                }
+                
+            </div>
+            
+            </>
+        );
+    }
 }
-    
-    
-    export default Trade;
+export default Trade;

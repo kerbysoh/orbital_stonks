@@ -12,6 +12,7 @@ import Friends from './ChatComponents/friends'
 import firebase from 'firebase/app'
 import Chat from './ChatComponents/chat'
 import Stock from './StockComponents/Stock'
+import StockGraphs from './StockComponents/StockGraphs'
 import 'firebase/firestore'
 import "./App.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -188,6 +189,9 @@ const App = () => {
         </Route>
         <Route path = '/viewFriends'>
           {user ? <ViewFriends  /> : <Link to = {'/'}>Log in</Link>}
+        </Route>
+        <Route path = '/StockGraphs'>
+        {user ? <StockGraphs  /> : <Link to = {'/'}>Log in</Link>}
         </Route>
         <Route path = '/Trade'>
           {user ? <Trade /> : <Link to = {'/'}>Log in</Link>}
