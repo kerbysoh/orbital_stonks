@@ -27,8 +27,7 @@ const Stock = () => {
     const handleStockSearch = () => {
         setSearchOn(false)
         var stock = new String()
-          
-          let API_Call =  `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${search}&apikey=${API_KEY}`;
+        let API_Call =  `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${search}&apikey=${API_KEY}`;
           
           fetch(API_Call)
             .then(
@@ -95,7 +94,7 @@ const Stock = () => {
             <button className = 'stocks_button'>
                 <Link to={"/"}>Home</Link>
                 </button>
-                <h1 className = "stocks">Stock Market Charts</h1>
+                <h1 className = "stocks">My Watchlist</h1>
                 <div className="InputStock">
                 <SearchBox className = "friendSearch"
                     placeholder="Stock ticker..."
@@ -114,10 +113,10 @@ const Stock = () => {
                     <div>
                     <h1 key = {i}>
                         Stock: {key}
-                        <click onClick ={() => removeItem(key)}>Remove</click>
+                        <button onClick ={() => removeItem(key)}>Remove</button>
                     </h1>
             
-                    <h2 key = {key}><Link to = {{ pathname:'/StockGraphs', aboutProps: {
+                    <h2 key = {key}><Link to = {{ pathname:'/StockGraphs', state: {
                         name: key
                     }}}>View stock data</Link></h2>
                     </div>
