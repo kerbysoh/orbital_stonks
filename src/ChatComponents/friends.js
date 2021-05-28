@@ -3,16 +3,19 @@ import 'firebase/firestore'
 import firebase from 'firebase/app'
 import fire from '../fire'
 import {Link} from 'react-router-dom'
-import SearchBox from '../Search/SearchBox';
+import SearchBox from '../Search/SearchBox'
+import Navbar from '../components/Navbar'
 
 
-const Friends = () => {
+
+const Friends = (props) => {
     const db = firebase.firestore()
     const userEmail = fire.auth().currentUser.email
     const [search, setSearch] = useState('')
     const [currSearch, setCurrSearch] = useState({})
     const [users, setUsers] = useState([])
     const [friends, setFriends] = useState([])
+    const {handleLogout} = props
     const [searchOn, setSearchOn] = useState(false)
     useEffect (() => {
         if (db) {
@@ -61,7 +64,7 @@ const Friends = () => {
     return (
 
         <div className = "chatPage">
-            <button><Link to = '/'>Home</Link></button>
+        <Navbar handleLogout = {handleLogout} />
             <button><Link to = '/viewfriends'>View Followed Friends</Link></button>
         <SearchBox className = "friendSearch"
         placeholder="Key in user email"

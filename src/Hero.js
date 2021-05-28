@@ -1,19 +1,22 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+
+import Navbar from './components/Navbar';
+import './App.css';
+import Cards from './components/Cards';
+import HeroSection from './components/HeroSection';
+import Footer from './components/Footer';
+
+
 
 const Hero = ({handleLogout}) => {
     return (
-        <section className = "hero">
-            <nav>
-                <h2>Welcome</h2>
-                <button onClick = {handleLogout}>Logout</button>
-            </nav>
-            <button><Link to = {'/News'}>News</Link></button>
-            <button><Link to = {"/Chat"}>Chat</Link></button>
-            <button><Link to = {"/Trade"}>Trade</Link></button>
-            <button><Link to = {"/Friends"}>Friends</Link></button>
-            <button><Link to = {"/Stock"}>Watchlist</Link></button>
-        </section>
+        <>
+            <Navbar handleLogout = {handleLogout} />
+            <HeroSection />
+            <Cards />
+            <Footer />
+        </>
+        
     )
 }
 export default Hero;

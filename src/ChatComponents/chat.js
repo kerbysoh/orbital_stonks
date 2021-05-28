@@ -3,6 +3,7 @@ import firebase from 'firebase/app'
 import {Link} from 'react-router-dom'
 import fire from '../fire'
 import 'firebase/firestore'
+import Navbar from '../components/Navbar'
 var prevUser = ''
 
 const Chat = (props) => {
@@ -16,6 +17,7 @@ const Chat = (props) => {
     const [seeUser, setSeeUser] = useState(false) // display users talking to
     const [currUser, setCurrUser] = useState('') // current user of which messages are displayed -> for "You are talking to ..."
     const db = firebase.firestore()
+    const {handleLogout} = props
     const userEmail = fire.auth().currentUser.email
 
     const newFunc = () => {
@@ -88,7 +90,7 @@ const Chat = (props) => {
     return (
         
         <div  className="chatPage">
-        <button><Link to = '/'>Home</Link></button>
+        <Navbar handleLogout = {handleLogout} />
         <button onClick = {newFunc}>View chats</button>
         <button class="open-button" onClick={handleNew}>New Chat</button>
         {currUser ? <> <h2 className = 'chatTitle'>{currUser}</h2></> : <></>}

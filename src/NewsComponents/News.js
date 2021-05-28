@@ -2,13 +2,17 @@ import React, {useState} from 'react'
 import NewsArticle from "./NewsArticle"
 import {Link} from 'react-router-dom'
 import axios from 'axios'
+import Navbar from '../components/Navbar'
 import SearchBox from '../Search/SearchBox'
 
-function News() {
+const News = (props) => {
 
     const [search, setSearch] = useState('')
-    const [data, setData] = useState();
-    const apiKey = "e76505b8c2ec4416bc462386ef1f980a";
+    const [data, setData] = useState()
+    const apiKey = "e76505b8c2ec4416bc462386ef1f980a"
+    const {handleLogout} = props
+
+    
 
     const handleSearch = () => {
         axios
@@ -20,10 +24,9 @@ function News() {
     }
     
     return (
+      
       <div className="news_page">
-        <button>
-          <Link to={"/"}>Home</Link>
-        </button>
+        <Navbar handleLogout = {handleLogout} />
         <h1 className="head__text">DAILY STONKS NEWS</h1>
         <SearchBox
           placeholder="Search..."

@@ -175,29 +175,29 @@ const App = () => {
       <Router>
       <Switch>
       <Route path = '/Chat'>
-          {user ? (<Chat user = {user} db = {db}/>) : (<Link to = {'/Login'}>Log in</Link> )}
+          {user ? (<Chat handleLogout = {handleLogout} user = {user} db = {db}/>) : (<Link to = {'/Login'}>Log in</Link> )}
       </Route>
         <Route path = '/Forget'>
           <Forget emailReset = {emailReset} setEmailReset = {setEmailReset} handleForget = {handleForget} emailResetError = {emailResetError} setEmailResetError = {setEmailResetError}/>
         </Route>
 
         <Route path = '/News'>
-          {user ? <News /> : <Link to = {'/'}>Log in</Link>}
+          {user ? <News handleLogout = {handleLogout}/> : <Link to = {'/'}>Log in</Link>}
         </Route>
         <Route path = '/Friends'>
-          {user ? <Friends  /> : <Link to = {'/'}>Log in</Link>}
+          {user ? <Friends handleLogout = {handleLogout} /> : <Link to = {'/'}>Log in</Link>}
         </Route>
         <Route path = '/viewFriends'>
-          {user ? <ViewFriends  /> : <Link to = {'/'}>Log in</Link>}
+          {user ? <ViewFriends handleLogout = {handleLogout} /> : <Link to = {'/'}>Log in</Link>}
         </Route>
         <Route path = '/StockGraphs'>
-        {user ? <StockGraphs  /> : <Link to = {'/'}>Log in</Link>}
+        {user ? <StockGraphs handleLogout = {handleLogout}  /> : <Link to = {'/'}>Log in</Link>}
         </Route>
         <Route path = '/Trade'>
-          {user ? <Trade /> : <Link to = {'/'}>Log in</Link>}
+          {user ? <Trade handleLogout = {handleLogout} /> : <Link to = {'/'}>Log in</Link>}
         </Route>
         <Route path = '/Stock'>
-          {user ? <Stock /> : <Link to = {'/'}>Log in</Link>}
+          {user ? <Stock handleLogout = {handleLogout} /> : <Link to = {'/'}>Log in</Link>}
         </Route>
         <Route path = '/'>
         {user ? (

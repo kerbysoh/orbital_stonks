@@ -4,8 +4,9 @@ import 'firebase/firestore'
 import firebase from 'firebase/app'
 import fire from '../fire'
 import SearchBox from '../Search/SearchBox';
+import Navbar from '../components/Navbar'
 
-const Stock = () => {
+const Stock = ({handleLogout}) => {
     const db = firebase.firestore()
     const [stocks, setStocks] = useState([])
     const userEmail = fire.auth().currentUser.email
@@ -16,7 +17,7 @@ const Stock = () => {
     const [stock, setStock] = useState([])
     const [users, setUsers] = useState([])
     const[input,  setInput] = useState('')
-
+  
     const handleAddStock = () => {
         
         db.collection("Stocks").doc(`${userEmail}`).update({
@@ -90,9 +91,8 @@ const Stock = () => {
     return (
         
         <div className = "stocks_page">
-            
+        <Navbar handleLogout = {handleLogout} />  
             <button className = 'stocks_button'>
-                <Link to={"/"}>Home</Link>
                 </button>
                 <h1 className = "stocks">My Watchlist</h1>
                 <div className="InputStock">

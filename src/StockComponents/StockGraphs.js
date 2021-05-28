@@ -4,17 +4,19 @@ import {Link, useLocation} from 'react-router-dom';
 import 'firebase/firestore'
 import firebase from 'firebase/app'
 import fire from '../fire'
+import Navbar from "../components/Navbar"
 
 const StockGraphs = (props) => {
+
     const [stockChartXValues, setStockChartXValues] = useState([])
     const [stockChartYValues, setStockChartYValues] = useState([])
+    const {handleLogout} = props
     const location = useLocation()
     useEffect(() => {
         fetchStock()
         console.log(props)
     }, []) 
     const fetchStock = () => {
-        const pointerToThis = this;
         const StockSymbol = location.state.name
         const API_KEY = 'TQ6LE1RSC9LBHZTL';
         let API_Call =  `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${StockSymbol}&outputsize=compact&apikey=${API_KEY}`;
@@ -42,8 +44,7 @@ const StockGraphs = (props) => {
 
         return (
             <>
-            
-                <button><Link to = '/Stocks'>Stocks</Link></button>
+            <Navbar handleLogout = {handleLogout} />
                 <Plot
                 data={[
                 {
