@@ -296,10 +296,10 @@ btn:active {
 
 .chatTitle {
   text-align: center;
-  font-family: "Courier New";
   max-width: 300px;
   padding: 4px;
-  background-color: rgb(197, 212, 238);
+  color: white;
+  background-color: black;
   margin-left: auto;
   margin-right: auto;
   margin-top: 1rem;
@@ -310,12 +310,7 @@ btn:active {
 .chatPage {
   width: 100%;
   min-height: 100vh;
-  background: radial-gradient(
-    ellipse at left bottom,
-    rgb(83, 155, 197) 0%,
-    rgba(59, 114, 151, 0.9) 59%,
-    rgba(38, 76, 110, 0.9) 100%
-  );
+  background: white
 }
 
 /* Chat CSS */
@@ -345,69 +340,34 @@ btn:active {
   margin-left: auto;
   margin-right: auto;
 }
-
-/* Add styles to the form container */
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
 .form-container {
-  max-width: 300px;
-  padding: 10px;
-  background-color: rgb(172, 200, 214);
-  margin-left: auto;
-  margin-right: auto;
+  background: #eee;
+  display: flex;
+  align-items: baseline;
+  padding: 10px 15px;
+  align-items: center;
+  margin-top: 19px;
+  bottom: 0;
 }
-
-/* Full-width textarea */
-.form-container textarea {
+.messageSend {
   width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  border: none;
-  background: #b9c3d4;
-  resize: none;
-  min-height: 200px;
-  margin-left: auto;
-  margin-right: auto;
+  border-radius: 25px;
 }
-
-/* When the textarea gets focus, do something */
-.form-container textarea:focus {
-  background-color: rgb(190, 217, 238);
-  outline: none;
-  margin-left: auto;
-  margin-right: auto;
+.sendMessage {
+  width: 100px;
+  height: 50px;
+  background: #73AD21;
 }
-
-/* Set a style for the submit/send button */
-.form-container .btn {
-  background-color: #04aa6d;
-  color: rgb(146, 181, 214);
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  margin-bottom: 10px;
-  opacity: 0.8;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Add a red background color to the cancel button */
-.form-container .cancel {
-  background-color: red;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Add some hover effects to buttons */
-.form-container .btn:hover,
-.open-button:hover {
-  opacity: 1;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .listPeople {
   text-align: center;
-  font-family: "Courier New";
   max-width: 300px;
   background-color: rgb(197, 212, 238);
   margin-left: auto;
@@ -415,13 +375,41 @@ btn:active {
   margin-top: 1rem;
   width: auto;
   border-radius: 5px;
+  list-style-type: none;
+}
+.chatBubbleLeft {
+  padding: 10px 14px;
+  background: #eee;
+  margin: 10px 30px;
+  border-radius: 9px;
+  position: relative;
+  animation: fadeIn 1s ease-in;
+  left: 0;
+  border-right-color: #eee;
+	border-left: 0;
+  margin-left: -20px;
+}
+.chatBubbleRight {
+  padding: 10px 14px;
+  background: #eee;
+  margin: 10px 30px;
+  border-radius: 9px;
+  position: relative;
+  animation: fadeIn 1s ease-in;
+  right: 0;
+  border-left-color: blue;
+	border-right: 0;
+  margin-right: -20px;
+  background: #1982FC;
+  color: #fff
 }
 
 .listMsg {
   margin-left: auto;
   margin-right: auto;
-  max-width: 300px;
-  background-color: rgb(197, 212, 238);
+  max-width: 99%;
+  background-color:white;
+  list-style-type: none;
 }
 
 .listFriends {
@@ -478,30 +466,3 @@ btn:active {
   justify-content: center;
   font-size: 3rem;
 }
-
-/* .services {
-  background-image: url("/images/img-2.jpg");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  color: #fff;
-  font-size: 100px;
-}
-
-.products {
-  background-image: url("/images/img-1.jpg");
-  background-position: center;
-  background-size: fill;
-  background-repeat: no-repeat;
-  color: #fff;
-  font-size: 100px;
-}
-
-.sign-up {
-  background-image: url("/images/img-8.jpg");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  color: #fff;
-  font-size: 100px;
-} */

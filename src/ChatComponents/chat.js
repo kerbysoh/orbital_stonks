@@ -17,10 +17,13 @@ const Chat = (props) => {
     const [seeUser, setSeeUser] = useState(false) // display users talking to
     const [currUser, setCurrUser] = useState('') // current user of which messages are displayed -> for "You are talking to ..."
     const db = firebase.firestore()
+    const [errMsg, setErrMsg] = useState('')
+    const [friends, setFriends] = useState({})
     const {handleLogout} = props
     const userEmail = fire.auth().currentUser.email
 
     const newFunc = () => {
+        setErrMsg('')
         setCurrUser('')
         setSeeUser(true)
         setNewMessage('')
@@ -63,6 +66,13 @@ const Chat = (props) => {
                 }))
                 setMessages(data)
             })
+            db.collection('friends')
+            .doc(fire.auth().currentUser.email)
+            .onSnapshot((doc) => {
+                if (doc.exists) {
+                    setFriends(doc.data())
+                } 
+            })
             return unsubscribe
         }
     }, [db, messageDisplay])
@@ -74,7 +84,10 @@ const Chat = (props) => {
     }
     const handleOnSubmit = e => {
         e.preventDefault()
-        if (db) {
+        const key = receiver.slice(0, receiver.length - 4)
+        console.log(friends)
+        console.log(key)
+        if ((db) && (Object.keys(friends).includes(key))){
             db.collection('messages').add({
                 text: newMessage,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
@@ -82,10 +95,13 @@ const Chat = (props) => {
                 receiver: receiver
             }
             )
+            setNewMessage('')
+            setNewUser(false)
+            prevUser = receiver
+            setErrMsg('')
+        } else {
+            setErrMsg('User is not your friend')
         }
-        setNewMessage('')
-        setNewUser(false)
-        prevUser = receiver
     }
     return (
         
@@ -112,7 +128,12 @@ const Chat = (props) => {
         <ul className = 'listMsg'>
             {messages.map((message) => {
                 if ((userEmail === message.receiver || userEmail === message.email) && (messageDisplay === message.email || messageDisplay === message.receiver ) && (message.receiver !== '') && (receiver !== '')) {
-                    return (<li key = {message.id}>{message.email} {message.text}</li>) 
+                    if (userEmail === message.receiver) { 
+                        return (<li className = 'chatBubbleLeft' key = {message.id}>{message.text}</li>) 
+                    } else {
+                        return (<li className = 'chatBubbleRight' key = {message.id}>{message.text}</li>)
+                    }
+            
                 }
                 return <></>
                 })}
@@ -120,17 +141,16 @@ const Chat = (props) => {
         <form onSubmit = {handleOnSubmit} class="form-container">
             {newUser ? <>
                 <label for="msg"><b>Send to: </b></label>
-                <input type = "text" value = {receiver} onChange = {handleReceiver} ></input>
+                <input type = "text" class = "messageContainer" value = {receiver} onChange = {handleReceiver} ></input>
             </>
             : <></>
             }
             {(currUser || newUser) ? <>
-            <label for="msg"><b>Message</b></label>
-            <textarea type = "text" value = {newMessage} onChange = {handleOnChange} placeholder="Type message.." name="msg" required></textarea>
-            <button type = "submit" disabled = {!newMessage}>Send</button></> : <></>}
+            <textarea class = "messageSend" type = "text" value = {newMessage} onChange = {handleOnChange} placeholder="Type message.." name="msg" required></textarea>
+            <button class = "sendMessage" type = "submit" disabled = {!newMessage}>Send</button></> : <></>}
         </form>
         </>) : <></>}
-        
+        <h1>{errMsg}</h1>
         </div>
     )
 }

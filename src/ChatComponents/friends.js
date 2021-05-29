@@ -14,7 +14,7 @@ const Friends = (props) => {
     const [search, setSearch] = useState('')
     const [currSearch, setCurrSearch] = useState({})
     const [users, setUsers] = useState([])
-    const [friends, setFriends] = useState([])
+    const [friends, setFriends] = useState({})
     const {handleLogout} = props
     const [searchOn, setSearchOn] = useState(false)
     useEffect (() => {
@@ -31,14 +31,11 @@ const Friends = (props) => {
                 setUsers(data)
             })
             db.collection('friends')
-            .limit(10000)
-            .onSnapshot(querySnapshot => {
-                const data = querySnapshot.docs.map(doc => ({
-                    ...doc.data(),
-                    id: doc.id,
-    
-                })) 
-                setFriends(data)
+            .doc(fire.auth().currentUser.email)
+            .onSnapshot((doc) => {
+                if (doc.exists) { 
+                setFriends(doc.data())
+                }
             })
             
         }
@@ -77,9 +74,9 @@ const Friends = (props) => {
             
                 Suggested: {currSearch.email} {currSearch.firstname} {currSearch.lastname} {currSearch.gender} {currSearch.Description}
 
-                {(searchOn && currSearch.email !== userEmail) ? 
+                {(searchOn && currSearch.email !== userEmail && !(Object.keys(friends).includes(currSearch.email.slice(0,currSearch.email.length - 4))) ) ? 
                 <clickfriends onClick = {handleAddFriend}>Follow
-                </clickfriends> : <></>}
+                </clickfriends> : <><h3>Already followed</h3></>}
             </h3> : null
         }
             
