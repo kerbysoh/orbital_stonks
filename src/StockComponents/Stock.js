@@ -5,6 +5,7 @@ import firebase from 'firebase/app'
 import fire from '../fire'
 import SearchBox from '../Search/SearchBox';
 import Navbar from '../components/Navbar'
+import {Button} from '../components/Button'
 
 const Stock = ({handleLogout}) => {
     const db = firebase.firestore()
@@ -17,7 +18,7 @@ const Stock = ({handleLogout}) => {
     const [stock, setStock] = useState([])
     const [users, setUsers] = useState([])
     const[input,  setInput] = useState('')
-  
+
     const handleAddStock = () => {
         
         db.collection("Stocks").doc(`${userEmail}`).update({
@@ -90,6 +91,54 @@ const Stock = ({handleLogout}) => {
 
     return (
         
+        <div>
+        <Navbar handleLogout = {handleLogout} />  
+                <div>
+                    {/* <video src='/videos/video-2.mp4' autoPlay loop muted /> */}
+                <h1>My Watchlist</h1>
+                    <div className = 'footer-subscription'>
+                        <form>
+                            <SearchBox 
+                        placeholder="Stock ticker..."
+                        handleChange={(e) => {setSearch(e.target.value); {setSearchOn(false)}}}></SearchBox>
+                        <clickfriends buttonStyle='btn--outline' onClick={handleStockSearch} > Search for Stock </clickfriends>
+                        {
+                            searchOn ?
+                            <h2>  
+                                Suggested: {search} 
+                                <clickfriends onClick = {handleAddStock}>Add to Watchlist</clickfriends>
+                            </h2> : null
+                        }
+                        </form>
+                        
+                    </div>
+                </div>
+                
+                {Object.values(stock).map((key, i) => {
+                return (
+                    <div>
+                    <h1 key = {i}>
+                        Stock: {key}
+                        <Button onClick ={() => removeItem(key)}>Remove</Button>
+                    </h1>
+            
+                    <Button key = {key}><Link to = {{ pathname:'/StockGraphs', state: {
+                        name: key
+                    }}}>View stock data</Link></Button>
+                    </div>
+            
+                )
+                
+            })}
+        </div>
+        )
+}
+
+
+export default Stock;
+
+/* return (
+        
         <div className = "stocks_page">
         <Navbar handleLogout = {handleLogout} />  
             <button className = 'stocks_button'>
@@ -125,8 +174,4 @@ const Stock = ({handleLogout}) => {
                 
             })}
         </div>
-        )
-}
-
-
-export default Stock;
+        ) */

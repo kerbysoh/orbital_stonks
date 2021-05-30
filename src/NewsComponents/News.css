@@ -1,0 +1,16 @@
+.clicknews {
+  padding: 4px 0;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border-radius: 3px;
+  background-color: rgb(0, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.clicknews :hover {
+  opacity: 1;
+  background-color: #636768;
+}
