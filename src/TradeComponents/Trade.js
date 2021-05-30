@@ -1,7 +1,59 @@
 import React ,{useState, useRef, Component} from 'react'
 import {Link} from 'react-router-dom'
+import Navbar from '../components/Navbar'
 
-class Trade extends Component {
+
+const Trade = ({handleLogout}) => {
+    const[amount, setAmount] = useState('')
+    const regexp = new RegExp(/^[0-9\b]+$/)
+    const[print, setPrint] = useState(false)
+    
+    const onHandleAmountChange = (e) => {
+        setAmount(e.target.value)
+
+        // if value is not blank, then test the regex
+        if (amount === '' || regexp.test(amount)) {
+            setAmount(e.target.value)
+        }
+    };
+
+    const setPrintTrue = () => {
+      setPrint(true)
+    }
+
+    const setPrintFalse = () => {
+      setPrint(false)
+    }
+
+        return (
+            <>
+            <Navbar handleLogout = {handleLogout} />  
+            <div className="chatPage">
+                < label >Type in amount : </ label >
+                < input
+                    type="amount" name="amount" placeholder="Amount..."
+                    value={amount}
+                    onChange= {onHandleAmountChange} onClick={setPrintFalse}
+                />
+                <btn onClick={setPrintTrue}>Set Current Amount</btn>
+                {
+                  print?
+                  <header className="price-display">Investing: ${amount}</header> : null
+                }
+                
+            </div>
+            
+            </>
+        );
+     
+}
+
+
+
+    
+export default Trade;
+
+/* class Trade extends Component {
     constructor(props) {
         super(props);
         this.onHandleAmountChange = this.onHandleAmountChange.bind(this);  
@@ -28,29 +80,4 @@ class Trade extends Component {
 
     setPrintFalse = () => {
       this.setState({print: false})
-    }
-
-    render() {
-        return (
-            <>
-            <div className="chatPage">
-              <button><Link to = '/'>Home</Link></button>
-                < label >Type in amount : </ label >
-                < input
-                    type="amount" name="amount" placeholder="Amount..."
-                    value={this.state.amount}
-                    onChange={this.onHandleAmountChange} onClick={this.setPrintFalse}
-                />
-                <btn onClick={this.setPrintTrue}>Set Current Amount</btn>
-                {
-                  this.state.print?
-                  <header className="price-display">Investing: ${this.state.amount}</header> : null
-                }
-                
-            </div>
-            
-            </>
-        );
-    }
-}
-export default Trade;
+    } */

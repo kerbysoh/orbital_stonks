@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import axios from 'axios'
 import Navbar from '../components/Navbar'
 import SearchBox from '../Search/SearchBox'
+import './News.css'
 
 const News = (props) => {
 
@@ -32,7 +33,7 @@ const News = (props) => {
           placeholder="Search..."
           handleChange={(e) => setSearch(e.target.value)}
         ></SearchBox>
-        <click onClick={handleSearch}> Search </click>
+        <clickfriends onClick={handleSearch}> Search </clickfriends>
         <div className="all__news">
           {data
             ? data.articles.map((news) => (
