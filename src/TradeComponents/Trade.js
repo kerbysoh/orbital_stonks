@@ -1,5 +1,4 @@
-import React ,{useState, useRef, Component} from 'react'
-import {Link} from 'react-router-dom'
+import React ,{useState} from 'react'
 import Navbar from '../components/Navbar'
 
 
@@ -28,7 +27,7 @@ const Trade = ({handleLogout}) => {
         return (
             <>
             <Navbar handleLogout = {handleLogout} />  
-            <div className="chatPage">
+            <div>
                 < label >Type in amount : </ label >
                 < input
                     type="amount" name="amount" placeholder="Amount..."

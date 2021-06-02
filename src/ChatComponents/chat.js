@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import firebase from 'firebase/app'
-import {Link} from 'react-router-dom'
 import fire from '../fire'
 import 'firebase/firestore'
 import Navbar from '../components/Navbar'
@@ -108,7 +107,7 @@ const Chat = (props) => {
         <div  className="chatPage">
         <Navbar handleLogout = {handleLogout} />
         <button onClick = {newFunc}>View chats</button>
-        <button class="open-button" onClick={handleNew}>New Chat</button>
+        <button className="open-button" onClick={handleNew}>New Chat</button>
         {currUser ? <> <h2 className = 'chatTitle'>{currUser}</h2></> : <></>}
 
         {open ?  (<>
@@ -138,16 +137,16 @@ const Chat = (props) => {
                 return <></>
                 })}
         </ul>
-        <form onSubmit = {handleOnSubmit} class="form-container">
+        <form onSubmit = {handleOnSubmit} className ="form-container">
             {newUser ? <>
                 <label for="msg"><b>Send to: </b></label>
-                <input type = "text" class = "messageContainer" value = {receiver} onChange = {handleReceiver} ></input>
+                <input type = "text" className = "messageContainer" value = {receiver} onChange = {handleReceiver} ></input>
             </>
             : <></>
             }
             {(currUser || newUser) ? <>
-            <textarea class = "messageSend" type = "text" value = {newMessage} onChange = {handleOnChange} placeholder="Type message.." name="msg" required></textarea>
-            <button class = "sendMessage" type = "submit" disabled = {!newMessage}>Send</button></> : <></>}
+            <textarea className = "messageSend" type = "text" value = {newMessage} onChange = {handleOnChange} placeholder="Type message.." name="msg" required></textarea>
+            <button className = "sendMessage" type = "submit" disabled = {!newMessage}>Send</button></> : <></>}
         </form>
         </>) : <></>}
         <h1>{errMsg}</h1>

@@ -11,6 +11,7 @@ import ViewFriends from './ChatComponents/viewFriends'
 import Friends from './ChatComponents/friends'
 import firebase from 'firebase/app'
 import Chat from './ChatComponents/chat'
+import Feed from './ChatComponents/Feed'
 import Stock from './StockComponents/Stock'
 import StockGraphs from './StockComponents/StockGraphs'
 import 'firebase/firestore'
@@ -198,6 +199,9 @@ const App = () => {
         </Route>
         <Route path = '/Stock'>
           {user ? <Stock handleLogout = {handleLogout} /> : <Link to = {'/'}>Log in</Link>}
+        </Route>
+        <Route path = '/Feed'>
+        {user ? <Feed handleLogout = {handleLogout} /> : <Link to = {'/'}>Log in</Link>}
         </Route>
         <Route path = '/'>
         {user ? (

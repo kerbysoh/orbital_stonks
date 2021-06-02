@@ -72,6 +72,16 @@ const Navbar = ({handleLogout}) => {
                 Watchlist
               </Link>
             </li>
+            <li className='nav-item'>
+              <Link
+                to={"/Feed"}
+                className='nav-links'
+                onClick={closeMobileMenu}
+              >
+                Feed
+              </Link>
+            </li>
+            
             
           </ul>
           {button && <Button buttonStyle='btn--outline' onClick = {handleLogout}>LOG OUT</Button>}

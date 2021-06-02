@@ -37,7 +37,7 @@ const Friends = (props) => {
                 setFriends(doc.data())
                 }
             })
-            
+            return unsubscribe
         }
     }, [db])
     const handleAddFriend = () => {
@@ -49,7 +49,7 @@ const Friends = (props) => {
     }
     const handleFriendSearch = () => {
         setSearchOn(false)
-        var user = new Object()
+        var user = {}
         for (const x of users) {
             if (x.email === search) {
                 user = x

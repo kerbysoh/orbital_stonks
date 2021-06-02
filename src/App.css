@@ -355,6 +355,16 @@ btn:active {
   margin-top: 19px;
   bottom: 0;
 }
+.post {
+  border-radius: 20px;
+  margin-bottom: 10px;
+  padding-left: 15px;
+  border: 0px;
+  background-color: rgb(231, 229, 229);
+  width: 90%;
+  height: 10%;
+  cursor: pointer;
+}
 .messageSend {
   width: 100%;
   border-radius: 25px;
@@ -464,8 +474,6 @@ btn:active {
   justify-content: center;
   font-size: 3rem;
 }
-<<<<<<< HEAD
-=======
 
 .stock-page {
   background-position: center;
@@ -492,4 +500,3 @@ btn:active {
   color: #fff;
   font-size: 100px;
 }
->>>>>>> fd9c3d6b3d32f9bf6d9282358125bd03f7572dad

@@ -1,3 +1,18 @@
+
+.suggested {
+  color: black;
+}
+
+.page-background {
+  background: radial-gradient(
+    ellipse at left bottom,
+    rgb(223, 235, 241) 0%,
+    rgba(179, 184, 187, 0.9) 59%,
+    rgba(140, 145, 150, 0.9) 100%
+  );
+}
+
+
 /* :root {
   --primary: #fff;
 }

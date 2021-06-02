@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import NewsArticle from "./NewsArticle"
-import {Link} from 'react-router-dom'
 import axios from 'axios'
 import Navbar from '../components/Navbar'
 import SearchBox from '../Search/SearchBox'

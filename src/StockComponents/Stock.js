@@ -6,18 +6,15 @@ import fire from '../fire'
 import SearchBox from '../Search/SearchBox';
 import Navbar from '../components/Navbar'
 import {Button} from '../components/Button'
+import './Stock.css'
 
 const Stock = ({handleLogout}) => {
     const db = firebase.firestore()
-    const [stocks, setStocks] = useState([])
     const userEmail = fire.auth().currentUser.email
     const [search, setSearch] = useState('')
     const API_KEY = 'TQ6LE1RSC9LBHZTL';
-    const [currSearch, setCurrSearch] = useState({})
     const [searchOn, setSearchOn] = useState(false)
     const [stock, setStock] = useState([])
-    const [users, setUsers] = useState([])
-    const[input,  setInput] = useState('')
 
     const handleAddStock = () => {
         
@@ -28,7 +25,6 @@ const Stock = ({handleLogout}) => {
 
     const handleStockSearch = () => {
         setSearchOn(false)
-        var stock = new String()
         let API_Call =  `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${search}&apikey=${API_KEY}`;
           
           fetch(API_Call)
@@ -40,11 +36,8 @@ const Stock = ({handleLogout}) => {
             )
             .then(
               function(data){
-                console.log(data)
                 if(data.Symbol) {
-                  stock = search
                   setSearchOn(true)
-                  setCurrSearch(stock)
                 } else {
                   setSearchOn(false)
                 }
@@ -55,16 +48,6 @@ const Stock = ({handleLogout}) => {
     useEffect (()=> {
         if (db) {
             const unsubscribe = db
-            db.collection('users')
-            .limit(10000)
-            .onSnapshot(querySnapshot => {
-                const data = querySnapshot.docs.map(doc => ({
-                    ...doc.data(),
-                    id: doc.id,
-
-                })) 
-                setUsers(data)
-            })
             db.collection('Stocks')
             .doc(fire.auth().currentUser.email)
             .onSnapshot((doc) => {
@@ -90,48 +73,64 @@ const Stock = ({handleLogout}) => {
 };
 
     return (
-        
+      <div>
+        <Navbar handleLogout={handleLogout} />
         <div>
-        <Navbar handleLogout = {handleLogout} />  
-                <div>
-                    {/* <video src='/videos/video-2.mp4' autoPlay loop muted /> */}
-                <h1>My Watchlist</h1>
-                    <div className = 'footer-subscription'>
-                        <form>
-                            <SearchBox 
-                        placeholder="Stock ticker..."
-                        handleChange={(e) => {setSearch(e.target.value); {setSearchOn(false)}}}></SearchBox>
-                        <clickfriends buttonStyle='btn--outline' onClick={handleStockSearch} > Search for Stock </clickfriends>
-                        {
-                            searchOn ?
-                            <h2>  
-                                Suggested: {search} 
-                                <clickfriends onClick = {handleAddStock}>Add to Watchlist</clickfriends>
-                            </h2> : null
-                        }
-                        </form>
-                        
-                    </div>
-                </div>
-                
-                {Object.values(stock).map((key, i) => {
-                return (
-                    <div>
-                    <h1 key = {i}>
-                        Stock: {key}
-                        <Button onClick ={() => removeItem(key)}>Remove</Button>
-                    </h1>
-            
-                    <Button key = {key}><Link to = {{ pathname:'/StockGraphs', state: {
-                        name: key
-                    }}}>View stock data</Link></Button>
-                    </div>
-            
-                )
-                
-            })}
+          {/* <video src='/videos/video-2.mp4' autoPlay loop muted /> */}
+          <h1>My Watchlist</h1>
+          <div className="footer-subscription">
+            <form>
+              <SearchBox
+                placeholder="Stock ticker..."
+                handleChange={(e) => {
+                  setSearch(e.target.value);
+                  setSearchOn(false);
+                }}
+              ></SearchBox>
+              <clickfriends
+                buttonStyle="btn--outline"
+                onClick={handleStockSearch}
+              >
+                {" "}
+                Search for Stock{" "}
+              </clickfriends>
+              {searchOn ? (
+                <h2 className="suggested">
+                  Suggested: {search}
+                  <clickfriends onClick={handleAddStock}>
+                    Add to Watchlist
+                  </clickfriends>
+                </h2>
+              ) : null}
+            </form>
+          </div>
         </div>
-        )
+
+        {Object.values(stock).map((key, i) => {
+          return (
+            <div>
+              <h1 key={i}>
+                Stock: {key}
+                <Button onClick={() => removeItem(key)}>Remove</Button>
+              </h1>
+
+              <Button key={key}>
+                <Link
+                  to={{
+                    pathname: "/StockGraphs",
+                    state: {
+                      name: key,
+                    },
+                  }}
+                >
+                  View stock data
+                </Link>
+              </Button>
+            </div>
+          );
+        })}
+      </div>
+    );
 }
 
 

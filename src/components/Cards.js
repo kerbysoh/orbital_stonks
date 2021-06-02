@@ -1,8 +1,6 @@
 import React from 'react';
 import './Cards.css';
 import CardItem from './CardItem';
-import { Button } from './Button';
-import { Link } from 'react-router-dom';
 
 function Cards() {
   return (

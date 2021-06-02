@@ -7,21 +7,10 @@ import {Link} from 'react-router-dom'
 
 const ViewFriends = () => {
     const db = firebase.firestore()
-    const [users, setUsers] = useState([])
     const [friends, setFriends] = useState({})
     useEffect (() => {
         if (db) {
             const unsubscribe = db
-            db.collection('users')
-            .limit(10000)
-            .onSnapshot(querySnapshot => {
-                const data = querySnapshot.docs.map(doc => ({
-                    ...doc.data(),
-                    id: doc.id,
-
-                })) 
-                setUsers(data)
-            })
             db.collection('friends')
             .doc(fire.auth().currentUser.email)
             .onSnapshot((doc) => {
