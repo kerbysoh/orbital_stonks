@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react'
-import {Link} from 'react-router-dom';
 import 'firebase/firestore'
 import firebase from 'firebase/app'
 import fire from '../fire'
 import SearchBox from '../Search/SearchBox';
 import Navbar from '../components/Navbar'
-import {Button} from '../components/Button'
 import './Stock.css'
+import BasicTable from './BasicTable'
 
 const Stock = ({handleLogout}) => {
     const db = firebase.firestore()
@@ -105,72 +104,10 @@ const Stock = ({handleLogout}) => {
             </form>
           </div>
         </div>
-
-        {Object.values(stock).map((key, i) => {
-          return (
-            <div>
-              <h1 key={i}>
-                Stock: {key}
-                <Button onClick={() => removeItem(key)}>Remove</Button>
-              </h1>
-
-              <Button key={key}>
-                <Link
-                  to={{
-                    pathname: "/StockGraphs",
-                    state: {
-                      name: key,
-                    },
-                  }}
-                >
-                  View stock data
-                </Link>
-              </Button>
-            </div>
-          );
-        })}
+        <BasicTable stock = {stock} removeItem = {removeItem}/>
       </div>
     );
 }
 
 
 export default Stock;
-
-/* return (
-        
-        <div className = "stocks_page">
-        <Navbar handleLogout = {handleLogout} />  
-            <button className = 'stocks_button'>
-                </button>
-                <h1 className = "stocks">My Watchlist</h1>
-                <div className="InputStock">
-                <SearchBox className = "friendSearch"
-                    placeholder="Stock ticker..."
-                    handleChange={(e) => {setSearch(e.target.value); {setSearchOn(false)}}}></SearchBox>
-                <clickfriends onClick={handleStockSearch} > Search for Stock </clickfriends>
-                    {
-                        searchOn ?
-                        <h3> 
-                            Suggested: {search} 
-                            <clickfriends onClick = {handleAddStock}>Add to Watchlist</clickfriends>
-                        </h3> : null
-                    }
-                </div>
-                {Object.values(stock).map((key, i) => {
-                return (
-                    <div>
-                    <h1 key = {i}>
-                        Stock: {key}
-                        <button onClick ={() => removeItem(key)}>Remove</button>
-                    </h1>
-            
-                    <h2 key = {key}><Link to = {{ pathname:'/StockGraphs', state: {
-                        name: key
-                    }}}>View stock data</Link></h2>
-                    </div>
-            
-                )
-                
-            })}
-        </div>
-        ) */
