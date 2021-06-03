@@ -81,6 +81,15 @@ const Navbar = ({handleLogout}) => {
                 Feed
               </Link>
             </li>
+            <li className='nav-item'>
+              <Link
+                to={"/myProfile"}
+                className='nav-links'
+                onClick={closeMobileMenu}
+              >
+                My Profile
+              </Link>
+            </li>
             
             
           </ul>

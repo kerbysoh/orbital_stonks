@@ -14,6 +14,7 @@ import Chat from './ChatComponents/chat'
 import Feed from './ChatComponents/Feed'
 import Stock from './StockComponents/Stock'
 import StockGraphs from './StockComponents/StockGraphs'
+import MyProfile from './ChatComponents/myProfile'
 import 'firebase/firestore'
 import "./App.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -202,6 +203,9 @@ const App = () => {
         </Route>
         <Route path = '/Feed'>
         {user ? <Feed handleLogout = {handleLogout} /> : <Link to = {'/'}>Log in</Link>}
+        </Route>
+        <Route path = '/myProfile'>
+        {user ? <MyProfile handleLogout = {handleLogout} /> : <Link to = {'/'}>Log in</Link>}
         </Route>
         <Route path = '/'>
         {user ? (
