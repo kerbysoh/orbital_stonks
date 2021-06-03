@@ -32,7 +32,7 @@ const News = (props) => {
           placeholder="Search..."
           handleChange={(e) => setSearch(e.target.value)}
         ></SearchBox>
-        <clickfriends onClick={handleSearch}> Search </clickfriends>
+        <button onClick={handleSearch} className = "clickfriends"> Search </button>
         <div className="all__news">
           {data
             ? data.articles.map((news) => (

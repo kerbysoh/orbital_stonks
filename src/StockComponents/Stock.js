@@ -87,13 +87,13 @@ const Stock = ({handleLogout}) => {
                   setSearchOn(false);
                 }}
               ></SearchBox>
-              <clickfriends
-                buttonStyle="btn--outline"
+              <button
                 onClick={handleStockSearch}
+                className = "clickfriends"
               >
                 {" "}
                 Search for Stock{" "}
-              </clickfriends>
+              </button>
               {searchOn ? (
                 <h2 className="suggested">
                   Suggested: {search}
