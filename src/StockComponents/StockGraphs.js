@@ -16,9 +16,6 @@ const StockGraphs = (props) => {
   const [low, setLow] = useState("");
   const [high, setHigh] = useState("");
   const [volume, setVolume] = useState("");
-  const [monthlyLow, setMonthlyLow] = useState("");
-  const [monthlyHigh, setMonthlyHigh] = useState("");
-
 
   const { handleLogout } = props;
   const location = useLocation();
@@ -30,7 +27,6 @@ const StockGraphs = (props) => {
       let API_Call = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${StockSymbol}&outputsize=compact&apikey=${API_KEY}`;
       let API_Call_2 = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${StockSymbol}&apikey=${API_KEY}`;
       let API_Call_3 = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${StockSymbol}&apikey=${API_KEY}`;
-      let API_Call_4 = `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=${StockSymbol}&apikey=${API_KEY}`;
 
       let stockChartXValuesFunction = [];
       let stockChartYValuesFunction = [];
