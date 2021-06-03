@@ -91,7 +91,7 @@ const Stock = ({handleLogout}) => {
                 className = "clickfriends"
               >
                 {" "}
-                Search for Stock{" "}
+                Search{" "}
               </button>
               {searchOn ? (
                 <h2 className="suggested">
