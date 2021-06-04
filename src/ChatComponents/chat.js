@@ -3,6 +3,7 @@ import firebase from 'firebase/app'
 import fire from '../fire'
 import 'firebase/firestore'
 import Navbar from '../components/Navbar'
+import SearchBox from '../Search/SearchBox'
 var prevUser = ''
 
 const Chat = (props) => {
@@ -15,6 +16,8 @@ const Chat = (props) => {
     const [newUser, setNewUser] = useState(false) //boolean to store whether new chat is initiated
     const [seeUser, setSeeUser] = useState(false) // display users talking to
     const [currUser, setCurrUser] = useState('') // current user of which messages are displayed -> for "You are talking to ..."
+    const [errMsgSearch, setErrMsgSearch] = useState('')
+    const [search, setSearch] = useState('')
     const db = firebase.firestore()
     const [errMsg, setErrMsg] = useState('')
     const [friends, setFriends] = useState({})
@@ -75,6 +78,19 @@ const Chat = (props) => {
             return unsubscribe
         }
     }, [db, messageDisplay])
+    const handleUserSearch = () => {
+        messages.map((message) => {
+            if ((search === message.email || search === message.receiver) && search !== userEmail) {
+                setMessageDisplay(search)
+                setOpen(true)
+                setCurrUser(search)
+                setReceiver(search)
+                return
+            }
+            
+        })
+        
+    }
     const handleOnChange = e => {
         setNewMessage(e.target.value)
     }
@@ -106,6 +122,17 @@ const Chat = (props) => {
         
         <div  className="chatPage">
         <Navbar handleLogout = {handleLogout} />
+        <SearchBox
+                placeholder= "Key in email"
+                handleChange={(e) => {
+                    setSearch(e.target.value)
+                }}
+              ></SearchBox>
+              <button
+                onClick={handleUserSearch}
+                className = "clickfriends"
+              >Search</button>
+        <h4 className = "errmsgsearch">{errMsgSearch}</h4>
         <button onClick = {newFunc}>View chats</button>
         <button className="open-button" onClick={handleNew}>New Chat</button>
         {currUser ? <> <h2 className = 'chatTitle'>{currUser}</h2></> : <></>}

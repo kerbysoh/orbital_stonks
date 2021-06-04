@@ -179,7 +179,11 @@ button {
   margin-top: 5px;
   color: rgb(51, 50, 50);
 }
-
+.errmsgsearch {
+  display:inline-block;
+  color: red;
+  margin-left: 10px;
+}
 .head__text {
   text-align: center;
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
