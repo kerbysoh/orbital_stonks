@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from './Button';
+import Button from '@material-ui/core/Button'
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import '../App.css';
@@ -93,7 +93,7 @@ const Navbar = ({handleLogout}) => {
             
             
           </ul>
-          {button && <Button buttonStyle='btn--outline' onClick = {handleLogout}>LOG OUT</Button>}
+          <Button className = "clickfriends" variant = "contained" color = "secondary" onClick = {handleLogout}>LOG OUT</Button>
         </div>
       </nav>
     </>

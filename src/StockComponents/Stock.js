@@ -6,6 +6,7 @@ import SearchBox from '../Search/SearchBox';
 import Navbar from '../components/Navbar'
 import './Stock.css'
 import BasicTable from './BasicTable'
+import Button from '@material-ui/core/Button'
 
 const Stock = ({handleLogout}) => {
     const db = firebase.firestore()
@@ -15,15 +16,16 @@ const Stock = ({handleLogout}) => {
     const [searchOn, setSearchOn] = useState(false)
     const [stock, setStock] = useState([])
 
-    const handleAddStock = () => {
-        
+    const handleAddStock = (e) => {
+        e.preventDefault()
         db.collection("Stocks").doc(`${userEmail}`).update({
             [search] : search
         })
     }
 
-    const handleStockSearch = () => {
-        setSearchOn(false)
+    const handleStockSearch = (e) => {
+      e.preventDefault()
+      setSearchOn(false)
         let API_Call =  `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${search}&apikey=${API_KEY}`;
           
           fetch(API_Call)
@@ -75,8 +77,7 @@ const Stock = ({handleLogout}) => {
       <div>
         <Navbar handleLogout={handleLogout} />
         <div>
-          {/* <video src='/videos/video-2.mp4' autoPlay loop muted /> */}
-          <h1>My Watchlist</h1>
+          <video src='/videos/video-2.mp4' autoPlay loop muted />
           <div className="footer-subscription">
             <form>
               <SearchBox
@@ -86,19 +87,19 @@ const Stock = ({handleLogout}) => {
                   setSearchOn(false);
                 }}
               ></SearchBox>
-              <button
+              <Button
                 onClick={handleStockSearch}
-                className = "clickfriends"
+                variant = "contained"
+                color = "secondary"
               >
-                {" "}
-                Search{" "}
-              </button>
+                Search
+              </Button>
               {searchOn ? (
                 <h2 className="suggested">
                   Suggested: {search}
-                  <clickfriends onClick={handleAddStock}>
+                  <Button onClick={handleAddStock} variant = "contained" color = "secondary">
                     Add to Watchlist
-                  </clickfriends>
+                  </Button>
                 </h2>
               ) : null}
             </form>

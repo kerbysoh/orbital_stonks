@@ -5,7 +5,7 @@ import fire from '../fire'
 import {Link} from 'react-router-dom'
 import SearchBox from '../Search/SearchBox'
 import Navbar from '../components/Navbar'
-
+import Button from '@material-ui/core/Button'
 
 
 const Friends = (props) => {
@@ -67,7 +67,7 @@ const Friends = (props) => {
         placeholder="Key in user email"
         handleChange={(e) => setSearch(e.target.value)}
         ></SearchBox>
-        <clickfriends onClick={handleFriendSearch}> Search for user </clickfriends>
+        <Button onClick={handleFriendSearch} variant="contained" color="primary" className = "clickfriends"> Search </Button>
         {
             searchOn ?
             <h3> 

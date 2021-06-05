@@ -4,7 +4,23 @@ import fire from '../fire'
 import 'firebase/firestore'
 import Navbar from '../components/Navbar'
 import SearchBox from '../Search/SearchBox'
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
 var prevUser = ''
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    display: 'block',
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 1200,
+  },
+}));
 
 const Chat = (props) => {
     const [messages, setMessages] = useState([]) // collection of latest 100 messages in database
@@ -24,6 +40,22 @@ const Chat = (props) => {
     const {handleLogout} = props
     const userEmail = fire.auth().currentUser.email
 
+    const classes = useStyles();
+    const [email, setEmail] = useState('');
+    const [openmenu, setOpenMenu] = useState(false);
+
+    const handleChange = (event) => {
+        setEmail(event.target.value);
+    };
+
+    const handleCloseMenu = () => {
+        setOpenMenu(false);
+    };
+
+    const handleOpenMenu = () => {
+        setOpenMenu(true);
+    };
+    
     const newFunc = () => {
         setErrMsg('')
         setCurrUser('')
@@ -133,24 +165,38 @@ const Chat = (props) => {
                 className = "clickfriends"
               >Search</button>
         <h4 className = "errmsgsearch">{errMsgSearch}</h4>
-        <button onClick = {newFunc}>View chats</button>
-        <button className="open-button" onClick={handleNew}>New Chat</button>
-        {currUser ? <> <h2 className = 'chatTitle'>{currUser}</h2></> : <></>}
-
-        {open ?  (<>
-        {seeUser ? (<> <ul>
-            {people.map((person) => {
-            return (
-            <li className = "listPeople" key = {person}>
-                <button onClick ={ () => {setMessageDisplay(person) ; setReceiver(person) ; setSeeUser(false); setCurrUser(person)} }>
-                    {person}
-                </button>
-                </li>
-                )
-        })}
-        </ul> </>) : (<></>)}
-
         
+        
+        <FormControl className={classes.formControl} >
+        <InputLabel id="demo-controlled-open-select-label">View Chats</InputLabel>
+        <Select
+          labelId="demo-controlled-open-select-label"
+          id="demo-controlled-open-select"
+          openmenu={openmenu}
+          onClose={handleCloseMenu}
+          onOpen={() => {handleOpenMenu() ; newFunc()}}
+          value={email}
+          onChange={() => {handleChange()}}
+        >
+            {open ?  (<>
+                {seeUser ? (<> <ul>
+                {people.map((person) => {
+                return (
+                <li className = "listPeople" key = {person}>
+                        <MenuItem onClick ={ () => {setMessageDisplay(person) ; setReceiver(person) ; setSeeUser(false); setCurrUser(person)} } value={person}>{person}</MenuItem>
+                    </li>
+                    )
+                })}
+            </ul> </>) : (<></>)}
+        </>) : <></>}
+        </Select>
+      </FormControl>
+      <button className="open-button" onClick={handleNew}>New Chat</button>
+
+
+
+      {currUser ? <> <h2 className = 'chatTitle'>{currUser}</h2></> : <></>}
+            
         <ul className = 'listMsg'>
             {messages.map((message) => {
                 if ((userEmail === message.receiver || userEmail === message.email) && (messageDisplay === message.email || messageDisplay === message.receiver ) && (message.receiver !== '') && (receiver !== '')) {
@@ -175,7 +221,6 @@ const Chat = (props) => {
             <textarea className = "messageSend" type = "text" value = {newMessage} onChange = {handleOnChange} placeholder="Type message.." name="msg" required></textarea>
             <button className = "sendMessage" type = "submit" disabled = {!newMessage}>Send</button></> : <></>}
         </form>
-        </>) : <></>}
         <h1>{errMsg}</h1>
         </div>
     )

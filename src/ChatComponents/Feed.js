@@ -4,6 +4,7 @@ import fire from '../fire'
 import 'firebase/firestore'
 import Navbar from '../components/Navbar'
 
+
 const Feed = (props) => {
     const db = firebase.firestore()
     const [posts, setPosts] = useState([])

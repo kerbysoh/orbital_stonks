@@ -7,28 +7,36 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import {Button} from '../components/Button'
+import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
   },
-});
-
-
+  tableContainer: {
+    borderRadius: 15,
+    margin: 'auto',
+    maxWidth: 950
+  },
+  tableHeaderCell: {
+    fontWeight: 'bold',
+    backgroundColor: theme.palette.primary.light,
+    color: theme.palette.getContrastText(theme.palette.primary.light)
+  }
+}));
 
 export default function BasicTable({stock, removeItem}) {
   const classes = useStyles();
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} className = {classes.tableContainer}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Stocks</TableCell>
-            <TableCell align="Center">View Stock</TableCell>
-            <TableCell align="Center">Remove Button</TableCell>
+            <TableCell className = {classes.tableHeaderCell}>Stocks</TableCell>
+            <TableCell className = {classes.tableHeaderCell} align="Center">View Stock</TableCell>
+            <TableCell className = {classes.tableHeaderCell} align="Center">Remove Button</TableCell>
 
  
           </TableRow>
