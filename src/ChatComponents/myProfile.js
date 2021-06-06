@@ -86,15 +86,13 @@ return (<>
           My Profile
         </Typography>
         <div className={avatarclasses.root}>
-            <Avatar>H</Avatar>
-            <Avatar className={avatarclasses.orange}>N</Avatar>
-            <Avatar className={avatarclasses.purple}>OP</Avatar>
+        <Avatar className = 'avatar'>{user.data}</Avatar>
         </div>
         <Typography className={classes.center} variant="h5" component="h2">
-          Name: {user.firstname}
+          {user.firstname} {user.lastname}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          email: {user.email}
+          {user.email}
         </Typography>
         <Typography className={classes.center} variant="body2" component="p">
           {user.Description}

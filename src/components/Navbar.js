@@ -90,10 +90,15 @@ const Navbar = ({handleLogout}) => {
                 My Profile
               </Link>
             </li>
-            
+            <li className='nav-item'>
+              <Button
+                onClick={() => {closeMobileMenu() ; handleLogout()}} variant = "contained" color = "secondary"
+              >
+                Log out
+              </Button>
+            </li>
             
           </ul>
-          <Button className = "clickfriends" variant = "contained" color = "secondary" onClick = {handleLogout}>LOG OUT</Button>
         </div>
       </nav>
     </>

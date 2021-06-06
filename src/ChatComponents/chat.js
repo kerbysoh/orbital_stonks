@@ -9,6 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 var prevUser = ''
 
@@ -123,6 +124,9 @@ const Chat = (props) => {
         })
         
     }
+    const handleDelete = (e) => {
+        db.collection("messages").doc(e).delete()
+    }
     const handleOnChange = e => {
         setNewMessage(e.target.value)
     }
@@ -201,9 +205,9 @@ const Chat = (props) => {
             {messages.map((message) => {
                 if ((userEmail === message.receiver || userEmail === message.email) && (messageDisplay === message.email || messageDisplay === message.receiver ) && (message.receiver !== '') && (receiver !== '')) {
                     if (userEmail === message.receiver) { 
-                        return (<li className = 'chatBubbleLeft' key = {message.id}>{message.text}</li>) 
+                        return (<li className = 'chatBubbleLeft' key = {message.id}>{message.text} </li>) 
                     } else {
-                        return (<li className = 'chatBubbleRight' key = {message.id}>{message.text}</li>)
+                        return (<li className = 'chatBubbleRight' key = {message.id}>{message.text} <DeleteIcon onClick = {() => handleDelete(message.id)} /></li>)
                     }
             
                 }

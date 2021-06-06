@@ -17,6 +17,9 @@ const Friends = (props) => {
     const [friends, setFriends] = useState({})
     const {handleLogout} = props
     const [searchOn, setSearchOn] = useState(false)
+    const [self, setSelf] = useState({})
+    const increment = firebase.firestore.FieldValue.increment(1)
+    const decrement = firebase.firestore.FieldValue.increment(-1)
     useEffect (() => {
         if (db) {
             const unsubscribe = db
@@ -40,23 +43,79 @@ const Friends = (props) => {
             return unsubscribe
         }
     }, [db])
+
+    const handleUnfollow = () => {
+        var str = currSearch.email
+        str = str.slice(0, str.length - 4)
+        var str2 = userEmail
+        str2 = str2.slice(0, str.length - 4)
+        db.collection("users").doc(currSearch.email).update({
+            followers: decrement
+        })
+        db.collection("users").doc(`${userEmail}`).update({
+            followed: decrement
+        })
+        currSearch.followers -= 1
+        self.followed -= 1
+        db.collection("friends").doc(`${userEmail}`).update({
+            [str] : firebase.firestore.FieldValue.delete()
+        })
+
+        db.collection("followers").doc(currSearch.email).update({
+            [str2] : firebase.firestore.FieldValue.delete()
+        })
+        db.collection('followers').doc().get(currSearch.email)
+        .then((docSnapshot) => {
+            if (!docSnapshot.exists) {
+                db.collection('followers').doc(currSearch.email).set({})
+        }
+    })
+    db.collection("friends").doc().get(`${userEmail}`)
+        .then((docSnapshot) => {
+            if (!docSnapshot.exists) {
+                db.collection("friends").doc(`${userEmail}`).set({})
+        }
+    })
+    }
+    
     const handleAddFriend = () => {
         var str = currSearch.email
         str = str.slice(0, str.length - 4)
+        var str2 = userEmail
+        str2 = str2.slice(0, str.length - 4)
+        db.collection("users").doc(currSearch.email).update({
+            followers: increment
+        })
+        db.collection("users").doc(`${userEmail}`).update({
+            followed: increment
+        })
+        currSearch.followers += 1
+        self.followed += 1
         db.collection("friends").doc(`${userEmail}`).update({
             [str] : currSearch
         })
+
+        db.collection("followers").doc(currSearch.email).update({
+            [str2] : self
+        })
+
+        
     }
     const handleFriendSearch = () => {
         setSearchOn(false)
         var user = {}
+        var user2 = {}
         for (const x of users) {
             if (x.email === search) {
                 user = x
                 setSearchOn(true)
             }
+            if (x.email === userEmail) {
+                user2 = x
+            }
         }
         setCurrSearch(user)
+        setSelf(user2)
     }
     return (
 
@@ -75,8 +134,9 @@ const Friends = (props) => {
                 Suggested: {currSearch.email} {currSearch.firstname} {currSearch.lastname} {currSearch.gender} {currSearch.Description}
 
                 {(searchOn && currSearch.email !== userEmail && !(Object.keys(friends).includes(currSearch.email.slice(0,currSearch.email.length - 4))) ) ? 
-                <clickfriends onClick = {handleAddFriend}>Follow
-                </clickfriends> : <><h3>Already followed</h3></>}
+                <Button className = "clickfriends" variant = "contained" color = "secondary" onClick = {handleAddFriend}>Follow
+                </Button> : <> <Button className = "clickfriends" variant = "contained" color = "secondary" onClick = {handleUnfollow}>Unfollow
+                </Button> </>}
             </h3> : null
         }
             

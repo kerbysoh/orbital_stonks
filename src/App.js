@@ -134,7 +134,7 @@ const App = () => {
       }
     })
     fire.auth().onAuthStateChanged(user => {
-      if (user) {
+      if (user && fire.auth().currentUser.email === email) {
         if (db) {
           db.collection('users').doc(`${email}`).set({
           email: email,
@@ -142,10 +142,13 @@ const App = () => {
           firstname : firstName,
           lastname: lastName,
           gender: gender,
+          followed: 0,
+          followers: 0,
           dob: new firebase.firestore.Timestamp.fromDate(newDate)
         })
         db.collection('friends').doc(`${email}`).set({})
         db.collection('Stocks').doc(`${email}`).set({})
+        db.collection('followers').doc(`${email}`).set({})
     }
       }
     })
