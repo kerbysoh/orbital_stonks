@@ -4,6 +4,8 @@ import {useLocation} from 'react-router-dom';
 import 'firebase/firestore'
 import Navbar from "../components/Navbar"
 import "./Stock.css";
+import "./StockCardItem.css";
+import CardItem from "./StockCardItem";
 
 
 const StockGraphs = (props) => {
@@ -73,34 +75,59 @@ const StockGraphs = (props) => {
   return (
     <>
       <Navbar handleLogout={handleLogout} />
-      <h1> Stock: {name}</h1>
-      <h1> Stock Ticker: {location.state.name}</h1>
-      <h1>Today's Date: {date}</h1>
-      <h1>Today's Change: {changePercent}</h1>
-      <h1>Current Price: {price}</h1>
-      <h1>Daily High: {high}</h1>
-      <h1>Daily Low: {low}</h1>
-      <h1>Volume: {volume}</h1>
-
-      <div className="footer-subscription">
-        <Plot
-          data={[
-            {
-              x: stockChartXValues,
-              y: stockChartYValues,
-              type: "scatter",
-              mode: "lines",
-              marker: { color: "black" },
-            },
-          ]}
-          layout={{
-            width: 640,
-            height: 440,
-            /* title: location.state.name, */
-            plot_bgcolor: "transparent",
-            paper_bgcolor: "transparent",
-          }}
-        />
+      <div className="cards">
+        <h1>Check out these statistics!</h1>
+        <div className="cards__container">
+          <div className="cards__wrapper">
+            <CardItem text={name} label="Stock" />
+            <CardItem
+              text={location.state.name}
+              label="Stock Ticker"
+            />
+            <ul className="cards__items">
+              <Plot
+                data={[
+                  {
+                    x: stockChartXValues,
+                    y: stockChartYValues,
+                    type: "scatter",
+                    mode: "lines",
+                    marker: { color: "black" },
+                  },
+                ]}
+                layout={{
+                  width: 640,
+                  height: 440,
+                  /* title: location.state.name, */
+                  plot_bgcolor: "transparent",
+                  paper_bgcolor: "transparent",
+                }}
+              />
+            </ul>
+            <ul className="cards__items">
+              <CardItem
+                text={price}
+                label="Current Price"
+              />
+              <CardItem
+                text={date}
+                label="Today's Date"
+              />
+            </ul>
+            <ul className="cards__items">
+              <CardItem
+                text={changePercent}
+                label="Today's Change"
+              />
+              <CardItem
+                text={high}
+                label="Daily High"
+              />
+              <CardItem text={low} label="Daily Low" />
+              <CardItem text={volume} label="Volume" />
+            </ul>
+          </div>
+        </div>
       </div>
     </>
   );

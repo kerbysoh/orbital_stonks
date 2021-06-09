@@ -207,7 +207,7 @@ const Chat = (props) => {
                     if (userEmail === message.receiver) { 
                         return (<li className = 'chatBubbleLeft' key = {message.id}>{message.text} </li>) 
                     } else {
-                        return (<li className = 'chatBubbleRight' key = {message.id}>{message.text} <DeleteIcon onClick = {() => handleDelete(message.id)} /></li>)
+                        return (<li className = 'chatBubbleRight' key = {message.id}>{message.text} <DeleteIcon onClick = {() => {handleDelete(message.id)}} /></li>)
                     }
             
                 }

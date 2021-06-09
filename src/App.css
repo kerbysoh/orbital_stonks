@@ -455,17 +455,8 @@ button {
 }
 
 .price-display {
-  text-align: center;
-  font-size: 100px;
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  max-width: 1000px;
-  background-color: rgb(219, 228, 245);
-  border-radius: 30px;
+  font-size: 30px;
+  color: #010303;
 }
 
 /* THIS IS THE LATEST CSS */
