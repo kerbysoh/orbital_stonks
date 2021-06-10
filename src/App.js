@@ -144,11 +144,15 @@ const App = () => {
           gender: gender,
           followed: 0,
           followers: 0,
-          dob: new firebase.firestore.Timestamp.fromDate(newDate)
+          posts: 0,
+          dob: dob
         })
         db.collection('friends').doc(`${email}`).set({})
         db.collection('Stocks').doc(`${email}`).set({})
         db.collection('followers').doc(`${email}`).set({})
+        db.collection('RiskLevel').doc(`${email}`).set({})
+        db.collection('Amount').doc(`${email}`).set({})
+
     }
       }
     })

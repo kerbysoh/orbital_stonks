@@ -7,8 +7,20 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField'
-
+import Grid from '@material-ui/core/Grid'
+import { makeStyles } from '@material-ui/core/styles'
+const useStyles = makeStyles((theme) => ({
+    root: {
+      flexGrow: 1,
+    },
+    paper: {
+      padding: theme.spacing(2),
+      textAlign: 'center',
+      color: theme.palette.text.secondary,
+    },
+  }));
 const Feed = (props) => {
+    const classes = useStyles()
     const db = firebase.firestore()
     const [currReply, setCurrReply] = useState('')
     const [posts, setPosts] = useState([])
@@ -26,6 +38,7 @@ const Feed = (props) => {
 
 
     const handleNewPost = () => {
+    
         if (db){
             db.collection('Posts').add({
                 text: newPost,
@@ -36,7 +49,9 @@ const Feed = (props) => {
             }).then(function(docRef) {
                 db.collection('Likes').doc(docRef.id).set({})
             })
-            
+            db.collection('users').doc(fire.auth().currentUser.email).update({
+                posts: increment
+            })
             setNewPost('')
         } 
 
@@ -48,15 +63,27 @@ const Feed = (props) => {
                 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                 email: fire.auth().currentUser.email,
                 date: (new Date()).toString(),
-                postID: currReply
-            
+                postID: currReply,
+                likes: 0
             })
         }
+        setReplyOn(false)
+        setCurrView(currReply)
     }
     const handleDeletePost = (e) => {
         db.collection("Posts").doc(e).delete()
         db.collection("Likes").doc(e).delete()
-        db.collection("Comments").doc(e).delete()
+        comments.map((comment) => {
+            if (comment.postID === e) {
+                db.collection('Comments').doc(comment.id).delete()
+            }
+        }
+        
+        )
+        db.collection('users').doc(fire.auth().currentUser.email).update({
+            posts: decrement
+        })
+
     }
     const handleLike = (x) => {
         const q = fire.auth().currentUser.email
@@ -88,6 +115,9 @@ const Feed = (props) => {
     const handleOnChange = e => {
         setNewPost(e.target.value)
         
+    }
+    const handleDeleteComment = (e) => {
+        db.collection("Comments").doc(e).delete()
     }
     useEffect (() => {
         if (db) {
@@ -141,25 +171,28 @@ const Feed = (props) => {
         
         <textarea className = "post" type = "text" value = {newPost} onChange = {handleOnChange} placeholder="How are you feeling today?" name="msg" required></textarea>
         <button className = "postButton" type = "submit" disabled = {!newPost} onClick = {handleNewPost}>Post</button>
-
-        <ul className = 'listMsg'>
+        <div className = {classes.root}>
+        <Grid className = 'listMsg' container spacing = {3}>
             {posts.map((post) => {
                 if (Object.keys(friends).includes(post.email.slice(0,post.email.length - 4)) || (post.email === fire.auth().currentUser.email)) 
                 {
-                    if (currView === post.id) {
-                        return comments.map((comment) => {
+                    return (<Grid className = 'listMsgItems' item xs = {12}><span className ='postemail'>{post.email}</span> <span className = 'postdate'>{post.date}</span> {post.text} <FavoriteIcon onClick = {() => handleLike(post.id)}/>{(post.email === fire.auth().currentUser.email) ? <><DeleteIcon  onClick = {() => handleDeletePost(post.id)} /></> : null}<Button className = "clickfriends" onClick = {() => {setCurrView(post.id) ; setReply(''); setReplyOn(false)}}>View Comments</Button><Button className = "clickfriends" onClick = {() => {setReplyOn(true); setCurrReply(post.id)}}>Reply</Button><h2 className = 'likes'>{post.likes} likes</h2>
+                    {(currView === post.id) ?<> {
+                        comments.map((comment) => {
                             if (comment.postID === currView) {
-                            return <h4>{comment.email} {comment.text} Replied {comment.date}</h4>
+                            return <h4>{comment.email} {comment.text} Replied {comment.date}{(comment.email === fire.auth().currentUser.email) ? <><DeleteIcon onClick = {() => handleDeleteComment(comment.id)} /></> : null} </h4>
                             }
+                            return null
                         }
                         )
-                    }
-                    return (<li>{post.email} {post.text} Posted {post.date} <FavoriteIcon onClick = {() => handleLike(post.id)}/><DeleteIcon onClick = {() => handleDeletePost(post.id)} /><Button onClick = {() => {setCurrView(post.id) ; setReply(''); setReplyOn(false)}}>View Comments</Button><Button onClick = {() => {setReplyOn(true); setCurrReply(post.id)}}>Reply</Button><h1>{post.likes} likes</h1></li>)
+                    }</> : null}
+                    </Grid>)
                 } else {
                 return null
                 }})}
-        </ul>
-        {replyOn ? <> <TextField onChange = {(e) => setReply(e.target.value) }></TextField> <Button onClick = {() => handleReply()}>Submit</Button> </>: <></>}
+        </Grid>
+</div>
+        {replyOn ? <> <TextField variant = 'filled' size = 'medium' onChange = {(e) => setReply(e.target.value) }></TextField> <Button className = 'clickfriends' onClick = {() => handleReply()}>Submit</Button> </>: <></>}
         </div>
         )
 }

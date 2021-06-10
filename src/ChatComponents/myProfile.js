@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
+import MyProfileFollow from './myProfileFollow.js'
 
 const useStyles = makeStyles({
   root: {
@@ -85,8 +86,10 @@ return (<>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
           My Profile
         </Typography>
+        
         <div className={avatarclasses.root}>
         <Avatar className = 'avatar'>{user.data}</Avatar>
+        <MyProfileFollow></MyProfileFollow>
         </div>
         <Typography className={classes.center} variant="h5" component="h2">
           {user.firstname} {user.lastname}
@@ -99,7 +102,7 @@ return (<>
           <br />
           {user.gender}
           <br />
-          Birthday:
+          Born on: {user.dob}
         </Typography>
       </CardContent>
       <CardActions>

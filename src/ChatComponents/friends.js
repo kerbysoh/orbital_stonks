@@ -82,7 +82,7 @@ const Friends = (props) => {
         var str = currSearch.email
         str = str.slice(0, str.length - 4)
         var str2 = userEmail
-        str2 = str2.slice(0, str.length - 4)
+        str2 = str2.slice(0, str2.length - 4)
         db.collection("users").doc(currSearch.email).update({
             followers: increment
         })
@@ -135,8 +135,8 @@ const Friends = (props) => {
 
                 {(searchOn && currSearch.email !== userEmail && !(Object.keys(friends).includes(currSearch.email.slice(0,currSearch.email.length - 4))) ) ? 
                 <Button className = "clickfriends" variant = "contained" color = "secondary" onClick = {handleAddFriend}>Follow
-                </Button> : <> <Button className = "clickfriends" variant = "contained" color = "secondary" onClick = {handleUnfollow}>Unfollow
-                </Button> </>}
+                </Button> :<> {(currSearch.email !== userEmail) ? <> <Button className = "clickfriends" variant = "contained" color = "secondary" onClick = {handleUnfollow}>Unfollow
+                </Button> </>: <><h1>You</h1></>}</>}
             </h3> : null
         }
             

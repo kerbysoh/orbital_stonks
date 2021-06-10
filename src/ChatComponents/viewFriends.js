@@ -28,7 +28,7 @@ const ViewFriends = () => {
         {Object.values(friends).map((key, i) => {
             return (
                 <h1 className = 'listFriends' key = {i}>
-                    Name: {key.firstname} {key.lastname} Email: {key.email}
+                    Name: {key.firstname} {key.lastname} Email: {key.email} Born on: {key.dob}
                     {/* Description: {key.Description}, 
                     Gender: {key.gender}, 
                     DOB: {key.dob.toDate().toDateString()} */}
