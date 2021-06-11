@@ -6,9 +6,54 @@ import {Link} from 'react-router-dom'
 import SearchBox from '../Search/SearchBox'
 import Navbar from '../components/Navbar'
 import Button from '@material-ui/core/Button'
+import {
+    Typography,
+    Grid,
+    makeStyles,
+    Avatar
+  } from "@material-ui/core";
+  import ClearIcon from "@material-ui/icons/Clear";
 
+const useStyles = makeStyles(theme => ({
+    page: {
+      padding: theme.spacing(10)
+    },
+    root: {
+      border: `1px solid ${theme.palette.secondary[400]}`,
+      padding: theme.spacing(2),
+      borderRadius: "2px",
+      maxWidth: 200
+    },
+    header: {
+      color: theme.palette.grey[400],
+      height: "15px"
+    },
+    photoContainer: {
+      marginBottom: theme.spacing(1)
+    },
+    avatar: {
+      width: theme.spacing(7),
+      height: theme.spacing(7)
+    },
+    verified: {
+      height: 20
+    },
+    channelUserName: {
+      fontWeight: theme.typography.fontWeightBold
+    },
+    chanelNameContainer: {
+      marginBottom: theme.spacing(1)
+    },
+    followButton: {
+      textTransform: "none",
+      paddingRight: theme.spacing(6),
+      paddingLeft: theme.spacing(6),
+      fontWeight: theme.typography.fontWeightMedium
+    }
+  }));
 
 const Friends = (props) => {
+    const classes = useStyles()
     const db = firebase.firestore()
     const userEmail = fire.auth().currentUser.email
     const [search, setSearch] = useState('')
@@ -129,15 +174,54 @@ const Friends = (props) => {
         <Button onClick={handleFriendSearch} variant="contained" color="primary" className = "clickfriends"> Search </Button>
         {
             searchOn ?
-            <h3> 
+            <Grid
+        container
+        direction="column"
+        alignItems="center"
+        className={classes.root}
+      >
             
-                Suggested: {currSearch.email} {currSearch.firstname} {currSearch.lastname} {currSearch.gender} {currSearch.Description}
-
+            <Grid container justify="flex-end">
+      <Grid item xs={1}>
+        <ClearIcon className={classes.header} onClick = {() => setSearchOn(false)}/>
+      </Grid>
+    </Grid>
+    <div className={classes.photoContainer}>
+      <Avatar
+        className={classes.avatar}
+      />
+    </div>
+    <Grid container justify="center" alignItems="center" spacing={5}>
+      <Grid item xs={5.5}>
+        <Typography variant="body2" className={classes.channelUserName}>
+          {currSearch.firstname}
+        </Typography>
+      </Grid>
+    </Grid>
+    <div className={classes.chanelNameContainer}>
+      <Typography color="textSecondary" variant="caption">
+        {currSearch.email}
+      </Typography>
+    </div>
                 {(searchOn && currSearch.email !== userEmail && !(Object.keys(friends).includes(currSearch.email.slice(0,currSearch.email.length - 4))) ) ? 
-                <Button className = "clickfriends" variant = "contained" color = "secondary" onClick = {handleAddFriend}>Follow
-                </Button> :<> {(currSearch.email !== userEmail) ? <> <Button className = "clickfriends" variant = "contained" color = "secondary" onClick = {handleUnfollow}>Unfollow
-                </Button> </>: <><h1>You</h1></>}</>}
-            </h3> : null
+                <Button
+                disableElevation
+                color="primary"
+                variant="contained"
+                size="small"
+                className={classes.followButton}
+                onClick = {handleAddFriend}
+              >Follow
+                </Button> :<> {(currSearch.email !== userEmail) ? <> <Button
+      disableElevation
+      color="primary"
+      variant="contained"
+      size="small"
+      className={classes.followButton}
+      onClick = {handleUnfollow}
+    >Unfollow
+                </Button> </>: <></>}</>}
+            </Grid> : null
         }
             
             
