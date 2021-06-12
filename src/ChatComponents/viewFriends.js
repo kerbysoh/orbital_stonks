@@ -54,6 +54,7 @@ const ViewFriends = () => {
     const classes = useStyles()
     const db = firebase.firestore()
     const [friends, setFriends] = useState({})
+    
     useEffect (() => {
         if (db) {
             const unsubscribe = db
@@ -64,6 +65,7 @@ const ViewFriends = () => {
                 setFriends(doc.data())
                 }
             })
+            
             
             return unsubscribe
         }

@@ -63,7 +63,8 @@ const MyProfile = (props) => {
     const classes = useStyles();
     const bull = <span className={classes.bullet}>•</span>;
     const avatarclasses = useAvatarStyles();
-
+    const [imageURL, setImageURL] = useState('')
+    
     useEffect (() => {
         if (db) {
             const unsubscribe = db
@@ -75,6 +76,11 @@ const MyProfile = (props) => {
                 }
                 console.log(doc.data())
             })
+            var storage = firebase.storage()
+    var pathReference = storage.ref(`images/${userEmail}`)
+    pathReference.getDownloadURL().then((url) => {
+      setImageURL(url)
+    })
             return unsubscribe
         }
     }, [db])
@@ -88,7 +94,7 @@ return (<>
         </Typography>
         
         <div className={avatarclasses.root}>
-        <Avatar className = 'avatar'>{user.data}</Avatar>
+        <Avatar className = 'avatar' src = {imageURL}/>
         <MyProfileFollow></MyProfileFollow>
         </div>
         <Typography className={classes.center} variant="h5" component="h2">

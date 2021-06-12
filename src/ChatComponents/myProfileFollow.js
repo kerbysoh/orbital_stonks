@@ -44,9 +44,9 @@ const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <Badge badgeContent={user.posts}>Posts</Badge>
-      <Badge badgeContent={user.followers}>Followers</Badge>
-      <Badge badgeContent={user.followed}>Following </Badge>
+      {user.posts ? <Badge badgeContent={user.posts}>Posts</Badge> : <Badge badgeContent='0'>Posts</Badge>}
+      {user.posts ? <Badge badgeContent={user.followers}>Posts</Badge> : <Badge badgeContent='0'>Posts</Badge>}
+      {user.posts ? <Badge badgeContent={user.followwed}>Posts</Badge> : <Badge badgeContent='0'>Posts</Badge>}
     </div>
   );
 }

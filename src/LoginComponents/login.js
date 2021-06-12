@@ -1,7 +1,14 @@
 import React from 'react'
 import { Link }  from 'react-router-dom'
 const Login = (props) => {
-    const {email, setEmail, password, setPassword, passwordError, emailError, handleLogin, handleSignup, hasAccount, setHasAccount, confirmPassword, setConfirmPassword, clearErrors, clearInputs, description, setDescription, firstName, setFirstName, lastName, setLastName, setGender, dob, setDob, genderError, firstNameError, lastNameError, descriptionError, dobError} = props
+    
+    
+    const {email, setEmail, password, setPassword, passwordError, emailError, handleLogin, handleSignup, hasAccount, setHasAccount, confirmPassword, setConfirmPassword, clearErrors, clearInputs, description, setDescription, firstName, setFirstName, lastName, setLastName, setGender, dob, setDob, genderError, firstNameError, lastNameError, descriptionError, dobError, image, setImage, imageError} = props
+    const handleChangeProfile = e => {
+        if (e.target.files[0]) {
+            setImage(e.target.files[0])
+        }
+    }
     return ( <section className = "login">
         <div className ="loginContainer">
             <h1> $TONK$ </h1>
@@ -33,6 +40,9 @@ const Login = (props) => {
                 <label>Date of Birth</label> 
                 <input type = "dob" autoFocus required value = {dob} placeholder = "YYYY-MM-DD" onChange = {(e) => setDob(e.target.value)}/>
                 <p className = "errorMsg">{dobError}</p>
+                <label>Upload profile picture</label>
+                <input type = "file" onChange = {handleChangeProfile} />
+                <p className = 'errorMsg'>{imageError}</p>
 
                 </> ) : <></>
             }

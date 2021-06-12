@@ -53,6 +53,8 @@ const useStyles = makeStyles(theme => ({
   }));
 
 const Friends = (props) => {
+  const storage = firebase.storage()
+  const [imageURL, setImageURL] = useState('')
     const classes = useStyles()
     const db = firebase.firestore()
     const userEmail = fire.auth().currentUser.email
@@ -150,15 +152,23 @@ const Friends = (props) => {
         setSearchOn(false)
         var user = {}
         var user2 = {}
+        var imageShow = false
         for (const x of users) {
             if (x.email === search) {
                 user = x
                 setSearchOn(true)
+                imageShow = true
             }
             if (x.email === userEmail) {
                 user2 = x
             }
         }
+        if (imageShow) {
+        var pathReference = storage.ref(`images/${user.email}`)
+    pathReference.getDownloadURL().then((url) => {
+      setImageURL(url)
+    })
+  }
         setCurrSearch(user)
         setSelf(user2)
     }
@@ -189,6 +199,7 @@ const Friends = (props) => {
     <div className={classes.photoContainer}>
       <Avatar
         className={classes.avatar}
+        src = {imageURL}
       />
     </div>
     <Grid container justify="center" alignItems="center" spacing={5}>

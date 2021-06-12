@@ -22,6 +22,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const App = () => {
+  const storage = firebase.storage()
+  const [image, setImage] = useState(null)
   const [firstName, setFirstName] = useState('')
   const [firstNameError, setFirstNameError] = useState('')
   const [lastNameError, setLastNameError] = useState('')
@@ -41,6 +43,7 @@ const App = () => {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [emailReset, setEmailReset] = useState('')
   const [emailResetError, setEmailResetError] = useState('')
+  const [imageError, setImageError] = useState('')
   const db = firebase.firestore()
   const clearInputs = () => {
     setEmail('')
@@ -116,6 +119,9 @@ const App = () => {
     if (description === '') {
       setDescriptionError('Please key in a short description about yourself')
     }
+    if (image === null) {
+      setImageError('Please upload a profile picture')
+    }
     else {
     fire
     .auth()
@@ -152,6 +158,17 @@ const App = () => {
         db.collection('followers').doc(`${email}`).set({})
         db.collection('RiskLevel').doc(`${email}`).set({})
         db.collection('Amount').doc(`${email}`).set({})
+        const uploadTask = storage.ref(`images/${email}`).put(image)
+        uploadTask.on(
+          "state_changed",
+          snapshot => {},
+          error => {
+            console.log(error)
+          },
+          () => {
+            
+          }
+        )
 
     }
       }
@@ -253,6 +270,9 @@ const App = () => {
         setDescriptionError = {setDescriptionError}
         genderError = {genderError}
         setGenderError = {setGenderError}
+        image = {image}
+        setImage = {setImage}
+        imageError = {imageError}
         />
           )
 

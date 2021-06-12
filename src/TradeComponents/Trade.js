@@ -53,10 +53,6 @@ const Trade = ({ handleLogout }) => {
     setPrint(true);
   };
 
-  const setPrintFalse = () => {
-    setPrint(false);
-  };
-
   const handleAddAmount = () => {
         db.collection("Amount").doc(`${userEmail}`).update({
             Amount : placeholderamount
@@ -76,7 +72,6 @@ const Trade = ({ handleLogout }) => {
             placeholder="Amount..."
             value={placeholderamount}
             onChange={onHandleAmountChange}
-            onClick={setPrintFalse}
           />
           <h2>
             <Button variant="contained" onClick={() => {setPrintTrue(); handleAddAmount()}}>
