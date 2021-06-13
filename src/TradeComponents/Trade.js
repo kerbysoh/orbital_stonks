@@ -42,11 +42,11 @@ const Trade = ({ handleLogout }) => {
 
   const onHandleAmountChange = (e) => {
     // if value is not blank, then test the regex
-    if (amount === "" || regexp.test(amount)) {
+    /* if (amount === "" || regexp.test(amount)) { */
       setPlaceholderAmount(e.target.value);
-    } else {
+    /* } else {
       setPlaceholderAmount("");
-    }
+    } */
   };
 
   const setPrintTrue = () => {

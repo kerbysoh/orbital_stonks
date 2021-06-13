@@ -1,95 +1,10 @@
-# imports
-import ibapi
-from ibapi.client import EClient
-from ibapi.wrapper import EWrapper
-
-#
-from ibapi.contract import Contract
-from ibapi.order import *
-import threading
-import time
-
-# vars
-
-# Class for IB Connection
-
-
-class IBApi(EWrapper, EClient):
-    def __init__(self):
-        EClient.__init__(self, self)
-    # Listen for realtime bars
-
-    def realtimeBar(self, reqId, time, open_, high, low, close, volume, wap, count):
-        super().realtimeBar(reqId, time, open_, high, low, close, volume, wap, count)
-        try:
-            bot.on_bar_update(reqId, time, open_, high, low,
-                              close, volume, wap, count)
-        except Exception as e:
-            print(e)
-
-    def error(self, id, errorCode, errorMsg):
-        print(errorCode)
-        print(errorMsg)
-
-
-# Bot Logic
-class Bot():
-    ib = None
-
-    def __init__(self):
-        # connect to IB on init
-        self.ib = IBApi()
-        self.ib.connect("127.0.0.1", 7496, 1)
-        ib_thread = threading.Thread(target=self.run_loop, daemon=True)
-        ib_thread.start()
-        time.sleep(1)
-        # get symbol
-        symbol = input("Enter the symbol you wwant to trade : ")
-        # create our IB Contract Object
-        contract = Contract()
-        contract.symbol = symbol.upper()
-        contract.secType = "STK"
-        contract.exchange = "SMART"
-        contract.currency = "USD"
-        # Request Mkt Data
-        self.ib.reqRealTimeBars(0, contract, 5, "TRADES", 1, [])
-
-        # Submit order
-        # Create order object
-        order = Order()
-        order.orderType = "MKT"  # or LMT ETC...
-        order.action = "BUY"
-        quantity = 1
-        order.totalQuantity = quantity
-        # Create Contract object
-        contract = Contract()
-        contract.symbol = symbol
-        contract.secType = "STK"  # or FUT ETC...
-        contract.exchange = "SMART"
-        contract.primaryExchange = "ISLAND"
-        contract.currency = "USD"
-        # Place Order
-        self.ib.placeOrder(6, contract, order)  # number is the order ID
-    # Listen to socket in seperate thread
-
-    def run_loop(self):
-        self.ib.run()
-
-    # pass realtime bar data back to our bot object
-    def on_bar_update(self, reqId, time, open_, high, low, close, volume, wap, count):
-        print(close)
-
-
-# start Bot
-bot = Bot()
-
-""" # Imports
+# Imports
 import ibapi
 from ibapi.client import EClient
 from ibapi.wrapper import EWrapper
 from ibapi.contract import Contract
 from ibapi.order import *
-#import ta
+import ta
 import numpy as np
 import pandas as pd
 import pytz
@@ -311,4 +226,3 @@ class Bot:
 
 # Start Bot
 bot = Bot()
-"""
