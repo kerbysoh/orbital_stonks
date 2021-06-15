@@ -8,14 +8,13 @@ import './Stock.css'
 import BasicTable from './BasicTable'
 import Button from '@material-ui/core/Button'
 
-const Stock = ({handleLogout}) => {
+const Stock = (props) => {
+const {handleLogout, stock, setStock } = props
     const db = firebase.firestore()
     const userEmail = fire.auth().currentUser.email
     const [search, setSearch] = useState('')
     const API_KEY = 'TQ6LE1RSC9LBHZTL';
     const [searchOn, setSearchOn] = useState(false)
-    const [stock, setStock] = useState([])
-
     const handleAddStock = (e) => {
         e.preventDefault()
         db.collection("Stocks").doc(`${userEmail}`).update({
@@ -105,7 +104,7 @@ const Stock = ({handleLogout}) => {
             </form>
           </div>
         </div>
-        <BasicTable stock = {stock} removeItem = {removeItem}/>
+        <BasicTable stock = {stock} setStock = {setStock} removeItem = {removeItem}/>
       </div>
     );
 }

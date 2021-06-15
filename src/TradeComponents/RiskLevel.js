@@ -44,12 +44,21 @@ export default function RiskLevel() {
   },
   tableHeaderCell: {
     fontWeight: 'bold',
-    backgroundColor: theme.palette.secondary.dark,
+    backgroundColor: 'black',
     color: theme.palette.getContrastText(theme.palette.secondary.dark)
   },
   tableBody: {
     margin: 'auto',
   },
+
+  radio: {
+    margin: 'auto',
+    '&$checked': {
+      color: '#000000'
+    }
+  },
+  checked: {},
+
 }));
     const classes = useStyles()
 
@@ -75,10 +84,9 @@ export default function RiskLevel() {
               </TableHead>
               <TableBody className = {classes.tableBody}>
                 <RadioGroup aria-label="risk" name="risklevel" value={databasevalue} onChange={handleChange}>
-                    <FormControlLabel className = {classes.tableBody} value="Low" control={<Radio />} label="Low" />
-                    <FormControlLabel className = {classes.tableBody} value="Medium" control={<Radio />} label="Medium" />
-                    <FormControlLabel className = {classes.tableBody} value="High" control={<Radio />} label="High" />
-                    {/* <FormControlLabel className = {classes.tableBody}value="disabled" disabled control={<Radio />} label="(Disabled option)" /> */}
+                    <FormControlLabel className = {classes.tableBody} value="Low" control={<Radio classes={{root: classes.radio, checked: classes.checked}} />} label="Low" />
+                    <FormControlLabel className = {classes.tableBody} value="Medium" control={<Radio classes={{root: classes.radio, checked: classes.checked}}  />} label="Medium" />
+                    <FormControlLabel className = {classes.tableBody} value="High" control={<Radio classes={{root: classes.radio, checked: classes.checked}}  />} label="High" />
                 </RadioGroup>
               </TableBody>
           </Table>

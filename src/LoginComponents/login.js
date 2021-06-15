@@ -1,5 +1,10 @@
 import React from 'react'
 import { Link }  from 'react-router-dom'
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+
 const Login = (props) => {
     
     
@@ -30,9 +35,13 @@ const Login = (props) => {
                 <input type = "lastName" autoFocus required value = {lastName} onChange = {(e) => setLastName(e.target.value)}/>
                 <p className = "errorMsg">{lastNameError}</p>
                 <label>Gender</label> 
-                <button onClick = {() => setGender("Male")}>Male</button>
-                <button onClick = {() => setGender("Female")}>Female</button>
-                <button onClick = {() => setGender("Others")}>Others</button>
+                <FormControl component="fieldset">
+                    <RadioGroup aria-label="gender" name="gender1" >
+                        <FormControlLabel onClick = {() => setGender("Male")} value="male" control={<Radio />} label="Male" />
+                        <FormControlLabel onClick = {() => setGender("Female")} value="female" control={<Radio />} label="Female" />
+                        <FormControlLabel onClick = {() => setGender("Others")} value="others" control={<Radio />} label="Others" />
+                    </RadioGroup>
+                </FormControl>
                 <p className = "errorMsg">{genderError}</p>
                 <label>A short description of yourself</label> 
                 <input type = "description" autoFocus required value = {description} onChange = {(e) => setDescription(e.target.value)}/>

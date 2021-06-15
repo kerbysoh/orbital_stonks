@@ -31,6 +31,7 @@ const Feed = (props) => {
     const [replyOn, setReplyOn] = useState(false)
     const [currView, setCurrView] = useState('')
     const [reply, setReply] = useState('')
+    const [users, setUsers] = useState('')
     const [comments, setComments] = useState([])
     const {handleLogout} = props
     const increment = firebase.firestore.FieldValue.increment(1)
@@ -135,6 +136,16 @@ const Feed = (props) => {
                 })) 
                 setPosts(data)
             })
+            db.collection('users')
+            .limit(10000)
+            .onSnapshot(querySnapshot => {
+                const data = querySnapshot.docs.map(doc => ({
+                    ...doc.data(),
+                    id: doc.id,
+    
+                })) 
+                setUsers(data)
+            })
             db.collection('friends')
             .doc(fire.auth().currentUser.email)
             .onSnapshot((doc) => {
@@ -170,15 +181,28 @@ const Feed = (props) => {
     return (
         <div>
         <Navbar handleLogout = {handleLogout} />
-        
+        <form className = 'postForm'>
         <textarea className = "post" type = "text" value = {newPost} onChange = {handleOnChange} placeholder = "What's on your mind?" name="msg" required></textarea>
-        <button className = "postButton" type = "submit" disabled = {!newPost} onClick = {handleNewPost}>Post</button>
+        <Button variant = "contained" color = 'primary' className = 'postButton' type = "submit" onClick = {handleNewPost}>Post</Button>
+        </form>
         <div className = {classes.root}>
         <Grid className = 'listMsg' container spacing = {3}>
             {posts.map((post) => {
                 if (Object.keys(friends).includes(post.email.slice(0,post.email.length - 4)) || (post.email === fire.auth().currentUser.email)) 
                 {
-                    return (<Grid className = 'post2' item xs = {12}><span className ='postemail'>{post.email}</span> <span className = 'postdate'>{post.date}</span> {post.text} <FavoriteIcon className = 'like-button' onClick = {() => handleLike(post.id)}/>{(post.email === fire.auth().currentUser.email) ? <><DeleteIcon className = 'like-button'  onClick = {() => handleDeletePost(post.id)} /></> : null}<Button className = "clickfriends" onClick = {() => {setCurrView(post.id) ; setReply(''); setReplyOn(false)}}>View Comments</Button><Button className = "clickfriends" onClick = {() => {setReplyOn(true); setCurrReply(post.id)}}>Reply</Button><h2 className = 'likes'>{post.likes} likes</h2>
+                    return (
+                        <><div class="post3">
+                        <div class="header__left">
+                        <div class="post__author author">
+                          <span class="author__name">
+                         {post.email}
+                          </span>
+                        </div>
+                        <span class="post__date">
+                          Posted {post.date}
+                        </span>
+                      </div>
+                    <Grid className = 'post2' item xs = {12}><p className = 'content'> {post.text} </p> <div class="post__footer footer"><span className = 'likes'>{post.likes} likes</span></div><FavoriteIcon className = 'like-button' onClick = {() => handleLike(post.id)}/>{(post.email === fire.auth().currentUser.email) ? <><DeleteIcon className = 'like-button'  onClick = {() => handleDeletePost(post.id)} /></> : null}<Button className = "clickfriends" onClick = {() => {setCurrView(post.id) ; setReply(''); setReplyOn(false)}}>View Comments</Button><Button className = "clickfriends" onClick = {() => {setReplyOn(true); setCurrReply(post.id)}}>Reply</Button> 
                     {(currView === post.id) ?<> {
                         comments.map((comment) => {
                             if (comment.postID === currView) {
@@ -188,7 +212,9 @@ const Feed = (props) => {
                         }
                         )
                     }</> : null}
-                    </Grid>)
+                    </Grid>
+                    </div>
+                    </>)
                 } else {
                 return null
                 }})}

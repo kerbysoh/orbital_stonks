@@ -12,23 +12,21 @@ const StockGraphs = (props) => {
   const [stockChartXValues, setStockChartXValues] = useState([]);
   const [stockChartYValues, setStockChartYValues] = useState([]);
   const [changePercent, setChangePercent] = useState("");
-  const [date, setDate] = useState("");
+
   const [price, setPrice] = useState("");
   const [name, setName] = useState("");
   const [low, setLow] = useState("");
   const [high, setHigh] = useState("");
   const [volume, setVolume] = useState("");
-
-  const { handleLogout } = props;
-  const location = useLocation();
+  const {handleLogout, stock, setStock } = props
+  
     
   useEffect(() => {
     const fetchStock = () => {
-      const StockSymbol = location.state.name;
       const API_KEY = "TQ6LE1RSC9LBHZTL";
-      let API_Call = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${StockSymbol}&outputsize=compact&apikey=${API_KEY}`;
-      let API_Call_2 = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${StockSymbol}&apikey=${API_KEY}`;
-      let API_Call_3 = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${StockSymbol}&apikey=${API_KEY}`;
+      let API_Call = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${stock}&outputsize=compact&apikey=${API_KEY}`;
+      let API_Call_2 = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stock}&apikey=${API_KEY}`;
+      let API_Call_3 = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${stock}&apikey=${API_KEY}`;
 
       let stockChartXValuesFunction = [];
       let stockChartYValuesFunction = [];
@@ -53,7 +51,6 @@ const StockGraphs = (props) => {
           return response.json();
         })
         .then(function (data) {
-          setDate(data["Global Quote"]["07. latest trading day"]);
           setChangePercent(data["Global Quote"]["10. change percent"]);
           setPrice(data["Global Quote"]["05. price"]);
           setHigh(data["Global Quote"]["03. high"]);
@@ -76,12 +73,11 @@ const StockGraphs = (props) => {
     <>
       <Navbar handleLogout={handleLogout} />
       <div className="cards">
-        <h1>Check out these statistics!</h1>
         <div className="cards__container">
           <div className="cards__wrapper">
             <CardItem text={name} label="Stock" />
             <CardItem
-              text={location.state.name}
+              text={stock}
               label="Stock Ticker"
             />
             <ul className="cards__items">
@@ -108,10 +104,6 @@ const StockGraphs = (props) => {
               <CardItem
                 text={price}
                 label="Current Price"
-              />
-              <CardItem
-                text={date}
-                label="Today's Date"
               />
             </ul>
             <ul className="cards__items">

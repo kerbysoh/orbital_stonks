@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function BasicTable({stock, removeItem}) {
+export default function BasicTable({stock, setStock, removeItem}) {
   const classes = useStyles();
 
   return (
@@ -50,12 +50,9 @@ export default function BasicTable({stock, removeItem}) {
               </TableCell>
               <TableCell align="left"><Button key={key}>
                 <Link
-                  to={{
-                    pathname: "/StockGraphs",
-                    state: {
-                      name: key,
-                    },
-                  }} className = 'stockGraphLink'
+                  to = "/StockGraphs"
+                    className = 'stockGraphLink'
+                    onClick = {setStock(key)}
                 >
                   View stock data
                 </Link>

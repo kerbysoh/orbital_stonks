@@ -22,6 +22,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const App = () => {
+  const [stock, setStock] = useState('')
   const storage = firebase.storage()
   const [image, setImage] = useState(null)
   const [firstName, setFirstName] = useState('')
@@ -158,6 +159,7 @@ const App = () => {
         db.collection('followers').doc(`${email}`).set({})
         db.collection('RiskLevel').doc(`${email}`).set({})
         db.collection('Amount').doc(`${email}`).set({})
+        db.collection('Transaction').doc(`${email}`).set({})
         const uploadTask = storage.ref(`images/${email}`).put(image)
         uploadTask.on(
           "state_changed",
@@ -217,13 +219,13 @@ const App = () => {
           {user ? <ViewFriends handleLogout = {handleLogout} /> : <Link to = {'/'}>Log in</Link>}
         </Route>
         <Route path = '/StockGraphs'>
-        {user ? <StockGraphs handleLogout = {handleLogout}  /> : <Link to = {'/'}>Log in</Link>}
+        {user ? <StockGraphs handleLogout = {handleLogout} stock = {stock} setStock = {setStock}   /> : <Link to = {'/'}>Log in</Link>}
         </Route>
         <Route path = '/Trade'>
           {user ? <Trade handleLogout = {handleLogout} /> : <Link to = {'/'}>Log in</Link>}
         </Route>
         <Route path = '/Stock'>
-          {user ? <Stock handleLogout = {handleLogout} /> : <Link to = {'/'}>Log in</Link>}
+          {user ? <Stock handleLogout = {handleLogout} stock = {stock} setStock = {setStock} /> : <Link to = {'/'}>Log in</Link>}
         </Route>
         <Route path = '/Feed'>
         {user ? <Feed handleLogout = {handleLogout} /> : <Link to = {'/'}>Log in</Link>}

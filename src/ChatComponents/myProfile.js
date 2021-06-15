@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     maxWidth: 550,
     margin: "auto",
     marginTop: "5rem",
-    background: "linear-gradient(45deg, #539ad4 30%, #093457 90%)",
+    background: "linear-gradient(45deg, #636363 30%, #262525 90%)",
     border: 0,
     borderRadius: 3,
     boxShadow: "0 3px 5px 2px rgba(0, 105, 135, .3)",
@@ -33,6 +33,7 @@ const useStyles = makeStyles({
   title: {
     fontSize: 36,
     textAlign: "center",
+    color: 'white',
   },
   center: {
     textAlign: "center",
@@ -40,6 +41,7 @@ const useStyles = makeStyles({
   pos: {
     textAlign: "center",
     marginBottom: 24,
+    color: "white",
   },
 });
 
