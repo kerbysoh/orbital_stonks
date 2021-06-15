@@ -36,7 +36,7 @@ export default function BasicTable({stock, removeItem}) {
           <TableRow>
             <TableCell className = {classes.tableHeaderCell}>Stocks</TableCell>
             <TableCell className = {classes.tableHeaderCell} align="Center">View Stock</TableCell>
-            <TableCell className = {classes.tableHeaderCell} align="Center">Remove Button</TableCell>
+            <TableCell className = {classes.tableHeaderCell} align="Center"></TableCell>
 
  
           </TableRow>
@@ -55,7 +55,7 @@ export default function BasicTable({stock, removeItem}) {
                     state: {
                       name: key,
                     },
-                  }}
+                  }} className = 'stockGraphLink'
                 >
                   View stock data
                 </Link>

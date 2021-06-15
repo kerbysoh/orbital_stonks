@@ -4,7 +4,6 @@
   font-size: 16px;
   letter-spacing: 1px;
   cursor: pointer;
-  border-radius: 3px;
   background-color: rgb(0, 0, 0);
   display: flex;
   justify-content: center;
@@ -13,4 +12,67 @@
 .clicknews :hover {
   opacity: 1;
   background-color: #636768;
+}
+
+.all__news {
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1px;
+}
+
+.news {
+  max-width: 500px;
+  padding: 15px;
+  border-radius: 20px;
+}
+
+.news__title {
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgb(158, 157, 157);
+}
+
+.head__text {
+  margin-top: 20px;
+}
+
+.news__desc {
+  padding-top: 10px;
+  line-height: 25px;
+  font-size: 14px;
+  padding-bottom: 10px;
+}
+
+.news__author {
+  margin-right: 10px;
+  color: rgb(49, 48, 48);
+}
+
+.news__published {
+  margin-right: 10px;
+}
+
+.news__source,
+.news__published {
+  display: inline-block;
+  margin-top: 5px;
+  color: rgb(51, 50, 50);
+}
+.errmsgsearch {
+  display: inline-block;
+  color: red;
+  margin-left: 10px;
+}
+.head__text {
+  text-align: center;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-weight: bold;
+}
+
+.news_img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-block-size: 10rem;
 }

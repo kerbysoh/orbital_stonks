@@ -83,6 +83,7 @@ const Feed = (props) => {
         db.collection('users').doc(fire.auth().currentUser.email).update({
             posts: decrement
         })
+        setReplyOn(false)
 
     }
     const handleLike = (x) => {
@@ -111,7 +112,8 @@ const Feed = (props) => {
             if (!docSnapshot.exists) {
                 db.collection('Likes').doc(x).set({})
             }})
-            }}})}
+            }}})
+            setReplyOn(false)}
     const handleOnChange = e => {
         setNewPost(e.target.value)
         
@@ -169,14 +171,14 @@ const Feed = (props) => {
         <div>
         <Navbar handleLogout = {handleLogout} />
         
-        <textarea className = "post" type = "text" value = {newPost} onChange = {handleOnChange} placeholder="How are you feeling today?" name="msg" required></textarea>
+        <textarea className = "post" type = "text" value = {newPost} onChange = {handleOnChange} placeholder = "What's on your mind?" name="msg" required></textarea>
         <button className = "postButton" type = "submit" disabled = {!newPost} onClick = {handleNewPost}>Post</button>
         <div className = {classes.root}>
         <Grid className = 'listMsg' container spacing = {3}>
             {posts.map((post) => {
                 if (Object.keys(friends).includes(post.email.slice(0,post.email.length - 4)) || (post.email === fire.auth().currentUser.email)) 
                 {
-                    return (<Grid className = 'listMsgItems' item xs = {12}><span className ='postemail'>{post.email}</span> <span className = 'postdate'>{post.date}</span> {post.text} <FavoriteIcon onClick = {() => handleLike(post.id)}/>{(post.email === fire.auth().currentUser.email) ? <><DeleteIcon  onClick = {() => handleDeletePost(post.id)} /></> : null}<Button className = "clickfriends" onClick = {() => {setCurrView(post.id) ; setReply(''); setReplyOn(false)}}>View Comments</Button><Button className = "clickfriends" onClick = {() => {setReplyOn(true); setCurrReply(post.id)}}>Reply</Button><h2 className = 'likes'>{post.likes} likes</h2>
+                    return (<Grid className = 'post2' item xs = {12}><span className ='postemail'>{post.email}</span> <span className = 'postdate'>{post.date}</span> {post.text} <FavoriteIcon className = 'like-button' onClick = {() => handleLike(post.id)}/>{(post.email === fire.auth().currentUser.email) ? <><DeleteIcon className = 'like-button'  onClick = {() => handleDeletePost(post.id)} /></> : null}<Button className = "clickfriends" onClick = {() => {setCurrView(post.id) ; setReply(''); setReplyOn(false)}}>View Comments</Button><Button className = "clickfriends" onClick = {() => {setReplyOn(true); setCurrReply(post.id)}}>Reply</Button><h2 className = 'likes'>{post.likes} likes</h2>
                     {(currView === post.id) ?<> {
                         comments.map((comment) => {
                             if (comment.postID === currView) {

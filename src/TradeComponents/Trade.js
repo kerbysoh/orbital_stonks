@@ -65,24 +65,34 @@ const Trade = ({ handleLogout }) => {
       <div>
         <RiskLevel></RiskLevel>
         <form className="footer-subscription">
-          <label>Type in amount : </label>
+          <label className="price-display">Type in amount : </label>
           <input
-            type= "number"
+            type="number"
             name="amount"
             placeholder="Amount..."
             value={placeholderamount}
             onChange={onHandleAmountChange}
           />
           <h2>
-            <Button variant="contained" onClick={() => {setPrintTrue(); handleAddAmount()}}>
+            <Button
+              variant="contained"
+              onClick={() => {
+                setPrintTrue();
+                handleAddAmount();
+              }}
+            >
               Set Current Amount
             </Button>
           </h2>
           <br />
           {print & hasrisk ? (
-            
             <header className="price-display"> Investing: ${amount}</header>
-          ) : <header className="price-display"> Select Risk Level and Input Amount</header>}
+          ) : (
+            <header className="price-display">
+              {" "}
+              Select Risk Level and Input Amount
+            </header>
+          )}
         </form>
       </div>
     </>

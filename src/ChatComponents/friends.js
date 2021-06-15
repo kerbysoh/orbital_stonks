@@ -176,7 +176,7 @@ const Friends = (props) => {
 
         <div className = "chatPage">
         <Navbar handleLogout = {handleLogout} />
-            <button><Link to = '/viewfriends'>View Followed Friends</Link></button>
+        <Button color = 'primary' variant = 'outlined'><Link to = '/viewfriends' className = 'linkPage'>View Followed Users</Link></Button>
         <SearchBox className = "friendSearch"
         placeholder="Key in user email"
         handleChange={(e) => setSearch(e.target.value)}

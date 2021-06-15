@@ -3,6 +3,7 @@ import NewsArticle from "./NewsArticle"
 import axios from 'axios'
 import Navbar from '../components/Navbar'
 import SearchBox from '../Search/SearchBox'
+import SearchIcon from '@material-ui/icons/Search';
 import './News.css'
 
 
@@ -35,13 +36,11 @@ const News = (props) => {
       
       <div className="news_page">
         <Navbar handleLogout = {handleLogout} />
-        <h1 className="head__text">STONKS NEWS</h1>
-      
         <SearchBox
           placeholder="Search..."
           handleChange={(e) => setSearch(e.target.value)}
         ></SearchBox>
-        <button onClick={handleSearch} className = "clickfriends"> Search </button>
+        <SearchIcon className = 'search2' onClick={handleSearch} fontSize = 'large'/>
   
         <div className="all__news">
           {data

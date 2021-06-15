@@ -28,6 +28,11 @@
   display: flex;
   align-items: center;
 }
+.navbar-logo:hover {
+  text-decoration: none;
+  transform: scale(1.2);
+  color: white
+}
 
 .fa-typo3 {
   margin-left: 0.5rem;
@@ -61,6 +66,8 @@
 .nav-links:hover {
   border-bottom: 4px solid #fff;
   transition: all 0.2s ease-out;
+  text-decoration: none;
+  color: white
 }
 
 .fa-bars {
@@ -111,6 +118,7 @@
     background-color: #fff;
     color: #242424;
     border-radius: 0;
+    text-decoration: none;
   }
 
   .navbar-logo {

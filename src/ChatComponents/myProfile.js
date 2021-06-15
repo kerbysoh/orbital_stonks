@@ -15,23 +15,30 @@ import MyProfileFollow from './myProfileFollow.js'
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 275,
-    margin: 'auto',
+    maxWidth: 550,
+    margin: "auto",
+    marginTop: "5rem",
+    background: "linear-gradient(45deg, #539ad4 30%, #093457 90%)",
+    border: 0,
+    borderRadius: 3,
+    boxShadow: "0 3px 5px 2px rgba(0, 105, 135, .3)",
+    color: "white",
+    padding: "0 30px",
   },
   bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
+    display: "inline-block",
+    margin: "0 2px",
+    transform: "scale(0.8)",
   },
   title: {
     fontSize: 36,
-    textAlign: 'center',
+    textAlign: "center",
   },
   center: {
-    textAlign: 'center',
+    textAlign: "center",
   },
   pos: {
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 24,
   },
 });
@@ -44,6 +51,10 @@ const useAvatarStyles = makeStyles((theme) => ({
     },
     justifyContent:'center', 
       alignItems:'center',
+  },
+  sizeAvatar: {
+    height: theme.spacing(15),
+    width: theme.spacing(15),
   },
   orange: {
     color: theme.palette.getContrastText(deepOrange[500]),
@@ -89,15 +100,15 @@ return (<>
      
     <Card className={classes.root}>
       <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
+        <Typography className={classes.title} color="textPrimary" gutterBottom>
           My Profile
         </Typography>
         
         <div className={avatarclasses.root}>
-        <Avatar className = 'avatar' src = {imageURL}/>
+        <Avatar className = {avatarclasses.sizeAvatar} src = {imageURL}/>
         <MyProfileFollow></MyProfileFollow>
         </div>
-        <Typography className={classes.center} variant="h5" component="h2">
+        <Typography className={classes.center} variant="h4" component="h2">
           {user.firstname} {user.lastname}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">

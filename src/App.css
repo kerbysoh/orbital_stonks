@@ -6,11 +6,16 @@
   padding: 0;
   font-family: "Nunito", sans-serif;
 }
+
 .postemail {
   display: block;
 }
 .postdate {
   display: block;
+}
+
+.linkPage:hover {
+  text-decoration: none;
 }
 button {
   border: none;
@@ -141,70 +146,6 @@ button {
   background: #010303;
 }
 
-.all__news {
-  margin: 50px auto;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 20px;
-}
-
-.news {
-  max-width: 500px;
-  padding: 30px;
-  border: 2.5px solid rgb(56, 55, 55);
-  border-radius: 20px;
-}
-
-.news__title {
-  padding-bottom: 14px;
-  border-bottom: 1px solid rgb(158, 157, 157);
-}
-
-.head__text {
-  margin-top: 20px;
-}
-
-.news__desc {
-  padding-top: 10px;
-  line-height: 25px;
-  font-size: 14px;
-  padding-bottom: 10px;
-}
-
-.news__author {
-  margin-right: 10px;
-  color: rgb(49, 48, 48);
-}
-
-.news__published {
-  margin-right: 10px;
-}
-
-.news__source,
-.news__published {
-  display: inline-block;
-  margin-top: 5px;
-  color: rgb(51, 50, 50);
-}
-.errmsgsearch {
-  display: inline-block;
-  color: red;
-  margin-left: 10px;
-}
-.head__text {
-  text-align: center;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  font-weight: bold;
-}
-
-.news_img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  max-block-size: 10rem;
-}
-
 .click {
   border: 100;
   outline: 100;
@@ -273,16 +214,13 @@ button {
   margin-top: 5px;
   min-height: 15px;
 }
-
+.like-button:hover {
+  transform: scale(1.1)
+}
 .news_page {
   width: 100%;
   min-height: 100vh;
-  background: radial-gradient(
-    ellipse at left bottom,
-    rgb(223, 235, 241) 0%,
-    rgba(179, 184, 187, 0.9) 59%,
-    rgba(140, 145, 150, 0.9) 100%
-  );
+  background: white;
 }
 
 .stocks {
@@ -378,14 +316,27 @@ button {
   bottom: 0;
 }
 .post {
-  border-radius: 20px;
-  margin-bottom: 10px;
+  border-radius: 50px;
+    margin-bottom: 10px;
+    padding-left: 15px;
+    border: 0px;
+    background-color: rgb(231, 229, 229);
+    width: 50%;
+    height: 60px;
+    cursor: pointer;
+    resize: none;
+    margin-top: 30px
+}
+.post:focus {
+  outline: none
+}
+
+.post2 {
+  display: flex;
+  background-color: white;
+  border-radius: 5px;
+  padding-top: 10px;
   padding-left: 15px;
-  border: 0px;
-  background-color: rgb(231, 229, 229);
-  width: 90%;
-  height: 10%;
-  cursor: pointer;
 }
 .messageSend {
   width: 100%;
@@ -406,6 +357,13 @@ button {
   width: auto;
   border-radius: 5px;
   list-style-type: none;
+}
+.stockGraphLink {
+  color:black
+}
+.stockGraphLink:hover {
+  text-decoration: none;
+  color: black
 }
 .chatBubbleLeft {
   padding: 10px 14px;
@@ -446,7 +404,9 @@ button {
   border-style: solid;
   border-color: black;
 }
-
+.search2:hover {
+  transform: scale(1.2)
+}
 .listFriends {
   margin-left: auto;
   margin-right: auto;

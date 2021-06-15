@@ -5,6 +5,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import 'firebase/firestore'
 import firebase from 'firebase/app'
 import fire from '../fire'
+
 const MyProfileFollow = () =>  {
 const db = firebase.firestore()
 const [user, setUser] = useState({})
@@ -31,22 +32,17 @@ const useStyles = makeStyles((theme) => ({
     '& > *': {
       margin: theme.spacing(2),
     },
-  },
+  }
 }));
-
-const defaultProps = {
-  color: 'secondary',
-  children: <MailIcon />,
-};
 
 
 const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      {user.posts ? <Badge badgeContent={user.posts}>Posts</Badge> : <Badge badgeContent='0'>Posts</Badge>}
-      {user.followers ? <Badge badgeContent={user.followers}>Followers</Badge> : <Badge badgeContent='0'>Followers</Badge>}
-      {user.followed ? <Badge badgeContent={user.followed}>Following</Badge> : <Badge badgeContent='0'>Following</Badge>}
+      {user.posts ? <Badge color = 'primary' badgeContent={user.posts}>Posts</Badge> : <Badge  color = 'primary' badgeContent='0'>Posts</Badge>}
+      {user.followers ? <Badge color = 'primary' badgeContent={user.followers}>Followers</Badge> : <Badge color = 'primary' badgeContent='0'>Followers</Badge>}
+      {user.followed ? <Badge color = 'primary' badgeContent={user.followed}>Following</Badge> : <Badge  color = 'primary' badgeContent='0'>Following</Badge>}
     </div>
   );
 }

@@ -91,8 +91,8 @@ const Navbar = ({handleLogout}) => {
               </Link>
             </li>
             <li className='nav-item'>
-              <Button
-                onClick={() => {closeMobileMenu() ; handleLogout()}} variant = "contained" color = "secondary"
+              <Button className = 'nav-links'
+                onClick={() => {closeMobileMenu() ; handleLogout()}} variant = "contained" 
               >
                 Log out
               </Button>
