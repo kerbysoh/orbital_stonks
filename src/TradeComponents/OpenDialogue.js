@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -10,10 +10,15 @@ import firebase from 'firebase/app'
 import fire from '../fire'
 
 export default function AlertDialog(props) {
-    const db = firebase.firestore()
+  const db = firebase.firestore()
   const userEmail = fire.auth().currentUser.email
-
-  const [open, setOpen] = React.useState(false);
+  const transaction = {Ticker: props.ticker,
+            Amount: props.amount,
+            StartDate: props.startDate,
+            EndDate: props.endDate,
+            ProfitAndLoss: 0};
+            
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -25,21 +30,20 @@ export default function AlertDialog(props) {
 
   const handleAddAmount = () => {
         db.collection("Amount").doc(`${userEmail}`).update({
-            Amount : props.placeholderamount
-        })
-        db.collection('Transaction').doc(`${userEmail}`).add({
-          Ticker: "XYZ",
-          Amount: 12345,
-          StartDate: 211018,
-          EndDate: 211119,
-          ProfitAndLoss: 5,
+            Amount : props.amount
         })
   };
+
+  const handleAddTransaction = () => {
+         db.collection('Transaction').doc(`${userEmail}`).update({
+            [props.ticker] : transaction
+        })
+  }
 
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Set Amount
+        Set Transaction
       </Button>
       <Dialog
         open={open}
@@ -47,17 +51,17 @@ export default function AlertDialog(props) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="Set Amount?">{"Set Amount?"}</DialogTitle>
+        <DialogTitle id="Set Transaction?">{"Set Transaction?"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Confirm Trading Amount
+            Confirm Trade?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Disagree
           </Button>
-          <Button onClick={() => {handleClose(); handleAddAmount();}} color="primary" autoFocus>
+          <Button onClick={() => {handleClose(); handleAddAmount(); handleAddTransaction();}} color="primary" autoFocus>
             Agree
           </Button>
         </DialogActions>

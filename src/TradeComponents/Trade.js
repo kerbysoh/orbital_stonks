@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import RiskLevel from "./RiskLevel";
-import Button from "@material-ui/core/Button";
 import firebase from 'firebase/app'
 import fire from '../fire'
 import 'firebase/firestore'
-import OpenDialogue from './OpenDialogue'
 import Transaction from './Transaction'
+import Inputs from './InputsTrade'
 
 const Trade = ({ handleLogout }) => {
   const db = firebase.firestore()
@@ -18,16 +17,6 @@ const Trade = ({ handleLogout }) => {
   const [print, setPrint] = useState(false);
   const [hasrisk, setRisk] = useState(false)
 
-  const addTransaction = () => {
-    db.collection('Transaction').doc(`${userEmail}`).add({
-          Ticker: "XYZ",
-          Amount: 12345,
-          StartDate: 211018,
-          EndDate: 211119,
-          ProfitAndLoss: 5,
-        })
-    
-}
 
   useEffect (()=> {
         if (db) {
@@ -68,16 +57,8 @@ const Trade = ({ handleLogout }) => {
       <div>
         <RiskLevel></RiskLevel>
         <form className="footer-subscription">
-          <input
-            type="number"
-            name="amount"
-            placeholder="Set Amount..."
-            value={placeholderamount}
-            onChange={onHandleAmountChange}
-          />
-          <h2>
-            <OpenDialogue placeholderamount = {placeholderamount}></OpenDialogue>
-          </h2>
+          <Inputs></Inputs>
+          
           <br />
           {print & hasrisk ? (
             <header className="price-display"> Investing: ${amount}</header>
