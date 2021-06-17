@@ -1,6 +1,7 @@
 .cards {
   padding: 4rem;
   background: #fff;
+  align-items: left
 }
 
 h1 {

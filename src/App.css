@@ -351,6 +351,24 @@ button {
 .post:focus {
   outline: none;
 }
+.atIcon:hover {
+  transform: scale(1.5)
+}
+.editButton {
+  padding: 4px 0;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  letter-spacing: 1px;
+  height: 30px;
+  width: 120px;
+  margin-top: 0px;
+  cursor: pointer;
+  border-radius: 3px;
+  background-color: rgb(0, 0, 0);
+  justify-content: center;
+  align-items: center;
+  display: inline-block;
+}
 
 .post__header {
   display: flex;

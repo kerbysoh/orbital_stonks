@@ -11,14 +11,16 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
-import MyProfileFollow from './myProfileFollow.js'
+import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+import MyProfileFollow from './myProfileFollow.js';
+
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 550,
+    maxWidth: 1500,
     margin: "auto",
     marginTop: "5rem",
-    background: "linear-gradient(45deg, #636363 30%, #262525 90%)",
     border: 0,
     borderRadius: 3,
     boxShadow: "0 3px 5px 2px rgba(0, 105, 135, .3)",
@@ -33,15 +35,20 @@ const useStyles = makeStyles({
   title: {
     fontSize: 36,
     textAlign: "center",
-    color: 'white',
+    color: 'black',
   },
   center: {
-    textAlign: "center",
+    color: 'black',
+    marginLeft: '7.5rem'
+  },
+  email: {
+    color: 'black',
+    marginLeft: '3rem'
   },
   pos: {
     textAlign: "center",
     marginBottom: 24,
-    color: "white",
+    color: "black",
   },
 });
 
@@ -51,12 +58,13 @@ const useAvatarStyles = makeStyles((theme) => ({
     '& > *': {
       margin: theme.spacing(1),
     },
-    justifyContent:'center', 
+    justifyContent:'left', 
       alignItems:'center',
   },
   sizeAvatar: {
-    height: theme.spacing(15),
-    width: theme.spacing(15),
+    height: theme.spacing(40),
+    width: theme.spacing(40),
+
   },
   orange: {
     color: theme.palette.getContrastText(deepOrange[500]),
@@ -77,7 +85,26 @@ const MyProfile = (props) => {
     const bull = <span className={classes.bullet}>•</span>;
     const avatarclasses = useAvatarStyles();
     const [imageURL, setImageURL] = useState('')
-    
+    const calculate_age = (dob1) => {
+      var today = new Date();
+      var birthDate = new Date(dob1);  // create a date object directly from `dob1` argument
+      var age_now = today.getFullYear() - birthDate.getFullYear();
+      var m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
+      {
+          age_now--;
+      }
+      console.log(age_now);
+      return age_now;
+    }
+    const handleCopy = (content) => {
+      const el = document.createElement('textarea');
+      el.value = content;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+    }
     useEffect (() => {
         if (db) {
             const unsubscribe = db
@@ -102,31 +129,19 @@ return (<>
      
     <Card className={classes.root}>
       <CardContent>
-        <Typography className={classes.title} color="textPrimary" gutterBottom>
-          My Profile
-        </Typography>
+        
         
         <div className={avatarclasses.root}>
         <Avatar className = {avatarclasses.sizeAvatar} src = {imageURL}/>
         <MyProfileFollow></MyProfileFollow>
         </div>
-        <Typography className={classes.center} variant="h4" component="h2">
-          {user.firstname} {user.lastname}
+        <Typography className={classes.center} variant = 'h6' color="textSecondary">
+        {user.gender}, {calculate_age(user.dob)}
         </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          {user.email}
-        </Typography>
-        <Typography className={classes.center} variant="body2" component="p">
-          {user.Description}
-          <br />
-          {user.gender}
-          <br />
-          Born on: {user.dob}
+        <Typography className={classes.email} variant = 'h6' color="textSecondary">
+          <FileCopyIcon onClick = {() => {handleCopy(user.email)}} className = 'atIcon' color = 'primary'></FileCopyIcon> {user.email}
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small">Edit</Button>
-      </CardActions>
     </Card>
     </>
 )

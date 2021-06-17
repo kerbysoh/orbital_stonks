@@ -5,6 +5,9 @@ import MailIcon from '@material-ui/icons/Mail';
 import 'firebase/firestore'
 import firebase from 'firebase/app'
 import fire from '../fire'
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+
 
 const MyProfileFollow = () =>  {
 const db = firebase.firestore()
@@ -31,7 +34,26 @@ const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(2),
+      color: 'black'
     },
+    fontSize: 30
+  },
+  center: {
+    marginLeft: '7rem',
+
+    marginTop: '0rem'
+  },
+  badge: {
+    marginLeft: '7rem',
+    marginRight: '7rem',
+    marginTop: '0rem',
+    fontSize : 30
+  },
+  Description: {
+    marginTop: '=1rem',
+    display: 'flex',
+    marginLeft: '7rem',
+    fontSize : 20
   }
 }));
 
@@ -40,9 +62,14 @@ const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      {user.posts ? <Badge color = 'primary' badgeContent={user.posts}>Posts</Badge> : <Badge  color = 'primary' badgeContent='0'>Posts</Badge>}
-      {user.followers ? <Badge color = 'primary' badgeContent={user.followers}>Followers</Badge> : <Badge color = 'primary' badgeContent='0'>Followers</Badge>}
-      {user.followed ? <Badge color = 'primary' badgeContent={user.followed}>Following</Badge> : <Badge  color = 'primary' badgeContent='0'>Following</Badge>}
+      <Typography  className={classes.center} variant="h3" component="h2">
+          {user.firstname} {user.lastname}  <Button variant = 'contained' color = 'primary' className = 'editButton'>Edit Profile</Button>
+        </Typography>
+        
+      {<span className = {classes.badge}> {user.posts}   Posts</span> }
+      {<span className = {classes.badge}> {user.followers}   Followers</span> }
+      {<span className = {classes.badge}> {user.followed}   Following</span> }
+      <span className = {classes.Description}>{user.Description}</span>
     </div>
   );
 }
