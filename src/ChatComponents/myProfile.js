@@ -20,7 +20,6 @@ const useStyles = makeStyles({
   root: {
     maxWidth: 1500,
     margin: "auto",
-    marginTop: "5rem",
     border: 0,
     borderRadius: 3,
     boxShadow: "0 3px 5px 2px rgba(0, 105, 135, .3)",

@@ -60,14 +60,7 @@ const Trade = ({ handleLogout }) => {
           <Inputs></Inputs>
           
           <br />
-          {print & hasrisk ? (
-            <header className="price-display"> Investing: ${amount}</header>
-          ) : (
-            <header className="price-display">
-              {" "}
-              Select Risk Level and Input Amount
-            </header>
-          )}
+          
           <Transaction></Transaction>
         </form>
       </div>

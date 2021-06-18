@@ -45,6 +45,7 @@ export default function BasicTable() {
         <TableHead>
           <TableRow>
             <TableCell>Ticker</TableCell>
+            <TableCell align="right">Risk Level</TableCell>
             <TableCell align="right">Amount</TableCell>
             <TableCell align="right">Start Date</TableCell>
             <TableCell align="right">End Date</TableCell>
@@ -58,6 +59,7 @@ export default function BasicTable() {
               <TableCell component="th" scope="row">
                 {row.Ticker}
               </TableCell>
+              <TableCell align="right">{row.RiskLevel}</TableCell>
               <TableCell align="right">{row.Amount}</TableCell>
               <TableCell align="right">{row.StartDate}</TableCell>
               <TableCell align="right">{row.EndDate}</TableCell>

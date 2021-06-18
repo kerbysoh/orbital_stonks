@@ -2,6 +2,9 @@ import React,{useState, useEffect} from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import OpenDialogue from './OpenDialogue'
+import firebase from 'firebase/app'
+import fire from '../fire'
+import 'firebase/firestore'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
       marginRight: theme.spacing(1),
       width: 2000,
     },
+    button: {
+    backgroundcolor: 'grey'
+    },
   },
 }));
 
@@ -27,7 +33,25 @@ export default function ValidationTextFields() {
   const [amount, setAmount] = useState(0)
   const [startDate, setStartDate] = useState("2021-05-24");
   const [endDate, setEndDate] = useState("2021-05-24");
-
+  const [realticker, setRealTicker] = useState(false)
+  const API_KEY = 'TQ6LE1RSC9LBHZTL';
+  const [risk, setRisk] = useState("")
+  const db = firebase.firestore()
+  
+  useEffect (()=> {
+        if (db) {
+            const unsubscribe = db
+            db.collection('RiskLevel')
+            .doc(fire.auth().currentUser.email)
+            .onSnapshot((doc) => {
+                if (doc.exists) {
+                    setRisk(doc.get("Risk"))
+                } 
+            })
+            
+            return unsubscribe
+        }
+    }, [db])
 
   const changeStart = (e) => {
     setStartDate(e.target.value)
@@ -44,13 +68,33 @@ export default function ValidationTextFields() {
   const changeAmount = (e) => {
     setAmount(e.target.value)
   }
+
+  const handleStockSearch = () => {
+        let API_Call =  `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${ticker}&apikey=${API_KEY}`;
+          
+          fetch(API_Call)
+            .then(
+              function(response){
+                return response.json();
+                
+              }
+            )
+            .then(
+              function(data){
+                if(data.Symbol) {
+                  setRealTicker(true)
+                } else {
+                  setRealTicker(false)
+                }
+              }
+            )         
+    }
+
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <div>
-        <TextField
-          // error
+          <TextField
           onChange = {(e) => changeTicker(e)}
-          id="filled-error"
           label="Input Ticker"
           placeholder="Ticker..."
           variant="filled"
@@ -88,13 +132,12 @@ export default function ValidationTextFields() {
           label="End Date"
           type="date"
           value = {endDate}
-          //value = {endDate}
           className={classes.textField}
           InputLabelProps={{
             shrink: true,
           }}
         />
-        <OpenDialogue amount = {amount} ticker = {ticker} startDate = {startDate} endDate={endDate}></OpenDialogue>
+        <OpenDialogue risk = {risk} realticker = {realticker} amount = {amount} ticker = {ticker} startDate = {startDate} endDate={endDate}></OpenDialogue>
 
     </form>
     

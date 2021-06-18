@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -12,16 +12,52 @@ import fire from '../fire'
 export default function AlertDialog(props) {
   const db = firebase.firestore()
   const userEmail = fire.auth().currentUser.email
+  const API_KEY = 'TQ6LE1RSC9LBHZTL';
+  const [legit, setLegit] = useState(true)
+
+  useEffect (() => {
+      if(props.amount <= 0 || props.startDate > props.endDate || props.risk === "") {
+          setLegit(false)
+      } else {
+        setLegit(true)
+      }
+  })
+
+  const handleStockSearch = () => {
+        let API_Call =  `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${props.ticker}&apikey=${API_KEY}`;
+          
+          fetch(API_Call)
+            .then(
+              function(response){
+                return response.json();
+                
+              }
+            )
+            .then(
+              function(data){
+                if(data.Symbol) {
+                  setLegit(true)
+                  handleClickOpen();
+                } else {
+                  setLegit(false)
+                }
+              }
+            )         
+    }
+
   const transaction = {Ticker: props.ticker,
             Amount: props.amount,
             StartDate: props.startDate,
             EndDate: props.endDate,
-            ProfitAndLoss: 0};
+            ProfitAndLoss: 0, RiskLevel: props.risk};
             
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    if(legit) {
+      setOpen(true);
+    } 
+    
   };
 
   const handleClose = () => {
@@ -42,9 +78,17 @@ export default function AlertDialog(props) {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      
+      <Button variant="outlined" color="black" onClick= {() => {handleStockSearch();}}>
         Set Transaction
       </Button>
+      
+       {legit ?
+        null :
+      (
+        <header className="price-display"> Input Error</header>
+      )}
+            
       <Dialog
         open={open}
         onClose={handleClose}
