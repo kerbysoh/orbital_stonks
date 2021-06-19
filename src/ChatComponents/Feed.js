@@ -8,7 +8,10 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
+import {Link} from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
+import Avatar from '@material-ui/core/Avatar';
+import { deepOrange, deepPurple } from '@material-ui/core/colors';
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -19,7 +22,34 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.text.secondary,
     },
   }));
+  const useAvatarStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+      justifyContent:'left', 
+        alignItems:'center',
+    },
+    sizeAvatar: {
+      height: theme.spacing(5),
+      width: theme.spacing(5),
+      marginLeft: '1rem',
+      marginTop: '1rem',
+      display: 'inline-block'
+  
+    },
+    orange: {
+      color: theme.palette.getContrastText(deepOrange[500]),
+      backgroundColor: deepOrange[500],
+    },
+    purple: {
+      color: theme.palette.getContrastText(deepPurple[500]),
+      backgroundColor: deepPurple[500],
+    },
+  }));
 const Feed = (props) => {
+    const avatarclasses = useAvatarStyles();
     const classes = useStyles()
     const db = firebase.firestore()
     const [currReply, setCurrReply] = useState('')
@@ -33,10 +63,33 @@ const Feed = (props) => {
     const [reply, setReply] = useState('')
     const [users, setUsers] = useState('')
     const [comments, setComments] = useState([])
-    const {handleLogout} = props
+    const {handleLogout, profile, setProfile} = props
+    const [user, setUser] = useState('')
+    const [imageURL, setImageURL] = useState('')
+
     const increment = firebase.firestore.FieldValue.increment(1)
     const decrement = firebase.firestore.FieldValue.increment(-1)
-
+    const handleData = (email) => {
+        db.collection('users')
+            .doc(email)
+            .onSnapshot((doc) => {
+                if (doc.exists) { 
+                setUser(doc.data())
+                }
+                console.log(doc.data())
+            })
+            var storage = firebase.storage()
+    var pathReference = storage.ref(`images/${email}`)
+    pathReference.getDownloadURL().then((url) => {
+      setImageURL(url)
+    })
+    return (
+        <>
+        <Avatar className = {avatarclasses.sizeAvatar} src = {imageURL}/>
+        <Link to = 'userProfile' className = 'userData' onClick = {() => {setProfile(email)}}> {user.firstname} {user.lastname} </Link>
+        </>
+    )
+    }
 
     const handleNewPost = () => {
     
@@ -195,7 +248,7 @@ const Feed = (props) => {
                         <div class="header__left">
                         <div class="post__author author">
                           <span class="author__name">
-                         {post.email}
+                         {handleData(post.email)}
                           </span>
                         </div>
                         <span class="post__date">

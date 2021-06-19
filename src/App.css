@@ -354,6 +354,11 @@ button {
 .atIcon:hover {
   transform: scale(1.5)
 }
+.userData {
+  display: inline-block;
+  margin-left: 20px ;
+  margin-top: 0px
+}
 .editButton {
   padding: 4px 0;
   color: rgb(255, 255, 255);

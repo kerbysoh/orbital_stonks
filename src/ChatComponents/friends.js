@@ -62,7 +62,7 @@ const Friends = (props) => {
     const [currSearch, setCurrSearch] = useState({})
     const [users, setUsers] = useState([])
     const [friends, setFriends] = useState({})
-    const {handleLogout} = props
+    const {handleLogout, profile, setProfile } = props
     const [searchOn, setSearchOn] = useState(false)
     const [self, setSelf] = useState({})
     const increment = firebase.firestore.FieldValue.increment(1)
@@ -199,8 +199,8 @@ const Friends = (props) => {
     <div className={classes.photoContainer}>
       <Avatar
         className={classes.avatar}
-        src = {imageURL}
-      />
+        src = {imageURL} 
+      ></Avatar>
     </div>
     <Grid container justify="center" alignItems="center" spacing={5}>
       <Grid item xs={5.5}>
@@ -214,7 +214,8 @@ const Friends = (props) => {
         {currSearch.email}
       </Typography>
     </div>
-                {(searchOn && currSearch.email !== userEmail && !(Object.keys(friends).includes(currSearch.email.slice(0,currSearch.email.length - 4))) ) ? 
+    
+                {(searchOn && currSearch.email !== userEmail && !(Object.keys(friends).includes(currSearch.email.slice(0,currSearch.email.length - 4))) ) ? <>
                 <Button
                 disableElevation
                 color="primary"
@@ -223,7 +224,7 @@ const Friends = (props) => {
                 className={classes.followButton}
                 onClick = {handleAddFriend}
               >Follow
-                </Button> :<> {(currSearch.email !== userEmail) ? <> <Button
+                </Button> <Link to = 'userProfile' onClick = {() => setProfile(currSearch.email)} > Visit user profile </Link> </> :<> {(currSearch.email !== userEmail) ? <> <Button
       disableElevation
       color="primary"
       variant="contained"
@@ -231,7 +232,7 @@ const Friends = (props) => {
       className={classes.followButton}
       onClick = {handleUnfollow}
     >Unfollow
-                </Button> </>: <></>}</>}
+                </Button> <Link to = 'userProfile' onClick = {() => setProfile(currSearch.email)}> Visit user profile </Link> </>: <></>}</>}
             </Grid> : null
         }
             

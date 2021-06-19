@@ -15,6 +15,7 @@ import Feed from './ChatComponents/Feed'
 import Stock from './StockComponents/Stock'
 import StockGraphs from './StockComponents/StockGraphs'
 import MyProfile from './ChatComponents/myProfile'
+import UserProfile from './ChatComponents/userProfile'
 import 'firebase/firestore'
 import "./App.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -22,6 +23,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const App = () => {
+  const [profile, setProfile] = useState('')
   const [stock, setStock] = useState('')
   const storage = firebase.storage()
   const [image, setImage] = useState(null)
@@ -213,13 +215,16 @@ const App = () => {
           {user ? <News handleLogout = {handleLogout}/> : <Link to = {'/'}>Log in</Link>}
         </Route>
         <Route path = '/Friends'>
-          {user ? <Friends handleLogout = {handleLogout} /> : <Link to = {'/'}>Log in</Link>}
+          {user ? <Friends handleLogout = {handleLogout} profile = {profile} setProfile = {setProfile} /> : <Link to = {'/'}>Log in</Link>}
         </Route>
         <Route path = '/viewFriends'>
           {user ? <ViewFriends handleLogout = {handleLogout} /> : <Link to = {'/'}>Log in</Link>}
         </Route>
         <Route path = '/StockGraphs'>
         {user ? <StockGraphs handleLogout = {handleLogout} stock = {stock} setStock = {setStock}   /> : <Link to = {'/'}>Log in</Link>}
+        </Route>
+        <Route path = '/userProfile'>
+        {user ? <UserProfile handleLogout = {handleLogout} profile = {profile} setProfile = {setProfile}/> : <Link to = {'/'}>Log in</Link>}
         </Route>
         <Route path = '/Trade'>
           {user ? <Trade handleLogout = {handleLogout} /> : <Link to = {'/'}>Log in</Link>}
@@ -228,11 +233,12 @@ const App = () => {
           {user ? <Stock handleLogout = {handleLogout} stock = {stock} setStock = {setStock} /> : <Link to = {'/'}>Log in</Link>}
         </Route>
         <Route path = '/Feed'>
-        {user ? <Feed handleLogout = {handleLogout} /> : <Link to = {'/'}>Log in</Link>}
+        {user ? <Feed handleLogout = {handleLogout} profile = {profile} setProfile = {setProfile} /> : <Link to = {'/'}>Log in</Link>}
         </Route>
         <Route path = '/myProfile'>
         {user ? <MyProfile handleLogout = {handleLogout} /> : <Link to = {'/'}>Log in</Link>}
         </Route>
+        
         <Route path = '/'>
         {user ? (
           <Hero handleLogout = {handleLogout}/>)
