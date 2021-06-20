@@ -10,6 +10,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ChatTest from './ChatTest/Messenger'
+import './ChatTest/ConversationSearch/ConversationSearch.css'
 
 var prevUser = ''
 
@@ -164,13 +166,14 @@ const Chat = (props) => {
                 handleChange={(e) => {
                     setSearch(e.target.value)
                 }}
-              ></SearchBox>
+        ></SearchBox>
               <button
                 onClick={handleUserSearch}
                 className = "clickfriends"
               >Search</button>
         <h4 className = "errmsgsearch">{errMsgSearch}</h4>
         
+        <button className="open-button" onClick={handleNew}>New Chat</button>
         
         <FormControl className={classes.formControl} >
         <InputLabel id="demo-controlled-open-select-label">View Chats</InputLabel>
@@ -196,7 +199,7 @@ const Chat = (props) => {
         </>) : <></>}
         </Select>
       </FormControl>
-      <button className="open-button" onClick={handleNew}>New Chat</button>
+      
 
 
 
@@ -217,8 +220,9 @@ const Chat = (props) => {
         </ul>
         <form onSubmit = {handleOnSubmit} className ="form-container">
             {newUser ? <>
-                <label for="msg"><b>Send to: </b></label>
-                <input type = "text" className = "messageContainer" value = {receiver} onChange = {handleReceiver} ></input>
+                <div className="conversation-search">
+                    <input placeholder = "Send to:" type = "text" className="conversation-search-input" value = {receiver} onChange = {handleReceiver} ></input>
+                </div>
             </>
             : <></>
             }
@@ -227,6 +231,7 @@ const Chat = (props) => {
             <button className = "sendMessage" type = "submit" disabled = {!newMessage}>Send</button></> : <></>}
         </form>
         <h1>{errMsg}</h1>
+        <ChatTest></ChatTest>
         </div>
     )
 }

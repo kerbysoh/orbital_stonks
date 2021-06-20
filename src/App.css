@@ -294,8 +294,8 @@ button {
   border: none;
   cursor: pointer;
   opacity: 0.8;
-  position: fixed;
-  bottom: 23px;
+  position: absolute;
+  top: 140px;
   right: 28px;
   width: 280px;
   margin-left: auto;
@@ -352,12 +352,12 @@ button {
   outline: none;
 }
 .atIcon:hover {
-  transform: scale(1.5)
+  transform: scale(1.5);
 }
 .userData {
   display: inline-block;
-  margin-left: 20px ;
-  margin-top: 0px
+  margin-left: 20px;
+  margin-top: 0px;
 }
 .editButton {
   padding: 4px 0;
@@ -434,8 +434,10 @@ button {
   padding-left: 15px;
 }
 .messageSend {
-  width: 100%;
-  border-radius: 25px;
+  width: 80%;
+  border-radius: 20px;
+  text-align: center;
+  margin-right: 1rem;
 }
 .sendMessage {
   width: 100px;

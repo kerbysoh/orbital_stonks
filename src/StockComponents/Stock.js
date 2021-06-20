@@ -9,12 +9,13 @@ import BasicTable from './BasicTable'
 import Button from '@material-ui/core/Button'
 
 const Stock = (props) => {
-const {handleLogout, stock, setStock } = props
+  const {handleLogout, stock, setStock } = props
     const db = firebase.firestore()
     const userEmail = fire.auth().currentUser.email
     const [search, setSearch] = useState('')
     const API_KEY = 'TQ6LE1RSC9LBHZTL';
     const [searchOn, setSearchOn] = useState(false)
+
     const handleAddStock = (e) => {
         e.preventDefault()
         db.collection("Stocks").doc(`${userEmail}`).update({

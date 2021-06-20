@@ -26,6 +26,8 @@
     "react-plotly.js": "^2.5.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "shave": "^2.5.10",
+    "timestamp": "^0.0.1",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

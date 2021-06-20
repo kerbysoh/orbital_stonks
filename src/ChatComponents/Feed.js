@@ -61,36 +61,29 @@ const Feed = (props) => {
     const [replyOn, setReplyOn] = useState(false)
     const [currView, setCurrView] = useState('')
     const [reply, setReply] = useState('')
-    const [users, setUsers] = useState('')
+    const [users, setUsers] = useState([])
     const [comments, setComments] = useState([])
     const {handleLogout, profile, setProfile} = props
-    const [user, setUser] = useState('')
-    const [imageURL, setImageURL] = useState('')
 
     const increment = firebase.firestore.FieldValue.increment(1)
     const decrement = firebase.firestore.FieldValue.increment(-1)
-    const handleData = (email) => {
-        db.collection('users')
-            .doc(email)
-            .onSnapshot((doc) => {
-                if (doc.exists) { 
-                setUser(doc.data())
-                }
-                console.log(doc.data())
-            })
-            var storage = firebase.storage()
-    var pathReference = storage.ref(`images/${email}`)
-    pathReference.getDownloadURL().then((url) => {
-      setImageURL(url)
-    })
-    return (
-        <>
-        <Avatar className = {avatarclasses.sizeAvatar} src = {imageURL}/>
-        <Link to = 'userProfile' className = 'userData' onClick = {() => {setProfile(email)}}> {user.firstname} {user.lastname} </Link>
-        </>
-    )
+    const handleData =  (email) => {
+    var user2;
+    var imageURL = 'x'
+    
+       users.map((user) => {
+           if (user.id === email) {
+               user2 = user
+           }
+       }
+       )
+       if (user2) {
+        
+       return <>
+       <Link to = 'userProfile' className = 'userData' onClick = {() => {setProfile(email)}}> {user2.firstname} {user2.lastname} </Link>
+       </>
     }
-
+}
     const handleNewPost = () => {
     
         if (db){
@@ -248,7 +241,9 @@ const Feed = (props) => {
                         <div class="header__left">
                         <div class="post__author author">
                           <span class="author__name">
+                              
                          {handleData(post.email)}
+                         
                           </span>
                         </div>
                         <span class="post__date">

@@ -52,7 +52,7 @@ export default function BasicTable({stock, setStock, removeItem}) {
                 <Link
                   to = "/StockGraphs"
                     className = 'stockGraphLink'
-                    onClick = {setStock(key)}
+                    onClick = {() => setStock(key)}
                 >
                   View stock data
                 </Link>
