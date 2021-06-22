@@ -1,28 +1,13 @@
-import React from 'react';
-import './Message.css';
+import React from "react";
+import "./Message.css";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 export default function Message(props) {
-    const {
-      data,
-      isMine,
-      startsSequence,
-      endsSequence,
-      showTimestamp
-    } = props;
+  const { db, messages, userEmail, messageDisplay, receiver } = props;
 
-    return (
-      <div className={[
-        'message',
-        `${isMine ? 'mine' : ''}`,
-        `${startsSequence ? 'start' : ''}`,
-        `${endsSequence ? 'end' : ''}`
-      ].join(' ')}>
-        
+  const handleDelete = (e) => {
+    db.collection("messages").doc(e).delete();
+  };
 
-        <div className="bubble-container">
-          <div className="bubble">
-          </div> 
-        </div> 
-      </div>
-    );
+  return <div>hello</div>;
 }

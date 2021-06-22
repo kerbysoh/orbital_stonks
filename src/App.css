@@ -6,7 +6,13 @@
   padding: 0;
   font-family: "Nunito", sans-serif;
 }
-
+.comments {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 15px 25px;
+}
+.comment {
+}
 .postemail {
   display: block;
 }
@@ -24,6 +30,7 @@
   padding-bottom: 5rem;
   border-radius: 1rem;
   box-shadow: 0 0.1rem 0.2rem var(--box-shadow);
+  display: block;
 }
 button {
   border: none;
@@ -123,7 +130,9 @@ button {
   color: red;
   font-size: 16px;
 }
-
+.errMsg {
+  color: red;
+}
 .hero {
   width: 100%;
   min-height: 100vh;
@@ -331,8 +340,9 @@ button {
   bottom: 0;
 }
 .content {
-  font-size: 1.5rem;
-  padding: 0.8rem 1.6rem 0.8rem 1.6rem;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 15px 25px;
 }
 .post {
   border-radius: 50px;
@@ -383,17 +393,59 @@ button {
 
 /* Header left */
 .header__left {
-  margin-left: 10px;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 100;
+  box-shadow: 0 5px 8px -9px rgba(0, 0, 0, 0.75);
 }
 
 .author__name:hover,
 .post__date:hover {
   text-decoration: underline;
 }
-.author__name {
-  margin-right: 0.2rem;
+.author__name h3 {
+  font-size: medium;
+  display: inline-block;
+  vertical-align: middle;
 }
-
+.post_option {
+  padding-top: 10px;
+  border-top: 1px solid lightgray;
+  display: flex;
+  justify-content: space-evenly;
+  font-size: medium;
+  color: gray;
+  cursor: pointer;
+  padding: L;
+}
+.post_options {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  flex: 1;
+}
+.content2 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 15px 25px;
+  align-items: center;
+}
+.post_bottom {
+}
+.author__name p {
+  font-size: small;
+  color: gray;
+  text-decoration: none;
+  vertical-align: middle;
+}
+.author__name:hover {
+  text-decoration: none;
+}
 .post__author-pic {
   float: left;
   width: 4rem;
@@ -498,8 +550,6 @@ button {
   max-width: 99%;
   background-color: white;
   list-style-type: none;
-  border-style: solid;
-  border-color: black;
 }
 .search2:hover {
   transform: scale(1.2);

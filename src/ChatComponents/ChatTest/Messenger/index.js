@@ -1,19 +1,19 @@
-import React from 'react';
-import ConversationList from '../ConversationList';
-import Message from '../Message';
-import './Messenger.css';
+import React from "react";
+import ConversationList from "../ConversationList";
+import Message from "../Message";
+import "./Messenger.css";
 
 export default function Messenger(props) {
-    return (
-      <div className="messenger">
+  const { db, messages, userEmail, messageDisplay, receiver } = props;
 
-        <div className="scrollable sidebar">
-          <ConversationList />
-        </div>
-         <div className="scrollable content">
-          <Message />
-        </div>
-        
+  return (
+    <div className="messenger">
+      <div className="scrollable sidebar">
+        <ConversationList />
       </div>
-    );
+      <div className="scrollable content">
+        <Message />
+      </div>
+    </div>
+  );
 }
