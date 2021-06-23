@@ -297,7 +297,7 @@ button {
 }
 /* Chat CSS */
 .open-button {
-  background-color: #555;
+  background-color: rgb(0, 0, 0);
   color: rgb(255, 255, 255);
   padding: 16px 20px;
   border: none;
@@ -309,6 +309,9 @@ button {
   width: 280px;
   margin-left: auto;
   margin-right: auto;
+}
+.open-button:hover {
+  background-color: rgb(77, 77, 77);
 }
 
 /* The popup chat - hidden by default */
@@ -331,7 +334,7 @@ button {
   }
 }
 .form-container {
-  background: #eee;
+  background: rgb(255, 255, 255);
   display: flex;
   align-items: baseline;
   padding: 10px 15px;
@@ -495,7 +498,15 @@ button {
   width: 100px;
   height: 50px;
   background: #73ad21;
+  border-radius: 5rem;
 }
+
+.sendMessage:hover {
+  width: 100px;
+  height: 50px;
+  background: #60911d;
+}
+
 .listPeople {
   text-align: center;
   max-width: 300px;
@@ -517,7 +528,7 @@ button {
 .chatBubbleLeft {
   padding: 10px 14px;
   background: #eee;
-  margin: 10px 30px;
+  margin: 10px 300px;
   border-radius: 9px;
   position: relative;
   animation: fadeIn 1s ease-in;
@@ -525,21 +536,23 @@ button {
   border-right-color: #eee;
   border-left: 0;
   margin-left: -20px;
+  text-align: left;
 }
 
 .chatBubbleRight {
   padding: 10px 14px;
   background: #eee;
-  margin: 10px 30px;
+  margin: 10px 300px;
   border-radius: 9px;
   position: relative;
   animation: fadeIn 1s ease-in;
-  right: 0;
+  right: 8rem;
   border-left-color: blue;
   border-right: 0;
   margin-right: -20px;
   background: #1982fc;
   color: #fff;
+  text-align: right;
 }
 
 .listMsg {

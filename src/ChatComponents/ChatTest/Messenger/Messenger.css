@@ -2,7 +2,7 @@
   display: grid;
   width: 100%;
   height: 100vh;
-  background: #eeeef1;
+  background: #ffffff;
 
   grid-template-columns: 350px auto;
   grid-template-rows: 60px auto 60px;
@@ -24,10 +24,11 @@
   background: white;
   grid-row-start: 1;
   grid-row-end: span 3;
+  padding-right: 0.5rem;
 }
 
 .content {
-  background: white;
+  background: rgb(255, 255, 255);
   grid-row-start: 1;
   grid-row-end: span 3;
 }

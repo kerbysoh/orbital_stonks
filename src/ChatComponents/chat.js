@@ -16,6 +16,7 @@ import "./ChatTest/Message/Message.css";
 import ConversationListItem from "./ChatTest/ConversationListItem";
 import "./ChatTest/ConversationListItem/ConversationListItem.css";
 import Toolbar from "./ChatTest/Toolbar";
+import { CenterFocusStrongOutlined } from "@material-ui/icons";
 var prevUser = "";
 
 const useStyles = makeStyles((theme) => ({
@@ -37,7 +38,7 @@ const Chat = (props) => {
   const [open, setOpen] = useState(false); // boolean to store whether or not to display chat and input boxes
   const [messageDisplay, setMessageDisplay] = useState(""); //users of which messages to be displayed
   const [newUser, setNewUser] = useState(false); //boolean to store whether new chat is initiated
-  const [seeUser, setSeeUser] = useState(true); // display users talking to
+  const [seeUser, setSeeUser] = useState(false); // display users talking to
   const [currUser, setCurrUser] = useState(""); // current user of which messages are displayed -> for "You are talking to ..."
   const [errMsgSearch, setErrMsgSearch] = useState("");
   const [search, setSearch] = useState("");
@@ -94,8 +95,6 @@ const Chat = (props) => {
   };
 
   useEffect(() => {
-    handleOpenMenu();
-    newFunc();
     if (db) {
       const unsubscribe = db
         .collection("messages")
@@ -132,15 +131,19 @@ const Chat = (props) => {
       }
     });
   };
+
   const handleDelete = (e) => {
     db.collection("messages").doc(e).delete();
   };
+
   const handleOnChange = (e) => {
     setNewMessage(e.target.value);
   };
+
   const handleReceiver = (e) => {
     setReceiver(e.target.value);
   };
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
     const key = receiver.slice(0, receiver.length - 4);
@@ -161,6 +164,7 @@ const Chat = (props) => {
       setErrMsg("User is not your friend");
     }
   };
+  
   return (
     <div className="chatPage">
       <Navbar handleLogout={handleLogout} />
@@ -178,81 +182,49 @@ const Chat = (props) => {
         New Chat
       </button>
 
-      <form onSubmit={handleOnSubmit} className="form-container">
-        {newUser ? (
-          <>
-            <div className="conversation-search">
-              <input
-                placeholder="Send to:"
-                type="text"
-                className="conversation-search-input"
-                value={receiver}
-                onChange={handleReceiver}
-              ></input>
-            </div>
-          </>
-        ) : (
-          <></>
-        )}
-        {currUser || newUser ? (
-          <>
-            <textarea
-              className="messageSend"
-              type="text"
-              value={newMessage}
-              onChange={handleOnChange}
-              placeholder="Type message.."
-              name="msg"
-              required
-            ></textarea>
-            <button
-              className="sendMessage"
-              type="submit"
-              disabled={!newMessage}
-            >
-              Send
-            </button>
-          </>
-        ) : (
-          <></>
-        )}
-      </form>
       <h1>{errMsg}</h1>
+      
       <div className="messenger">
         <div className="scrollable sidebar">
           <div className="conversation-list">
-            <FormControl className={classes.formControl}>
+            <FormControl >
               <InputLabel id="demo-controlled-open-select-label">
                 View Chats
               </InputLabel>
               <Select
+                MenuProps={{
+                  getContentAnchorEl: null,
+                  anchorOrigin: {
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }
+                }}
                 onOpen={() => {
                   handleOpenMenu();
                   newFunc();
                 }}
-                onChange={() => {
+                onChange= {() => {
                   handleChange();
                 }}
-              ></Select>
-            </FormControl>
-            {people.map((person) => {
+              >{people.map((person) => {
               return (
-                <div className="conversation-list-item">
-                  <div className="conversation-info">
-                    <h1
-                      className="conversation-title"
-                      onClick={() => {
+                <div className="conversation-list-item" 
+                  onClick={() => {
                         setMessageDisplay(person);
                         setReceiver(person);
                         setCurrUser(person);
-                      }}
-                    >
+                        setSeeUser(true);
+                      }}>
+                  <div className="conversation-info">
+                    <h1 className="conversation-title">
                       {person}
                     </h1>
                   </div>
                 </div>
               );
-            })}
+            })}</Select>
+            </FormControl>
+            
           </div>
         </div>
         <div className="scrollable content">
@@ -296,6 +268,45 @@ const Chat = (props) => {
               return <></>;
             })}
           </ul>
+          <form onSubmit={handleOnSubmit} className="form-container">
+        {newUser ? (
+          <>
+            <div className="conversation-search">
+              <input
+                placeholder="Send to:"
+                type="text"
+                className="conversation-search-input"
+                value={receiver}
+                onChange={handleReceiver}
+              ></input>
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
+        {currUser || newUser ? (
+          <>
+            <textarea
+              className="messageSend"
+              type="text"
+              value={newMessage}
+              onChange={handleOnChange}
+              placeholder="Type message.."
+              name="msg"
+              required
+            ></textarea>
+            <button
+              className="sendMessage"
+              type="submit"
+              disabled={!newMessage}
+            >
+              Send
+            </button>
+          </>
+        ) : (
+          <></>
+        )}
+      </form>
         </div>
       </div>
     </div>
