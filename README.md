@@ -46,7 +46,7 @@ Current features that have been done:
    
 4. Trade function
    - Users are able to input risk level, stock ticker, amount, start and end dates to set a new transaction
-   - User can tracks their past transactions from the table below
+   - User can tracks their past transactions from the table provided
    
 5. Watchlist function
    - Users are able add and remove stocks to their watchlist
