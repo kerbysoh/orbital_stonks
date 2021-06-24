@@ -75,16 +75,16 @@ Conduct in-depth testing of the algorithm and analyse data to ensure profitabili
 
 ## Tech Stack
 
-Stocks API and API key (Yahoo Finance API, Alpha Vantage API)
-HTML/CSS/Javascript (User interface and design)
-React.js framework (Web Development)
-Python (Trading algorithm)
-Firebase (Login System and backend)
-Brokerage API (Interactive Brokers API)
+1. Stocks API and API key (Yahoo Finance API, Alpha Vantage API)
+2. HTML/CSS/Javascript (User interface and design)
+3. React.js framework (Web Development)
+4. Python (Trading algorithm)
+5. Firebase (Login System and backend)
+6. Brokerage API (Interactive Brokers API)
 
 ## Qualifications
 
-Technical Analysis of stocks
-Coding in Java/C++/Python
-Coding in HTML/CSS/Javascript
-Experience working with web APIs
+1. Technical Analysis of stocks
+2. Coding in Java/C++/Python
+3. Coding in HTML/CSS/Javascript
+4. Experience working with web APIs
