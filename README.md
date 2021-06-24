@@ -18,6 +18,7 @@ Often we let our emotions take over our logical evaluation of the market. Such a
 ## Aim 
 
 The aim of the trading bot is to maximize traders’ profits and create a hassle-free platform where users can easily access information about their shares. 
+The bot will be flexible as it allows users to pick their desired stock for the trading algorithm to trade for each transaction.
 
 ## User Stories
 
@@ -66,7 +67,7 @@ Access news updates regarding stocks of which a user possesses.
 Track important details regarding the trades being carried out. (e.g. Cash Balance, profit/loss margins)
 Conduct in-depth testing of the algorithm and analyse data to ensure profitability. This will be done with the backtesting function in QuantConnect.
 
-### Tech Stack
+## Tech Stack
 
 Stocks API and API key (Yahoo Finance API, Alpha Vantage API)
 HTML/CSS/Javascript (User interface and design)
@@ -74,7 +75,6 @@ React.js framework (Web Development)
 Python (Trading algorithm)
 Firebase (Login System and backend)
 Brokerage API (Interactive Brokers API)
-
 
 ## Qualifications
 
