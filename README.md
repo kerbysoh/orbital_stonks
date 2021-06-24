@@ -41,10 +41,20 @@ Current features that have been done:
    - Allows users to follow other users
    - Allows users to chat with their friends
 4. Trade function
-   - Allows user to input the amount of money that they want to invest
+   - Users are able to input risk level, stock ticker, amount, start and end dates to set a new transaction
+   - User can tracks their past transactions from the table below
 5. Watchlist function
-   - Allows user to add stocks to their watchlist
-   - Allows users to view stock charts based on their watchlist
+   - Users are able add and remove stocks to their watchlist
+   - Users can select "View Stock Data" to access more details on the stock ticker
+6. Feed function
+   - Allows users to post in a forum such that only the user's followers can see the post
+   - User can delete the post
+   - Followers can like the user's post
+   - Followers can comment on the user's post
+   - Followers can view the comments by others
+7. Profile function
+   - Users can see their own details in the profile page
+   - Users can also search for other's profile pages
 
 ### By Mid June:
 Users are able to select a given time window to trade and the amount of money they choose to trade with.
