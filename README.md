@@ -21,9 +21,9 @@ The aim of the trading bot is to maximize traders’ profits and create a hassle
 
 ## User Stories
 
-As a working individual and part-time trader, I am able to trade without having to constantly monitor the stock prices and fluctuations.
-As a person who constantly trades based on emotions, I am able to better trade my stocks without having to constantly worry about the stock market volatility.
-I am able to easily track key details regarding my stocks (e.g. News, Margins)
+- As a working individual and part-time trader, I am able to trade without having to constantly monitor the stock prices and fluctuations.
+- As a person who constantly trades based on emotions, I am able to better trade my stocks without having to constantly worry about the stock market volatility.
+- I am able to easily track key details regarding my stocks (e.g. News, Margins)
 
 ## Features and Timeline
 
