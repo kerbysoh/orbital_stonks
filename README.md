@@ -61,7 +61,7 @@ Current features that have been done:
    
 7. Profile function
    - Users can see their own details in the profile page
-   - Users can also search for other's profile pages
+   - Users can also search for other user's profile pages
 
 ### By Mid June:
 Users are able to select a given time window to trade and the amount of money they choose to trade with.
