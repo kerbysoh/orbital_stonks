@@ -1,20 +1,13 @@
-# orbital_stonks
-Team Name: 
+# orbital_stonks README
 
+****Team Name: 
 Stonks
 
-Proposed Level of Achievement: 
-
+****Proposed Level of Achievement: 
 Apollo 11
 
-Website Link
-
+****Website Link
 https://stonksorbital.web.app
-
-Github Repository
-
-https://github.com/kerbysoh/orbital_stonks
-
 
 Motivation 
 
