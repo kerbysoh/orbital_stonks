@@ -30,19 +30,19 @@ The aim of the trading bot is to maximize traders’ profits and create a hassle
 ### The Trading Bot built on a web-based platform will be able to carry out the following functions:
 
 Current features that have been done:
-Login Page
+1. Login Page
   - Users will be able to sign-up to the platform using their credentials
   - Users are able to choose to login if they have an account
   - An option to reset user’s password if necessary
-News function
+2. News function
   - Allows users to search for their stocks news based on their keywords
   - Users can also click “See more” to navigate to the news site
-Friend and Chat function
+3. Friend and Chat function
   - Allows users to follow other users
   - Allows users to chat with their friends
-Trade function
+4. Trade function
   - Allows user to input the amount of money that they want to invest
-Watchlist function
+5. Watchlist function
   - Allows user to add stocks to their watchlist
   - Allows users to view stock charts based on their watchlist
 
