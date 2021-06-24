@@ -31,20 +31,20 @@ The aim of the trading bot is to maximize traders’ profits and create a hassle
 
 Current features that have been done:
 Login Page
-Users will be able to sign-up to the platform using their credentials
-Users are able to choose to login if they have an account
-An option to reset user’s password if necessary
+  - Users will be able to sign-up to the platform using their credentials
+  - Users are able to choose to login if they have an account
+  - An option to reset user’s password if necessary
 News function
-Allows users to search for their stocks news based on their keywords
-Users can also click “See more” to navigate to the news site
+  - Allows users to search for their stocks news based on their keywords
+  - Users can also click “See more” to navigate to the news site
 Friend and Chat function
-Allows users to follow other users
-Allows users to chat with their friends
+  - Allows users to follow other users
+  - Allows users to chat with their friends
 Trade function
-Allows user to input the amount of money that they want to invest
+  - Allows user to input the amount of money that they want to invest
 Watchlist function
-Allows user to add stocks to their watchlist
-Allows users to view stock charts based on their watchlist
+  - Allows user to add stocks to their watchlist
+  - Allows users to view stock charts based on their watchlist
 
 ### By Mid June:
 Users are able to select a given time window to trade and the amount of money they choose to trade with.
