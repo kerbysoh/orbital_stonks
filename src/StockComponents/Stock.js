@@ -90,7 +90,7 @@ const Stock = (props) => {
               <Button
                 onClick={handleStockSearch}
                 variant = "contained"
-                color = "secondary"
+                color = "black"
               >
                 Search
               </Button>

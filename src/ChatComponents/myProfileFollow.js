@@ -36,20 +36,20 @@ const MyProfileFollow = () => {
       fontSize: 30,
     },
     center: {
-      marginLeft: "7rem",
+      marginLeft: "6rem",
 
       marginTop: "0rem",
     },
     badge: {
-      marginLeft: "7rem",
+      marginLeft: "6rem",
       marginRight: "6rem",
       marginTop: "0rem",
-      fontSize: 30,
+      fontSize: 25,
     },
     Description: {
-      marginTop: "=1rem",
+      marginTop: "1rem",
       display: "flex",
-      marginLeft: "7rem",
+      marginLeft: "26rem",
       fontSize: 20,
     },
   }));
@@ -60,7 +60,7 @@ const MyProfileFollow = () => {
     <div className={classes.root}>
       <Typography className={classes.center} variant="h3" component="h2">
         {user.firstname} {user.lastname}{" "}
-        <Button variant="contained" color="primary" className="editButton">
+        <Button variant="contained" color="black" className="editButton">
           Edit Profile
         </Button>
       </Typography>
@@ -68,6 +68,7 @@ const MyProfileFollow = () => {
       {<span className={classes.badge}> {user.posts} Posts</span>}
       {<span className={classes.badge}> {user.followers} Followers</span>}
       {<span className={classes.badge}> {user.followed} Following</span>}
+      <br/>
       <span className={classes.Description}>{user.Description}</span>
     </div>
   );

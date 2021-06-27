@@ -252,7 +252,7 @@ const Feed = (props) => {
         ></textarea>
         <Button
           variant="contained"
-          color="primary"
+          color="black"
           className="postButton"
           type="submit"
           onClick={handleNewPost}

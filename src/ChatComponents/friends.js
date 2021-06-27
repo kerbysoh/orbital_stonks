@@ -181,7 +181,7 @@ const Friends = (props) => {
         placeholder="Key in user email"
         handleChange={(e) => setSearch(e.target.value)}
         ></SearchBox>
-        <Button onClick={handleFriendSearch} variant="contained" color="primary" className = "clickfriends"> Search </Button>
+        <Button onClick={handleFriendSearch} variant="contained" color="black" className = "clickfriends"> Search </Button>
         {
             searchOn ?
             <Grid

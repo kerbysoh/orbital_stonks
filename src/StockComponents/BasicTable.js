@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   tableHeaderCell: {
     fontWeight: 'bold',
-    backgroundColor: theme.palette.primary.light,
+    backgroundColor: "black",
     color: theme.palette.getContrastText(theme.palette.primary.light)
   }
 }));

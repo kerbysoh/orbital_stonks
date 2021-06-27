@@ -8,6 +8,8 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import "firebase/firestore";
 import firebase from "firebase/app";
 import fire from "../fire";
+import Value from "./lib/getAccountValue"
+import Stock from "./lib/getDownTrendingStock"
 
 export default function AlertDialog(props) {
   const db = firebase.firestore();
@@ -81,6 +83,13 @@ export default function AlertDialog(props) {
       });
   };
 
+  const handlePlaceOrder = () => {
+    <>
+    <Value value = {props.amount}></Value>
+    <Stock stock = {props.ticker}></Stock>
+    </>
+  };
+
   return (
     <div>
       <Button
@@ -114,6 +123,7 @@ export default function AlertDialog(props) {
               handleClose();
               handleAddAmount();
               handleAddTransaction();
+              handlePlaceOrder();
             }}
             color="primary"
             autoFocus

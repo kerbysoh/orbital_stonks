@@ -138,7 +138,7 @@ return (<>
         {user.gender}, {calculate_age(user.dob)}
         </Typography>
         <Typography className={classes.email} variant = 'h6' color="textSecondary">
-          <FileCopyIcon onClick = {() => {handleCopy(user.email)}} className = 'atIcon' color = 'primary'></FileCopyIcon> {user.email}
+          <FileCopyIcon onClick = {() => {handleCopy(user.email)}} className = 'atIcon' color = 'black'></FileCopyIcon> {user.email}
         </Typography>
       </CardContent>
     </Card>
