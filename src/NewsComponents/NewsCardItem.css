@@ -89,6 +89,7 @@ h1 {
   color: #000000;
   font-size: 16px;
   line-height: 18px;  
+  font-weight: 200;
 }
 
 .link-to-news {
@@ -97,12 +98,14 @@ h1 {
   line-height: 25px;
   font-size: 10px;
   padding-bottom: 10px;
+  color: #afafaf;
+  float: right;
+  margin-right: 10px;
 }
 
 .link-to-news:hover{
   text-decoration: none;
-  font-size: 20px;
-  color: black
+  font-size: 11px;
 }
 
 @media only screen and (min-width: 1200px) {

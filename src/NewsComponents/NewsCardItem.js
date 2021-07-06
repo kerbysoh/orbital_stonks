@@ -7,11 +7,14 @@ function CardItem(props) {
       <li className="newscards__item">
         <div className="newscards__item__link">
           <figure className="newscards__item__pic-wrap">
-            <img
+            
+              <a target="" href={props.path}>
+              <img
               className="newscards__item__img"
               alt="Not Available"
-              src={props.src}
+              src={props.src} 
             />
+            </a>
           </figure>
           <div className="newscards__item__info">
             <h3 className="newscards__item__text">{props.text}</h3>

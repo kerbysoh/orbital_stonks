@@ -36,18 +36,24 @@ const News = (props) => {
       
       <div className="news_page">
         <Navbar handleLogout = {handleLogout} />
-        <SearchBox
-          placeholder="Search..."
-          handleChange={(e) => setSearch(e.target.value)}
-        ></SearchBox>
-        <SearchIcon className = 'search2' onClick={handleSearch} fontSize = 'large'/>
-  
+        
+       
         <div className="all__news">
+          <div>
+            
+            </div>
+            <div>
+              
+            </div>
+        <div class="topnav">
+        <input className ='searchbox' type="text" placeholder="Search.." handleChange={(e) => setSearch(e.target.value)} ></input>
+        <SearchIcon className = 'search2' onClick={handleSearch} fontSize = 'large'/>
+        </div>
           {data
             ? data.articles.map((news) => (
                 <NewsArticle data={news} key={news.url} />
               ))
-            : "Loading"}
+            : <div className ="loader"></div>}
         </div>
       </div>
     );
