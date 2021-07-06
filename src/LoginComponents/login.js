@@ -1,13 +1,18 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Link }  from 'react-router-dom'
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
+import "./login.css"
+import TextField from '@material-ui/core/TextField';
 
 const Login = (props) => {
     
-    
+    const [birthday, setBirthday] = useState(new Date());
+    const changeStart = (e) => {
+        setBirthday(e.target.value)
+    }
     const {email, setEmail, password, setPassword, passwordError, emailError, handleLogin, handleSignup, hasAccount, setHasAccount, confirmPassword, setConfirmPassword, clearErrors, clearInputs, description, setDescription, firstName, setFirstName, lastName, setLastName, setGender, dob, setDob, genderError, firstNameError, lastNameError, descriptionError, dobError, image, setImage, imageError} = props
     const handleChangeProfile = e => {
         if (e.target.files[0]) {
@@ -16,8 +21,8 @@ const Login = (props) => {
     }
     return ( <section className = "login">
         <div className ="loginContainer">
-            <h1> $TONK$ </h1>
-            <label>Username</label>
+            <h1 className = "login-header"> $TONK$ </h1>
+            <label>Email</label>
             <input type = "text" autoFocus required value = {email} onChange = {(e) => setEmail(e.target.value)}/>
             <p className = "errorMsg">{emailError}</p>
             <label>Password</label> 
@@ -36,7 +41,7 @@ const Login = (props) => {
                 <p className = "errorMsg">{lastNameError}</p>
                 <label>Gender</label> 
                 <FormControl component="fieldset">
-                    <RadioGroup aria-label="gender" name="gender1" >
+                    <RadioGroup aria-label="gender" name="gender1"  >
                         <FormControlLabel onClick = {() => setGender("Male")} value="male" control={<Radio />} label="Male" />
                         <FormControlLabel onClick = {() => setGender("Female")} value="female" control={<Radio />} label="Female" />
                         <FormControlLabel onClick = {() => setGender("Others")} value="others" control={<Radio />} label="Others" />
@@ -47,7 +52,18 @@ const Login = (props) => {
                 <input type = "description" autoFocus required value = {description} onChange = {(e) => setDescription(e.target.value)}/>
                 <p className = "errorMsg">{descriptionError}</p>
                 <label>Date of Birth</label> 
-                <input type = "dob" autoFocus required value = {dob} placeholder = "YYYY-MM-DD" onChange = {(e) => setDob(e.target.value)}/>
+                {/* <input type = "dob" autoFocus required value = {dob} placeholder = "YYYY-MM-DD" onChange = {(e) => setDob(e.target.value)}/> */}
+                <TextField
+                    onChange = {(e) => setDob(e.target.value)}
+                    id="date"
+                    type="date"
+                    value = {dob}
+                    //value = {startDate}
+                    //className={classes.textField}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    />
                 <p className = "errorMsg">{dobError}</p>
                 <label>Upload profile picture</label>
                 <input type = "file" onChange = {handleChangeProfile} />
@@ -58,13 +74,13 @@ const Login = (props) => {
             <div className = "btnContainer">
                 {hasAccount ? (
                     <>
-                    <button onClick = {handleLogin}>Sign in</button>
+                    <button className = "login-button" onClick = {handleLogin}>Sign in</button>
                     <p>Don't have an account ? <span onClick = {() => {setHasAccount(!hasAccount); clearErrors(); clearInputs(); setConfirmPassword('')}} >Sign up</span> </p>
                     </>
                 )
                     : (
                     <>
-                    <button onClick = {handleSignup}>Sign up</button>
+                    <button className = "login-button" onClick = {handleSignup}>Sign up</button>
                     <p>Already have an account ? <span onClick = {() => {setHasAccount(!hasAccount); clearErrors(); clearInputs();setConfirmPassword('')}}>Sign in</span> </p>
                     </>
 
@@ -72,7 +88,7 @@ const Login = (props) => {
                 }
             </div>
         
-            <Link to = {"/Forget"}> Reset Password </Link>
+            <Link to = {"/Forget"} className="reset-password"> Reset Password </Link>
         </div>
     </section> )
 }

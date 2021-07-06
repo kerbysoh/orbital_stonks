@@ -17,6 +17,9 @@ import ConversationListItem from "./ChatTest/ConversationListItem";
 import "./ChatTest/ConversationListItem/ConversationListItem.css";
 import Toolbar from "./ChatTest/Toolbar";
 import { CenterFocusStrongOutlined } from "@material-ui/icons";
+import SearchIcon from '@material-ui/icons/Search';
+import Button from '@material-ui/core/Button'
+
 
 var prevUser = "";
 
@@ -169,19 +172,22 @@ const Chat = (props) => {
   return (
     <div className="chatPage">
       <Navbar handleLogout={handleLogout} />
+      <div class="topnav">
       <SearchBox
+        className ='searchbox' type="text"
         placeholder="Key in email"
         handleChange={(e) => {
           setSearch(e.target.value);
         }}
       ></SearchBox>
-      <button onClick={handleUserSearch} className="clickfriends">
-        Search
-      </button>
-      <h4 className="errmsgsearch">{errMsgSearch}</h4>
+      <SearchIcon className = 'search2' onClick={handleUserSearch} fontSize = 'large'/>
+      </div>
       <button className="open-button" onClick={handleNew}>
         New Chat
       </button>
+      
+      <h4 className="errmsgsearch">{errMsgSearch}</h4> 
+      
 
       <h1>{errMsg}</h1>
       
@@ -296,13 +302,15 @@ const Chat = (props) => {
               name="msg"
               required
             ></textarea>
-            <button
-              className="sendMessage"
-              type="submit"
-              disabled={!newMessage}
-            >
-              Send
-            </button>
+            <Button
+                        variant="contained"
+                        color="black"
+                        className="postButton"
+                        type="submit"
+                        disabled={!newMessage}
+                      >
+                        Send
+                      </Button>
           </>
         ) : (
           <></>

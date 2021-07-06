@@ -1,11 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 .comments {
   margin-top: 10px;
@@ -67,9 +67,9 @@ button {
   justify-content: center;
   background: radial-gradient(
     ellipse at left bottom,
-    rgb(7, 72, 110) 0%,
-    rgba(4, 58, 88, 0.9) 59%,
-    rgba(31, 53, 163, 0.9) 100%
+    rgb(78, 77, 77) 0%,
+    rgba(102, 100, 100, 0.9) 59%,
+    rgba(104, 103, 103, 0.9) 100%
   );
   box-shadow: 0 50px 70px -20px rgba(0, 0, 0, 0.8);
 }
@@ -229,12 +229,12 @@ button {
   transform: translateY(4px);
 }
 .searchbox {
-    padding: 6px;
-    border: none;
-    margin-top: 8px;
-    margin-right: 16px;
-    font-size: 17px;
-    display: inline-block;
+  padding: 6px;
+  border: none;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 17px;
+  display: inline-block;
 }
 .topnav {
   justify-content: right;
@@ -317,7 +317,7 @@ button {
   opacity: 0.8;
   position: absolute;
   top: 140px;
-  right: 28px;
+  left: 28px;
   width: 280px;
   margin-left: auto;
   margin-right: auto;

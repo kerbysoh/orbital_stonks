@@ -61,7 +61,7 @@ const MyProfileFollow = () => {
       <Typography className={classes.center} variant="h3" component="h2">
         {user.firstname} {user.lastname}{" "}
         <Button variant="contained" color="black" className="editButton">
-          Edit Profile
+          Edit
         </Button>
       </Typography>
 

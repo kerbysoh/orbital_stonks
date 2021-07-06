@@ -1,0 +1,14 @@
+.login-header {
+  color: rgb(255, 255, 255);
+}
+
+.login-button {
+  background-color: rgb(48, 46, 46);
+}
+
+.reset-password {
+  color: white;
+}
+.reset-password:hover {
+  color: rgb(187, 25, 25);
+}

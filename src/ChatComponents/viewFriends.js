@@ -72,7 +72,7 @@ const ViewFriends = () => {
     }, [db])
     return (
         <>
-        <button><Link to = '/Friends'>Add Friends</Link></button>
+        {/* <button><Link to = '/Friends'>Add Friends</Link></button> */}
         
         {Object.values(friends).map((key, i) => {
             return (

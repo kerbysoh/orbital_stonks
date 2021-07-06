@@ -95,12 +95,14 @@ export default function AlertDialog(props) {
       <Button
         variant="outlined"
         color="black"
+        className="postButton"
         onClick={() => {
           handleStockSearch();
         }}
       >
-        Set Transaction
+        Trade
       </Button>
+      <br/>
       <span className="errMsg">{errMsg}</span>
       <Dialog
         open={open}

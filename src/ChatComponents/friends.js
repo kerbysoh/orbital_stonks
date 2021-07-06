@@ -6,6 +6,8 @@ import {Link} from 'react-router-dom'
 import SearchBox from '../Search/SearchBox'
 import Navbar from '../components/Navbar'
 import Button from '@material-ui/core/Button'
+import SearchIcon from '@material-ui/icons/Search';
+import ViewFriends from './viewFriends'
 import {
     Typography,
     Grid,
@@ -176,12 +178,29 @@ const Friends = (props) => {
 
         <div className = "chatPage">
         <Navbar handleLogout = {handleLogout} />
-        <Button color = 'primary' variant = 'outlined'><Link to = '/viewfriends' className = 'linkPage'>View Followed Users</Link></Button>
-        <SearchBox className = "friendSearch"
-        placeholder="Key in user email"
-        handleChange={(e) => setSearch(e.target.value)}
+        
+        <div class="topnav">
+        <SearchBox
+          className ='searchbox' type="text"
+          placeholder="Key in email"
+          handleChange={(e) => {
+            setSearch(e.target.value);
+          }}
         ></SearchBox>
-        <Button onClick={handleFriendSearch} variant="contained" color="black" className = "clickfriends"> Search </Button>
+        <SearchIcon className = 'search2' onClick={handleFriendSearch} fontSize = 'large'/>
+        <br/>
+        {/* <Button
+          variant="contained"
+          color="black"
+          className="postButton"
+          type="submit"
+        >
+          <Link to = '/viewfriends'>Friends</Link>
+          
+        </Button>
+        */}
+        </div> 
+        <ViewFriends></ViewFriends>
         {
             searchOn ?
             <Grid

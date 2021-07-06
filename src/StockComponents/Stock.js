@@ -7,6 +7,7 @@ import Navbar from '../components/Navbar'
 import './Stock.css'
 import BasicTable from './BasicTable'
 import Button from '@material-ui/core/Button'
+import SearchIcon from '@material-ui/icons/Search';
 
 const Stock = (props) => {
   const {handleLogout, stock, setStock } = props
@@ -76,36 +77,35 @@ const Stock = (props) => {
     return (
       <div>
         <Navbar handleLogout={handleLogout} />
-        <div>
-          <video src='/videos/video-2.mp4' autoPlay loop muted />
-          <div className="footer-subscription">
-            <form>
-              <SearchBox
-                placeholder="Stock ticker..."
-                handleChange={(e) => {
-                  setSearch(e.target.value);
-                  setSearchOn(false);
-                }}
-              ></SearchBox>
-              <Button
-                onClick={handleStockSearch}
-                variant = "contained"
-                color = "black"
-              >
-                Search
-              </Button>
-              {searchOn ? (
-                <h2 className="suggested">
-                  Suggested: {search}
-                  <Button onClick={handleAddStock} variant = "contained" color = "secondary">
-                    Add to Watchlist
-                  </Button>
-                </h2>
-              ) : null}
-            </form>
-          </div>
+        <div className = "page-background">
+          <div class="topnav">
+            <SearchBox
+              className ='searchbox' type="text"
+              placeholder="Stock ticker..."
+                    handleChange={(e) => {
+                      setSearch(e.target.value);
+                      setSearchOn(false);
+              }}
+            ></SearchBox>
+            <SearchIcon className = 'search2' onClick={handleStockSearch} fontSize = 'large'/>
+            {searchOn ? (
+                    <h2 className="suggested">
+                      Suggested: {search}
+                      {" "}
+                      <Button
+                        variant="contained"
+                        color="black"
+                        className="postButton"
+                        type="submit"
+                        onClick={handleAddStock}
+                      >
+                        Add
+                      </Button>
+                    </h2>
+                  ) : null}            
+            </div>
+          <BasicTable stock = {stock} setStock = {setStock} removeItem = {removeItem}/>
         </div>
-        <BasicTable stock = {stock} setStock = {setStock} removeItem = {removeItem}/>
       </div>
     );
 }

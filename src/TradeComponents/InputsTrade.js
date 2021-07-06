@@ -31,8 +31,8 @@ export default function ValidationTextFields() {
   const classes = useStyles();
   const [ticker, setTicker] = useState("")
   const [amount, setAmount] = useState(0)
-  const [startDate, setStartDate] = useState("2021-05-24");
-  const [endDate, setEndDate] = useState("2021-05-24");
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   const [realticker, setRealTicker] = useState(false)
   const API_KEY = 'TQ6LE1RSC9LBHZTL';
   const [risk, setRisk] = useState("")
