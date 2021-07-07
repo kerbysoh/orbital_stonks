@@ -205,38 +205,418 @@ const App = () => {
       <Router>
       <Switch>
       <Route path = '/Chat'>
-          {user ? (<Chat handleLogout = {handleLogout} user = {user} db = {db}/>) : (<Link to = {'/Login'}>Log in</Link> )}
+          {user ? (<Chat handleLogout = {handleLogout} user = {user} db = {db}/>) : <Login email = {email} 
+        setEmail  = {setEmail}
+        password = {password} 
+        setPassword = {setPassword}
+        passwordError = {passwordError} 
+        emailError = {emailError}
+        handleLogin = {handleLogin}
+        handleLogout = {handleLogout}
+        handleSignup = {handleSignup} 
+        hasAccount = {hasAccount}
+        setHasAccount = {setHasAccount}
+        confirmPassword = {confirmPassword}
+        setConfirmPassword = {setConfirmPassword}
+        clearErrors = {clearErrors}
+        clearInputs = {clearInputs}
+        description = {description}
+        setDescription = {setDescription}
+        gender = {gender}
+        setGender = {setGender}
+        firstName = {firstName}
+        setFirstName = {setFirstName}
+        lastName = {lastName}
+        setLastName = {setLastName}
+        dob = {dob}
+        setDob = {setDob}
+        firstNameError = {firstNameError}
+        setFirstNameError = {setFirstNameError}
+        lastNameError = {lastNameError}
+        setLastNameError = {setLastNameError}
+        dobError = {dobError}
+        setDobError = {setDobError}
+        descriptionError = {descriptionError}
+        setDescriptionError = {setDescriptionError}
+        genderError = {genderError}
+        setGenderError = {setGenderError}
+        image = {image}
+        setImage = {setImage}
+        imageError = {imageError}
+        />}
       </Route>
         <Route path = '/Forget'>
           <Forget emailReset = {emailReset} setEmailReset = {setEmailReset} handleForget = {handleForget} emailResetError = {emailResetError} setEmailResetError = {setEmailResetError}/>
         </Route>
 
         <Route path = '/News'>
-          {user ? <News handleLogout = {handleLogout}/> : <Link to = {'/'}>Log in</Link>}
+          {user ? <News handleLogout = {handleLogout}/> :<Login email = {email} 
+        setEmail  = {setEmail}
+        password = {password} 
+        setPassword = {setPassword}
+        passwordError = {passwordError} 
+        emailError = {emailError}
+        handleLogin = {handleLogin}
+        handleLogout = {handleLogout}
+        handleSignup = {handleSignup} 
+        hasAccount = {hasAccount}
+        setHasAccount = {setHasAccount}
+        confirmPassword = {confirmPassword}
+        setConfirmPassword = {setConfirmPassword}
+        clearErrors = {clearErrors}
+        clearInputs = {clearInputs}
+        description = {description}
+        setDescription = {setDescription}
+        gender = {gender}
+        setGender = {setGender}
+        firstName = {firstName}
+        setFirstName = {setFirstName}
+        lastName = {lastName}
+        setLastName = {setLastName}
+        dob = {dob}
+        setDob = {setDob}
+        firstNameError = {firstNameError}
+        setFirstNameError = {setFirstNameError}
+        lastNameError = {lastNameError}
+        setLastNameError = {setLastNameError}
+        dobError = {dobError}
+        setDobError = {setDobError}
+        descriptionError = {descriptionError}
+        setDescriptionError = {setDescriptionError}
+        genderError = {genderError}
+        setGenderError = {setGenderError}
+        image = {image}
+        setImage = {setImage}
+        imageError = {imageError}
+        />}
         </Route>
         <Route path = '/Friends'>
-          {user ? <Friends handleLogout = {handleLogout} profile = {profile} setProfile = {setProfile} /> : <Link to = {'/'}>Log in</Link>}
+          {user ? <Friends handleLogout = {handleLogout} profile = {profile} setProfile = {setProfile} /> :<Login email = {email} 
+        setEmail  = {setEmail}
+        password = {password} 
+        setPassword = {setPassword}
+        passwordError = {passwordError} 
+        emailError = {emailError}
+        handleLogin = {handleLogin}
+        handleLogout = {handleLogout}
+        handleSignup = {handleSignup} 
+        hasAccount = {hasAccount}
+        setHasAccount = {setHasAccount}
+        confirmPassword = {confirmPassword}
+        setConfirmPassword = {setConfirmPassword}
+        clearErrors = {clearErrors}
+        clearInputs = {clearInputs}
+        description = {description}
+        setDescription = {setDescription}
+        gender = {gender}
+        setGender = {setGender}
+        firstName = {firstName}
+        setFirstName = {setFirstName}
+        lastName = {lastName}
+        setLastName = {setLastName}
+        dob = {dob}
+        setDob = {setDob}
+        firstNameError = {firstNameError}
+        setFirstNameError = {setFirstNameError}
+        lastNameError = {lastNameError}
+        setLastNameError = {setLastNameError}
+        dobError = {dobError}
+        setDobError = {setDobError}
+        descriptionError = {descriptionError}
+        setDescriptionError = {setDescriptionError}
+        genderError = {genderError}
+        setGenderError = {setGenderError}
+        image = {image}
+        setImage = {setImage}
+        imageError = {imageError}
+        />}
         </Route>
         <Route path = '/viewFriends'>
-          {user ? <ViewFriends handleLogout = {handleLogout} /> : <Link to = {'/'}>Log in</Link>}
+          {user ? <ViewFriends handleLogout = {handleLogout} /> :<Login email = {email} 
+        setEmail  = {setEmail}
+        password = {password} 
+        setPassword = {setPassword}
+        passwordError = {passwordError} 
+        emailError = {emailError}
+        handleLogin = {handleLogin}
+        handleLogout = {handleLogout}
+        handleSignup = {handleSignup} 
+        hasAccount = {hasAccount}
+        setHasAccount = {setHasAccount}
+        confirmPassword = {confirmPassword}
+        setConfirmPassword = {setConfirmPassword}
+        clearErrors = {clearErrors}
+        clearInputs = {clearInputs}
+        description = {description}
+        setDescription = {setDescription}
+        gender = {gender}
+        setGender = {setGender}
+        firstName = {firstName}
+        setFirstName = {setFirstName}
+        lastName = {lastName}
+        setLastName = {setLastName}
+        dob = {dob}
+        setDob = {setDob}
+        firstNameError = {firstNameError}
+        setFirstNameError = {setFirstNameError}
+        lastNameError = {lastNameError}
+        setLastNameError = {setLastNameError}
+        dobError = {dobError}
+        setDobError = {setDobError}
+        descriptionError = {descriptionError}
+        setDescriptionError = {setDescriptionError}
+        genderError = {genderError}
+        setGenderError = {setGenderError}
+        image = {image}
+        setImage = {setImage}
+        imageError = {imageError}
+        />}
         </Route>
         <Route path = '/StockGraphs'>
-        {user ? <StockGraphs handleLogout = {handleLogout} stock = {stock} setStock = {setStock}   /> : <Link to = {'/'}>Log in</Link>}
+        {user ? <StockGraphs handleLogout = {handleLogout} stock = {stock} setStock = {setStock}   /> : <Login email = {email} 
+        setEmail  = {setEmail}
+        password = {password} 
+        setPassword = {setPassword}
+        passwordError = {passwordError} 
+        emailError = {emailError}
+        handleLogin = {handleLogin}
+        handleLogout = {handleLogout}
+        handleSignup = {handleSignup} 
+        hasAccount = {hasAccount}
+        setHasAccount = {setHasAccount}
+        confirmPassword = {confirmPassword}
+        setConfirmPassword = {setConfirmPassword}
+        clearErrors = {clearErrors}
+        clearInputs = {clearInputs}
+        description = {description}
+        setDescription = {setDescription}
+        gender = {gender}
+        setGender = {setGender}
+        firstName = {firstName}
+        setFirstName = {setFirstName}
+        lastName = {lastName}
+        setLastName = {setLastName}
+        dob = {dob}
+        setDob = {setDob}
+        firstNameError = {firstNameError}
+        setFirstNameError = {setFirstNameError}
+        lastNameError = {lastNameError}
+        setLastNameError = {setLastNameError}
+        dobError = {dobError}
+        setDobError = {setDobError}
+        descriptionError = {descriptionError}
+        setDescriptionError = {setDescriptionError}
+        genderError = {genderError}
+        setGenderError = {setGenderError}
+        image = {image}
+        setImage = {setImage}
+        imageError = {imageError}
+        />}
         </Route>
         <Route path = '/userProfile'>
-        {user ? <UserProfile handleLogout = {handleLogout} profile = {profile} setProfile = {setProfile}/> : <Link to = {'/'}>Log in</Link>}
+        {user ? <UserProfile handleLogout = {handleLogout} profile = {profile} setProfile = {setProfile}/> : <Login email = {email} 
+        setEmail  = {setEmail}
+        password = {password} 
+        setPassword = {setPassword}
+        passwordError = {passwordError} 
+        emailError = {emailError}
+        handleLogin = {handleLogin}
+        handleLogout = {handleLogout}
+        handleSignup = {handleSignup} 
+        hasAccount = {hasAccount}
+        setHasAccount = {setHasAccount}
+        confirmPassword = {confirmPassword}
+        setConfirmPassword = {setConfirmPassword}
+        clearErrors = {clearErrors}
+        clearInputs = {clearInputs}
+        description = {description}
+        setDescription = {setDescription}
+        gender = {gender}
+        setGender = {setGender}
+        firstName = {firstName}
+        setFirstName = {setFirstName}
+        lastName = {lastName}
+        setLastName = {setLastName}
+        dob = {dob}
+        setDob = {setDob}
+        firstNameError = {firstNameError}
+        setFirstNameError = {setFirstNameError}
+        lastNameError = {lastNameError}
+        setLastNameError = {setLastNameError}
+        dobError = {dobError}
+        setDobError = {setDobError}
+        descriptionError = {descriptionError}
+        setDescriptionError = {setDescriptionError}
+        genderError = {genderError}
+        setGenderError = {setGenderError}
+        image = {image}
+        setImage = {setImage}
+        imageError = {imageError}
+        />}
         </Route>
         <Route path = '/Trade'>
-          {user ? <Trade handleLogout = {handleLogout} /> : <Link to = {'/'}>Log in</Link>}
+          {user ? <Trade handleLogout = {handleLogout} /> :<Login email = {email} 
+        setEmail  = {setEmail}
+        password = {password} 
+        setPassword = {setPassword}
+        passwordError = {passwordError} 
+        emailError = {emailError}
+        handleLogin = {handleLogin}
+        handleLogout = {handleLogout}
+        handleSignup = {handleSignup} 
+        hasAccount = {hasAccount}
+        setHasAccount = {setHasAccount}
+        confirmPassword = {confirmPassword}
+        setConfirmPassword = {setConfirmPassword}
+        clearErrors = {clearErrors}
+        clearInputs = {clearInputs}
+        description = {description}
+        setDescription = {setDescription}
+        gender = {gender}
+        setGender = {setGender}
+        firstName = {firstName}
+        setFirstName = {setFirstName}
+        lastName = {lastName}
+        setLastName = {setLastName}
+        dob = {dob}
+        setDob = {setDob}
+        firstNameError = {firstNameError}
+        setFirstNameError = {setFirstNameError}
+        lastNameError = {lastNameError}
+        setLastNameError = {setLastNameError}
+        dobError = {dobError}
+        setDobError = {setDobError}
+        descriptionError = {descriptionError}
+        setDescriptionError = {setDescriptionError}
+        genderError = {genderError}
+        setGenderError = {setGenderError}
+        image = {image}
+        setImage = {setImage}
+        imageError = {imageError}
+        />}
         </Route>
         <Route path = '/Stock'>
-          {user ? <Stock handleLogout = {handleLogout} stock = {stock} setStock = {setStock} /> : <Link to = {'/'}>Log in</Link>}
+          {user ? <Stock handleLogout = {handleLogout} stock = {stock} setStock = {setStock} /> : <Login email = {email} 
+        setEmail  = {setEmail}
+        password = {password} 
+        setPassword = {setPassword}
+        passwordError = {passwordError} 
+        emailError = {emailError}
+        handleLogin = {handleLogin}
+        handleLogout = {handleLogout}
+        handleSignup = {handleSignup} 
+        hasAccount = {hasAccount}
+        setHasAccount = {setHasAccount}
+        confirmPassword = {confirmPassword}
+        setConfirmPassword = {setConfirmPassword}
+        clearErrors = {clearErrors}
+        clearInputs = {clearInputs}
+        description = {description}
+        setDescription = {setDescription}
+        gender = {gender}
+        setGender = {setGender}
+        firstName = {firstName}
+        setFirstName = {setFirstName}
+        lastName = {lastName}
+        setLastName = {setLastName}
+        dob = {dob}
+        setDob = {setDob}
+        firstNameError = {firstNameError}
+        setFirstNameError = {setFirstNameError}
+        lastNameError = {lastNameError}
+        setLastNameError = {setLastNameError}
+        dobError = {dobError}
+        setDobError = {setDobError}
+        descriptionError = {descriptionError}
+        setDescriptionError = {setDescriptionError}
+        genderError = {genderError}
+        setGenderError = {setGenderError}
+        image = {image}
+        setImage = {setImage}
+        imageError = {imageError}
+        />}
         </Route>
         <Route path = '/Feed'>
-        {user ? <Feed handleLogout = {handleLogout} profile = {profile} setProfile = {setProfile} /> : <Link to = {'/'}>Log in</Link>}
+        {user ? <Feed handleLogout = {handleLogout} profile = {profile} setProfile = {setProfile} /> : <Login email = {email} 
+        setEmail  = {setEmail}
+        password = {password} 
+        setPassword = {setPassword}
+        passwordError = {passwordError} 
+        emailError = {emailError}
+        handleLogin = {handleLogin}
+        handleLogout = {handleLogout}
+        handleSignup = {handleSignup} 
+        hasAccount = {hasAccount}
+        setHasAccount = {setHasAccount}
+        confirmPassword = {confirmPassword}
+        setConfirmPassword = {setConfirmPassword}
+        clearErrors = {clearErrors}
+        clearInputs = {clearInputs}
+        description = {description}
+        setDescription = {setDescription}
+        gender = {gender}
+        setGender = {setGender}
+        firstName = {firstName}
+        setFirstName = {setFirstName}
+        lastName = {lastName}
+        setLastName = {setLastName}
+        dob = {dob}
+        setDob = {setDob}
+        firstNameError = {firstNameError}
+        setFirstNameError = {setFirstNameError}
+        lastNameError = {lastNameError}
+        setLastNameError = {setLastNameError}
+        dobError = {dobError}
+        setDobError = {setDobError}
+        descriptionError = {descriptionError}
+        setDescriptionError = {setDescriptionError}
+        genderError = {genderError}
+        setGenderError = {setGenderError}
+        image = {image}
+        setImage = {setImage}
+        imageError = {imageError}
+        />}
         </Route>
         <Route path = '/myProfile'>
-        {user ? <MyProfile handleLogout = {handleLogout} /> : <Link to = {'/'}>Log in</Link>}
+        {user ? <MyProfile handleLogout = {handleLogout} /> : <Login email = {email} 
+        setEmail  = {setEmail}
+        password = {password} 
+        setPassword = {setPassword}
+        passwordError = {passwordError} 
+        emailError = {emailError}
+        handleLogin = {handleLogin}
+        handleLogout = {handleLogout}
+        handleSignup = {handleSignup} 
+        hasAccount = {hasAccount}
+        setHasAccount = {setHasAccount}
+        confirmPassword = {confirmPassword}
+        setConfirmPassword = {setConfirmPassword}
+        clearErrors = {clearErrors}
+        clearInputs = {clearInputs}
+        description = {description}
+        setDescription = {setDescription}
+        gender = {gender}
+        setGender = {setGender}
+        firstName = {firstName}
+        setFirstName = {setFirstName}
+        lastName = {lastName}
+        setLastName = {setLastName}
+        dob = {dob}
+        setDob = {setDob}
+        firstNameError = {firstNameError}
+        setFirstNameError = {setFirstNameError}
+        lastNameError = {lastNameError}
+        setLastNameError = {setLastNameError}
+        dobError = {dobError}
+        setDobError = {setDobError}
+        descriptionError = {descriptionError}
+        setDescriptionError = {setDescriptionError}
+        genderError = {genderError}
+        setGenderError = {setGenderError}
+        image = {image}
+        setImage = {setImage}
+        imageError = {imageError}
+        />}
         </Route>
         
         <Route path = '/'>

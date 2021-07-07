@@ -256,6 +256,7 @@ const Feed = (props) => {
           className="postButton"
           type="submit"
           onClick={handleNewPost}
+          disabled ={!newPost}
         >
           Post
         </Button>
@@ -288,14 +289,14 @@ const Feed = (props) => {
                     <div className="content2">{post.likes} likes</div>
 
                     <div className="post_option">
-                      <FavoriteIcon
+                      <FavoriteIcon style = {{fontSize: 50}}
                         className="post_options"
                         onClick={() => handleLike(post.id)}
                       />
                       {post.email === fire.auth().currentUser.email ? (
                         <>
                           <DeleteIcon
-                            className="post_options"
+                            className="post_options" style = {{fontSize: 50}}
                             onClick={() => handleDeletePost(post.id)}
                           />
                         </>
@@ -307,10 +308,12 @@ const Feed = (props) => {
                           setReply("");
                           setReplyOn(false);
                         }}
+
                       >
                         View Comments
                       </Button>
                       <Button
+                      
                         className="post_options"
                         onClick={() => {
                           setReplyOn(true);
@@ -320,24 +323,30 @@ const Feed = (props) => {
                         Reply
                       </Button>
                     </div>
+                    <div className = 'replyDiv'>
                     {replyOn && post.id === currReply ? (
                       <>
                         {" "}
-                        <TextField
-                          variant="filled"
-                          size="medium"
+                        <textarea className = "searchbox2" placeholder = "Type your comment here..."
                           onChange={(e) => setReply(e.target.value)}
-                        ></TextField>{" "}
+                        ></textarea>{" "}
                         <Button
-                          className="clickfriends"
+                        disabled ={!reply}
+                          variant="contained"
+                          color="black"
+                          className="postButton2"
+                          type="submit"
                           onClick={() => handleReply()}
                         >
-                          Submit
+                          Reply
                         </Button>{" "}
                       </>
                     ) : (
                       <></>
                     )}
+
+                    </div>
+                    
                     <div className="comments">
                       {currView === post.id ? (
                         <>
@@ -360,7 +369,7 @@ const Feed = (props) => {
                                     {comment.email ===
                                     fire.auth().currentUser.email ? (
                                       <>
-                                        <DeleteIcon
+                                        <DeleteIcon style = {{fontSize: 50}}
                                           className="post_options"
                                           onClick={() =>
                                             handleDeleteComment(comment.id)

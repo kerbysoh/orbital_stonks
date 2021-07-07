@@ -180,13 +180,13 @@ const Friends = (props) => {
         <Navbar handleLogout = {handleLogout} />
         
         <div class="topnav">
-        <SearchBox
+        <input
           className ='searchbox' type="text"
-          placeholder="Key in email"
+          placeholder="Key in email..."
           handleChange={(e) => {
             setSearch(e.target.value);
           }}
-        ></SearchBox>
+        ></input>
         <SearchIcon className = 'search2' onClick={handleFriendSearch} fontSize = 'large'/>
         <br/>
         {/* <Button

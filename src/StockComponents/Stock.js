@@ -79,15 +79,17 @@ const Stock = (props) => {
         <Navbar handleLogout={handleLogout} />
         <div className = "page-background">
           <div class="topnav">
-            <SearchBox
+            <input
               className ='searchbox' type="text"
               placeholder="Stock ticker..."
                     handleChange={(e) => {
                       setSearch(e.target.value);
                       setSearchOn(false);
               }}
-            ></SearchBox>
+            ></input>
+           
             <SearchIcon className = 'search2' onClick={handleStockSearch} fontSize = 'large'/>
+            </div>
             {searchOn ? (
                     <h2 className="suggested">
                       Suggested: {search}
@@ -103,7 +105,7 @@ const Stock = (props) => {
                       </Button>
                     </h2>
                   ) : null}            
-            </div>
+            
           <BasicTable stock = {stock} setStock = {setStock} removeItem = {removeItem}/>
         </div>
       </div>

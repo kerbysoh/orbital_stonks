@@ -199,7 +199,27 @@ button {
   height: 30px;
   width: 100px;
 }
-
+.postButton2 {
+  height: 30px;
+  width: 130px;
+  margin: auto;
+  
+}
+.iconClass:hover {
+  cursor: pointer
+}
+.chatHeader {
+  align-items: center;
+}
+.newChat {
+  margin: auto;
+  padding-left: 110px;
+}
+.replyDiv {
+  justify-content: center;
+  vertical-align: center;
+  height: 80px;
+}
 .clickfriends:hover {
   opacity: 1;
   background-color: #636768;
@@ -235,6 +255,16 @@ button {
   margin-right: 16px;
   font-size: 17px;
   display: inline-block;
+}
+.searchbox2 {
+  margin-left: 30px;
+  border: none;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 17px;
+  display: inline-block;
+  width: 73%;
+  height: 100%;
 }
 .topnav {
   justify-content: right;
@@ -444,6 +474,7 @@ button {
   padding: 5px;
   flex: 1;
 }
+
 .content2 {
   margin-top: 10px;
   margin-bottom: 10px;

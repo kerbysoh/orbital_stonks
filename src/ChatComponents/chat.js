@@ -19,6 +19,11 @@ import Toolbar from "./ChatTest/Toolbar";
 import { CenterFocusStrongOutlined } from "@material-ui/icons";
 import SearchIcon from '@material-ui/icons/Search';
 import Button from '@material-ui/core/Button'
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 
 var prevUser = "";
@@ -35,6 +40,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Chat = (props) => {
+  const handleClose = () => {
+    setDOpen(false);
+    setMsgSel('')
+  };
+  const [dOpen, setDOpen] = useState(false)
   const [messages, setMessages] = useState([]); // collection of latest 100 messages in database
   const [newMessage, setNewMessage] = useState(""); // new message string
   const [receiver, setReceiver] = useState(prevUser); //who receives the new message
@@ -49,6 +59,7 @@ const Chat = (props) => {
   const db = firebase.firestore();
   const [errMsg, setErrMsg] = useState("");
   const [friends, setFriends] = useState({});
+  const [msgSel, setMsgSel] = useState('')
   const { handleLogout } = props;
   const userEmail = fire.auth().currentUser.email;
 
@@ -173,18 +184,25 @@ const Chat = (props) => {
     <div className="chatPage">
       <Navbar handleLogout={handleLogout} />
       <div class="topnav">
-      <SearchBox
+      <input
         className ='searchbox' type="text"
-        placeholder="Key in email"
+        placeholder="Key in email..."
         handleChange={(e) => {
           setSearch(e.target.value);
         }}
-      ></SearchBox>
+      ></input>
       <SearchIcon className = 'search2' onClick={handleUserSearch} fontSize = 'large'/>
       </div>
-      <button className="open-button" onClick={handleNew}>
+      <div className = 'newChat'>
+
+      <Button variant="contained"
+          color="black"
+          className="postButton2"
+          type="submit" onClick={handleNew}>
         New Chat
-      </button>
+      </Button>
+      
+      </div>
       
       <h4 className="errmsgsearch">{errMsgSearch}</h4> 
       
@@ -236,14 +254,18 @@ const Chat = (props) => {
         </div>
         <div className="scrollable content">
           <ul className="listMsg">
+            <div className = "chatHeader">
+
             {currUser ? (
               <>
                 {" "}
-                <Toolbar title={currUser} />
+                <Toolbar title = {currUser} />
               </>
             ) : (
               <></>
             )}
+            </div>
+            
             {messages.map((message) => {
               if (
                 (userEmail === message.receiver ||
@@ -263,9 +285,10 @@ const Chat = (props) => {
                   return (
                     <li className="chatBubbleRight" key={message.id}>
                       {message.text}{" "}
-                      <DeleteIcon
+                      <DeleteIcon className = "iconClass"
                         onClick={() => {
-                          handleDelete(message.id);
+                          setDOpen(true);
+                          setMsgSel(message.id);
                         }}
                       />
                     </li>
@@ -316,6 +339,34 @@ const Chat = (props) => {
           <></>
         )}
       </form>
+      <Dialog
+        open={dOpen}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="Confirm Delete?">{"Confirm Delete?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Your action cannot be reversed
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => handleClose()} color="primary">
+            No
+          </Button>
+          <Button
+            onClick={() => {
+              handleDelete(msgSel);
+              handleClose()
+            }}
+            color="primary"
+            autoFocus
+          >
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
         </div>
       </div>
     </div>
