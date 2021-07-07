@@ -5,6 +5,7 @@ import OpenDialogue from './OpenDialogue'
 import firebase from 'firebase/app'
 import fire from '../fire'
 import 'firebase/firestore'
+import RiskLevel from "./RiskLevel";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -92,6 +93,8 @@ export default function ValidationTextFields() {
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
+      <RiskLevel></RiskLevel>
+      
       <div>
           <TextField
           onChange = {(e) => changeTicker(e)}
@@ -99,20 +102,6 @@ export default function ValidationTextFields() {
           placeholder="Ticker..."
           variant="filled"
         />
-        <br/>
-        <TextField
-          //error
-          onChange = {(e) => changeAmount(e)}
-          id="filled-error-helper-text"
-          label="Input Amount"
-          placeholder="Amount..."
-          type="number"
-          //defaultValue="Hello World"
-          //helperText="Incorrect entry."
-          variant="filled"
-        />
-      </div>
-      <div>
         <TextField
           onChange = {(e) => changeStart(e)}
           id="date"
@@ -125,7 +114,21 @@ export default function ValidationTextFields() {
             shrink: true,
           }}
         />
-      </div>
+        
+        </div>
+        <div>
+      <TextField
+          //error
+          onChange = {(e) => changeAmount(e)}
+          id="filled-error-helper-text"
+          label="Input Amount"
+          placeholder="Amount..."
+          type="number"
+          //defaultValue="Hello World"
+          //helperText="Incorrect entry."
+          variant="filled"
+        />  
+      
       <TextField
           onChange = {(e) => changeEnd(e)}
           id="date"
@@ -137,6 +140,7 @@ export default function ValidationTextFields() {
             shrink: true,
           }}
         />
+        </div>
         <OpenDialogue risk = {risk} realticker = {realticker} amount = {amount} ticker = {ticker} startDate = {startDate} endDate={endDate}></OpenDialogue>
 
     </form>

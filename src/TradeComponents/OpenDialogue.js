@@ -10,23 +10,53 @@ import firebase from "firebase/app";
 import fire from "../fire";
 import Value from "./lib/getAccountValue"
 import Stock from "./lib/getDownTrendingStock"
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 export default function AlertDialog(props) {
   const db = firebase.firestore();
   const userEmail = fire.auth().currentUser.email;
   const API_KEY = "TQ6LE1RSC9LBHZTL";
   const [legit, setLegit] = useState(true);
-  const [errMsg, setErrMsg] = useState("");
+  const [opensnack, setOpenSnack] = useState(false);
+  const [message, setMessage] = useState("Transaction Set!")
+
+  const handleClickSnack = () => {
+    if (
+      props.amount <= 0 &
+      props.startDate >= props.endDate
+    ) {
+      setMessage("Incorrect Amount and Date!");
+      setOpenSnack(true);
+      
+    } else if (props.amount <= 0 ) {
+      setMessage("Incorrect Amount!");
+      setOpenSnack(true);
+      
+    } else if (props.startDate >= props.endDate) {
+      setMessage("Incorrect Date!");
+      setOpenSnack(true);
+      
+    }else {
+      setOpenSnack(false);
+    }
+  };
+
+  const handleCloseSnack = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSnack(false);
+  };
 
   useEffect(() => {
-    if (
-      props.amount <= 0 ||
-      props.startDate > props.endDate ||
-      props.risk === ""
+     if (
+      props.amount <= 0 &
+      props.startDate >= props.endDate
     ) {
       setLegit(false);
-    } else {
-      setLegit(true);
     }
   });
 
@@ -38,12 +68,11 @@ export default function AlertDialog(props) {
         return response.json();
       })
       .then(function (data) {
-        if (data.Symbol) {
-          setLegit(true);
+        if (data.Symbol & legit) {
           handleClickOpen();
         } else {
-          setLegit(false);
-          setErrMsg("Input Error");
+          setOpenSnack(true);
+          setMessage("Unknown Stock!");
         }
       });
   };
@@ -97,13 +126,30 @@ export default function AlertDialog(props) {
         color="black"
         className="postButton"
         onClick={() => {
-          handleStockSearch();
+          {handleStockSearch(); handleClickSnack();} 
         }}
       >
         Trade
       </Button>
-      <br/>
-      <span className="errMsg">{errMsg}</span>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={opensnack}
+        autoHideDuration={4000}
+        onClose={handleClose}
+        message={message}
+        onClose={() => setOpenSnack(false)}
+        action={
+          <>
+            <IconButton size="small" aria-label="close" color="inherit" onClick={handleCloseSnack}>
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </>
+        }
+      />
+
       <Dialog
         open={open}
         onClose={handleClose}

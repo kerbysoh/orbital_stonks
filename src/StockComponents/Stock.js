@@ -82,7 +82,7 @@ const Stock = (props) => {
             <input
               className ='searchbox' type="text"
               placeholder="Stock ticker..."
-                    handleChange={(e) => {
+                    onChange={(e) => {
                       setSearch(e.target.value);
                       setSearchOn(false);
               }}
@@ -105,7 +105,6 @@ const Stock = (props) => {
                       </Button>
                     </h2>
                   ) : null}            
-            
           <BasicTable stock = {stock} setStock = {setStock} removeItem = {removeItem}/>
         </div>
       </div>

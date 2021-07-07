@@ -187,7 +187,7 @@ const Chat = (props) => {
       <input
         className ='searchbox' type="text"
         placeholder="Key in email..."
-        handleChange={(e) => {
+        onChange={(e) => {
           setSearch(e.target.value);
         }}
       ></input>

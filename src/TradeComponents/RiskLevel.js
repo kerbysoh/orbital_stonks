@@ -16,7 +16,7 @@ import 'firebase/firestore'
 
 export default function RiskLevel() {
   const db = firebase.firestore()
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState('Low');
   const [databasevalue, setDatabaseValue] = useState('')
   
   useEffect (()=> {
@@ -37,10 +37,10 @@ export default function RiskLevel() {
   const useStyles = makeStyles((theme) => ({
 
   tableContainer: {
-    marginTop: '2rem',
-    borderRadius: 15,
+    marginBottom: '1rem',
+    borderRadius: 6,
     margin: 'auto',
-    maxWidth: 650
+    maxWidth: 415
   },
   tableHeaderCell: {
     fontWeight: 'bold',
@@ -83,7 +83,7 @@ export default function RiskLevel() {
                   </TableRow>
               </TableHead>
               <TableBody className = {classes.tableBody}>
-                <RadioGroup aria-label="risk" name="risklevel" value={databasevalue} onChange={handleChange}>
+                <RadioGroup aria-label="risk" name="risklevel" value={value} onChange={handleChange}>
                     <FormControlLabel className = {classes.tableBody} value="Low" control={<Radio classes={{root: classes.radio, checked: classes.checked}} />} label="Low" />
                     <FormControlLabel className = {classes.tableBody} value="Medium" control={<Radio classes={{root: classes.radio, checked: classes.checked}}  />} label="Medium" />
                     <FormControlLabel className = {classes.tableBody} value="High" control={<Radio classes={{root: classes.radio, checked: classes.checked}}  />} label="High" />

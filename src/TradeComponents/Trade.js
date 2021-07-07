@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
-import RiskLevel from "./RiskLevel";
 import firebase from 'firebase/app'
 import fire from '../fire'
 import 'firebase/firestore'
@@ -55,12 +54,9 @@ const Trade = ({ handleLogout }) => {
     <>
       <Navbar handleLogout={handleLogout} />
       <div>
-        <RiskLevel></RiskLevel>
+        
         <form className="footer-subscription">
-          <Inputs></Inputs>
-          
-          <br />
-          
+          <Inputs></Inputs>          
           <Transaction></Transaction>
         </form>
       </div>
