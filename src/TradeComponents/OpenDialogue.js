@@ -53,10 +53,12 @@ export default function AlertDialog(props) {
 
   useEffect(() => {
      if (
-      props.amount <= 0 &
+      props.amount <= 0 ||
       props.startDate >= props.endDate
     ) {
       setLegit(false);
+    }else {
+      setLegit(true);
     }
   });
 
@@ -68,8 +70,10 @@ export default function AlertDialog(props) {
         return response.json();
       })
       .then(function (data) {
-        if (data.Symbol & legit) {
-          handleClickOpen();
+        if (data.Symbol) {
+          if(legit){
+            handleClickOpen();
+          }
         } else {
           setOpenSnack(true);
           setMessage("Unknown Stock!");

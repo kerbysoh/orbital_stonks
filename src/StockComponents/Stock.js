@@ -8,14 +8,28 @@ import './Stock.css'
 import BasicTable from './BasicTable'
 import Button from '@material-ui/core/Button'
 import SearchIcon from '@material-ui/icons/Search';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 const Stock = (props) => {
+
+  const [opensnack, setOpenSnack] = useState(false);
+  const [message, setMessage] = useState("")
   const {handleLogout, stock, setStock } = props
-    const db = firebase.firestore()
-    const userEmail = fire.auth().currentUser.email
-    const [search, setSearch] = useState('')
-    const API_KEY = 'TQ6LE1RSC9LBHZTL';
-    const [searchOn, setSearchOn] = useState(false)
+  const db = firebase.firestore()
+  const userEmail = fire.auth().currentUser.email
+  const [search, setSearch] = useState('')
+  const API_KEY = 'TQ6LE1RSC9LBHZTL';
+  const [searchOn, setSearchOn] = useState(false)
+
+  const handleCloseSnack = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSnack(false);
+  };
 
     const handleAddStock = (e) => {
         e.preventDefault()
@@ -38,8 +52,20 @@ const Stock = (props) => {
             )
             .then(
               function(data){
-                if(data.Symbol) {
-                  setSearchOn(true)
+                if(data.Symbol) {    
+                    for(const x of Object.values(stock)) {
+                      if(x === search) {
+                        setMessage("Stock Already Added!");
+                        setOpenSnack(true);
+                        setSearchOn(false);
+
+                        break;
+                      }else {
+                        setOpenSnack(false);
+                        setSearchOn(true);
+
+                      }
+                    }
                 } else {
                   setSearchOn(false)
                 }
@@ -88,7 +114,7 @@ const Stock = (props) => {
               }}
             ></input>
            
-            <SearchIcon className = 'search2' onClick={handleStockSearch} fontSize = 'large'/>
+            <SearchIcon className = 'search2' onClick={(e) => {handleStockSearch(e);}} fontSize = 'large'/>
             </div>
             {searchOn ? (
                     <h2 className="suggested">
@@ -103,8 +129,27 @@ const Stock = (props) => {
                       >
                         Add
                       </Button>
+                      
                     </h2>
-                  ) : null}            
+                    
+                  ) : null} 
+                  <Snackbar
+                        anchorOrigin={{
+                          vertical: 'bottom',
+                          horizontal: 'left',
+                        }}
+                        open={opensnack}
+                        autoHideDuration={3000}
+                        message={message}
+                        onClose={() => setOpenSnack(false)}
+                        action={
+                          <>
+                            <IconButton size="small" aria-label="close" color="inherit" onClick={handleCloseSnack}>
+                              <CloseIcon fontSize="small" />
+                            </IconButton>
+                          </>
+                        }
+                      />           
           <BasicTable stock = {stock} setStock = {setStock} removeItem = {removeItem}/>
         </div>
       </div>

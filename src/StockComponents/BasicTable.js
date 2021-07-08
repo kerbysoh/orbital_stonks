@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -58,7 +59,7 @@ export default function BasicTable({stock, setStock, removeItem}) {
                   View stock data
                 </Link>
               </Button></TableCell>
-              <TableCell align="left"><Button onClick={() => removeItem(key)}>Remove</Button></TableCell>
+              <TableCell><DeleteIcon style = {{fontSize: 30}} className="post_options" onClick={() => removeItem(key)}/></TableCell>
             </TableRow>
           ))}
         </TableBody>

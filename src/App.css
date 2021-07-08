@@ -203,10 +203,9 @@ button {
   height: 30px;
   width: 130px;
   margin: auto;
-  
 }
 .iconClass:hover {
-  cursor: pointer
+  cursor: pointer;
 }
 .chatHeader {
   align-items: center;
@@ -477,6 +476,11 @@ button {
   justify-content: center;
   padding: 5px;
   flex: 1;
+}
+.post_options:hover {
+  color: #000000;
+  background-color: #f1efef;
+  border-radius: 0.2rem;
 }
 
 .content2 {
