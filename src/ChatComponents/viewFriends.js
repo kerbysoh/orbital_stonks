@@ -3,6 +3,7 @@ import 'firebase/firestore'
 import firebase from 'firebase/app'
 import fire from '../fire'
 import {Link} from 'react-router-dom'
+import Av from './userAvatar2'
 import {
     Typography,
     Grid,
@@ -50,10 +51,11 @@ import {
   }));
 
 
-const ViewFriends = () => {
+const ViewFriends = (props) => {
     const classes = useStyles()
     const db = firebase.firestore()
     const [friends, setFriends] = useState({})
+    const {profile, setProfile} = props 
     
     useEffect (() => {
         if (db) {
@@ -73,7 +75,7 @@ const ViewFriends = () => {
     return (
         <>
         {/* <button><Link to = '/Friends'>Add Friends</Link></button> */}
-        
+        <Grid container direction = "row">
         {Object.values(friends).map((key, i) => {
             return (
                 <Grid
@@ -84,14 +86,11 @@ const ViewFriends = () => {
       >
             
             <Grid container justify="flex-end">
-      <Grid item xs={1}>
-        <ClearIcon className={classes.header}/>
-      </Grid>
     </Grid>
     <div className={classes.photoContainer}>
-      <Avatar
-        className={classes.avatar}
-      />
+    <Link to = 'userProfile' onClick = {() => setProfile(key.email)}>
+      <Av data = {key.email} />
+      </Link>
     </div>
     <Grid container justify="center" alignItems="center" spacing={5}>
       <Grid item xs={5.5}>
@@ -109,6 +108,7 @@ const ViewFriends = () => {
             )
             
         })}
+        </Grid>
         </>
     )
 

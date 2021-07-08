@@ -28,7 +28,10 @@ const useStyles = makeStyles(theme => ({
     },
     header: {
       color: theme.palette.grey[400],
-      height: "15px"
+      height: "15px",
+      '&:hover': {
+        cursor: 'pointer',
+      }
     },
     photoContainer: {
       marginBottom: theme.spacing(1)
@@ -183,11 +186,11 @@ const Friends = (props) => {
         <input
           className ='searchbox' type="text"
           placeholder="Key in email..."
-          handleChange={(e) => {
+          onChange={(e) => {
             setSearch(e.target.value);
           }}
         ></input>
-        <SearchIcon className = 'search2' onClick={handleFriendSearch} fontSize = 'large'/>
+        <SearchIcon className = 'search2' onClick={() => handleFriendSearch()} fontSize = 'large'/>
         <br/>
         {/* <Button
           variant="contained"
@@ -200,7 +203,8 @@ const Friends = (props) => {
         </Button>
         */}
         </div> 
-        <ViewFriends></ViewFriends>
+        {!searchOn ? <ViewFriends profile = {profile} setProfile = {setProfile} ></ViewFriends> : null}
+        
         {
             searchOn ?
             <Grid
@@ -216,10 +220,12 @@ const Friends = (props) => {
       </Grid>
     </Grid>
     <div className={classes.photoContainer}>
+    <Link to = 'userProfile' onClick = {() => setProfile(currSearch.email)}> 
       <Avatar
         className={classes.avatar}
         src = {imageURL} 
       ></Avatar>
+      </Link> 
     </div>
     <Grid container justify="center" alignItems="center" spacing={5}>
       <Grid item xs={5.5}>
@@ -243,7 +249,7 @@ const Friends = (props) => {
                 className={classes.followButton}
                 onClick = {handleAddFriend}
               >Follow
-                </Button> <Link to = 'userProfile' onClick = {() => setProfile(currSearch.email)} > Visit user profile </Link> </> :<> {(currSearch.email !== userEmail) ? <> <Button
+                </Button>  </> :<> {(currSearch.email !== userEmail) ? <> <Button
       disableElevation
       color="primary"
       variant="contained"
@@ -251,7 +257,7 @@ const Friends = (props) => {
       className={classes.followButton}
       onClick = {handleUnfollow}
     >Unfollow
-                </Button> <Link to = 'userProfile' onClick = {() => setProfile(currSearch.email)}> Visit user profile </Link> </>: <></>}</>}
+                </Button> </>: <></>}</>}
             </Grid> : null
         }
             

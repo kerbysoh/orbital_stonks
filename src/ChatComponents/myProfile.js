@@ -38,11 +38,11 @@ const useStyles = makeStyles({
   },
   center: {
     color: 'black',
-    marginLeft: '7.5rem'
+    marginLeft: '5.5rem'
   },
   email: {
     color: 'black',
-    marginLeft: '3rem'
+    marginLeft: '1rem'
   },
   pos: {
     textAlign: "center",
@@ -61,8 +61,8 @@ const useAvatarStyles = makeStyles((theme) => ({
       alignItems:'center',
   },
   sizeAvatar: {
-    height: theme.spacing(40),
-    width: theme.spacing(40),
+    height: theme.spacing(30),
+    width: theme.spacing(30),
 
   },
   orange: {

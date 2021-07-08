@@ -224,7 +224,10 @@ button {
   opacity: 1;
   background-color: #636768;
 }
-
+.horizontal {
+  display: inline-block;
+  text-align: center;
+}
 .btn {
   padding: 6px 20px;
   font-size: 12px;
@@ -407,7 +410,8 @@ button {
   outline: none;
 }
 .atIcon:hover {
-  transform: scale(1.5);
+  transform: scale(1.1);
+  cursor: pointer;
 }
 .userData {
   display: inline-block;
