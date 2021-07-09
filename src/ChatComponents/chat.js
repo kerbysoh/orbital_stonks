@@ -24,7 +24,9 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 
 var prevUser = "";
 
@@ -66,6 +68,21 @@ const Chat = (props) => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [openmenu, setOpenMenu] = useState(false);
+
+  const [opensnack, setOpenSnack] = useState(false);
+  const [message, setMessage] = useState("User is Not Your Friend");
+
+  const handleClickSnack = () => {
+      setOpenSnack(true);
+  };
+
+  const handleCloseSnack = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenSnack(false);
+  };
 
   const handleChange = (event) => {
     setEmail(event.target.value);
@@ -176,7 +193,7 @@ const Chat = (props) => {
       prevUser = receiver;
       setErrMsg("");
     } else {
-      setErrMsg("User is not your friend");
+      handleClickSnack();
     }
   };
   
@@ -184,35 +201,63 @@ const Chat = (props) => {
     <div className="chatPage">
       <Navbar handleLogout={handleLogout} />
       <div class="topnav">
-      <input
-        className ='searchbox' type="text"
-        placeholder="Key in email..."
-        onChange={(e) => {
-          setSearch(e.target.value);
-        }}
-      ></input>
-      <SearchIcon className = 'search2' onClick={handleUserSearch} fontSize = 'large'/>
+        <input
+          className="searchbox"
+          type="text"
+          placeholder="Key in email..."
+          onChange={(e) => {
+            setSearch(e.target.value);
+          }}
+        ></input>
+        <SearchIcon
+          className="search2"
+          onClick={handleUserSearch}
+          fontSize="large"
+        />
       </div>
-      <div className = 'newChat'>
-
-      <Button variant="contained"
+      <div className="newChat">
+        <Button
+          variant="contained"
           color="black"
           className="postButton2"
-          type="submit" onClick={handleNew}>
-        New Chat
-      </Button>
-      
+          type="submit"
+          onClick={handleNew}
+        >
+          New Chat
+        </Button>
       </div>
-      
-      <h4 className="errmsgsearch">{errMsgSearch}</h4> 
-      
+
+      <h4 className="errmsgsearch"></h4>
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        open={opensnack}
+        autoHideDuration={4000}
+        onClose={handleClose}
+        message={message}
+        onClose={() => setOpenSnack(false)}
+        action={
+          <>
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={handleCloseSnack}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </>
+        }
+      />
 
       <h1>{errMsg}</h1>
-      
+
       <div className="messenger">
         <div className="scrollable sidebar">
           <div className="conversation-list">
-            <FormControl >
+            <FormControl>
               <InputLabel id="demo-controlled-open-select-label">
                 View Chats
               </InputLabel>
@@ -222,50 +267,50 @@ const Chat = (props) => {
                   anchorOrigin: {
                     vertical: "bottom",
                     horizontal: "left",
-                  }
+                  },
                 }}
                 onOpen={() => {
                   handleOpenMenu();
                   newFunc();
                 }}
-                onChange= {() => {
+                onChange={() => {
                   handleChange();
                 }}
-              >{people.map((person) => {
-              return (
-                <div className="conversation-list-item" 
-                  onClick={() => {
+              >
+                {people.map((person) => {
+                  return (
+                    <div
+                      className="conversation-list-item"
+                      onClick={() => {
                         setMessageDisplay(person);
                         setReceiver(person);
                         setCurrUser(person);
                         setSeeUser(true);
-                      }}>
-                  <div className="conversation-info">
-                    <h1 className="conversation-title">
-                      {person}
-                    </h1>
-                  </div>
-                </div>
-              );
-            })}</Select>
+                      }}
+                    >
+                      <div className="conversation-info">
+                        <h1 className="conversation-title">{person}</h1>
+                      </div>
+                    </div>
+                  );
+                })}
+              </Select>
             </FormControl>
-            
           </div>
         </div>
         <div className="scrollable content">
           <ul className="listMsg">
-            <div className = "chatHeader">
-
-            {currUser ? (
-              <>
-                {" "}
-                <Toolbar title = {currUser} />
-              </>
-            ) : (
-              <></>
-            )}
+            <div className="chatHeader">
+              {currUser ? (
+                <>
+                  {" "}
+                  <Toolbar title={currUser} />
+                </>
+              ) : (
+                <></>
+              )}
             </div>
-            
+
             {messages.map((message) => {
               if (
                 (userEmail === message.receiver ||
@@ -285,7 +330,8 @@ const Chat = (props) => {
                   return (
                     <li className="chatBubbleRight" key={message.id}>
                       {message.text}{" "}
-                      <DeleteIcon className = "iconClass"
+                      <DeleteIcon
+                        className="iconClass"
                         onClick={() => {
                           setDOpen(true);
                           setMsgSel(message.id);
@@ -299,74 +345,74 @@ const Chat = (props) => {
             })}
           </ul>
           <form onSubmit={handleOnSubmit} className="form-container">
-        {newUser ? (
-          <>
-            <div className="conversation-search">
-              <input
-                placeholder="Send to:"
-                type="text"
-                className="conversation-search-input"
-                value={receiver}
-                onChange={handleReceiver}
-              ></input>
-            </div>
-          </>
-        ) : (
-          <></>
-        )}
-        {currUser || newUser ? (
-          <>
-            <textarea
-              className="messageSend"
-              type="text"
-              value={newMessage}
-              onChange={handleOnChange}
-              placeholder="Type message.."
-              name="msg"
-              required
-            ></textarea>
-            <Button
-                        variant="contained"
-                        color="black"
-                        className="postButton"
-                        type="submit"
-                        disabled={!newMessage}
-                      >
-                        Send
-                      </Button>
-          </>
-        ) : (
-          <></>
-        )}
-      </form>
-      <Dialog
-        open={dOpen}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="Confirm Delete?">{"Confirm Delete?"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Your action cannot be reversed
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => handleClose()} color="primary">
-            No
-          </Button>
-          <Button
-            onClick={() => {
-              handleDelete(msgSel);
-              handleClose()
-            }}
-            color="primary"
-            autoFocus
+            {newUser ? (
+              <>
+                <div className="conversation-search">
+                  <input
+                    placeholder="Send to:"
+                    type="text"
+                    className="conversation-search-input"
+                    value={receiver}
+                    onChange={handleReceiver}
+                  ></input>
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
+            {currUser || newUser ? (
+              <>
+                <textarea
+                  className="messageSend"
+                  type="text"
+                  value={newMessage}
+                  onChange={handleOnChange}
+                  placeholder="Type message.."
+                  name="msg"
+                  required
+                ></textarea>
+                <Button
+                  variant="contained"
+                  color="black"
+                  className="postButton"
+                  type="submit"
+                  disabled={!newMessage}
+                >
+                  Send
+                </Button>
+              </>
+            ) : (
+              <></>
+            )}
+          </form>
+          <Dialog
+            open={dOpen}
+            onClose={() => handleClose()}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
           >
-            Yes
-          </Button>
-        </DialogActions>
-      </Dialog>
+            <DialogTitle id="Confirm Delete?">{"Confirm Delete?"}</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Your action cannot be reversed
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => handleClose()} color="primary">
+                No
+              </Button>
+              <Button
+                onClick={() => {
+                  handleDelete(msgSel);
+                  handleClose();
+                }}
+                color="primary"
+                autoFocus
+              >
+                Yes
+              </Button>
+            </DialogActions>
+          </Dialog>
         </div>
       </div>
     </div>

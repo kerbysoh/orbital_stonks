@@ -37,8 +37,7 @@ export default function AlertDialog(props) {
     } else if (props.startDate >= props.endDate) {
       setMessage("Incorrect Date!");
       setOpenSnack(true);
-      
-    }else {
+    } else {
       setOpenSnack(false);
     }
   };
@@ -53,13 +52,13 @@ export default function AlertDialog(props) {
 
   useEffect(() => {
      if (
-      props.amount <= 0 ||
-      props.startDate >= props.endDate
-    ) {
-      setLegit(false);
-    }else {
-      setLegit(true);
-    }
+       props.amount <= 0 ||
+       props.startDate >= props.endDate
+     ) {
+       setLegit(false);
+     } else {
+       setLegit(true);
+     }
   });
 
   const handleStockSearch = () => {

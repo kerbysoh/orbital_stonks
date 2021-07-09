@@ -14,7 +14,9 @@ import { deepOrange, deepPurple } from '@material-ui/core/colors';
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import MyProfileFollow from './myProfileFollow.js';
-
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 
 const useStyles = makeStyles({
   root: {
@@ -34,15 +36,13 @@ const useStyles = makeStyles({
   title: {
     fontSize: 36,
     textAlign: "center",
-    color: 'black',
+    color: "black",
   },
   center: {
-    color: 'black',
-    marginLeft: '5.5rem'
+    color: "black",
   },
   email: {
-    color: 'black',
-    marginLeft: '1rem'
+    color: "black",
   },
   pos: {
     textAlign: "center",
@@ -76,77 +76,133 @@ const useAvatarStyles = makeStyles((theme) => ({
 }));
 
 const MyProfile = (props) => {
-    const {handleLogout} = props
-    const db = firebase.firestore()
-    const userEmail = fire.auth().currentUser.email
-    const [user, setUser] = useState([])
-    const classes = useStyles();
-    const bull = <span className={classes.bullet}>•</span>;
-    const avatarclasses = useAvatarStyles();
-    const [imageURL, setImageURL] = useState('')
-    const calculate_age = (dob1) => {
-      var today = new Date();
-      var birthDate = new Date(dob1);  // create a date object directly from `dob1` argument
-      var age_now = today.getFullYear() - birthDate.getFullYear();
-      var m = today.getMonth() - birthDate.getMonth();
-      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
-      {
-          age_now--;
-      }
-      console.log(age_now);
-      return age_now;
-    }
-    const handleCopy = (content) => {
-      const el = document.createElement('textarea');
-      el.value = content;
-      document.body.appendChild(el);
-      el.select();
-      document.execCommand('copy');
-      document.body.removeChild(el);
-    }
-    useEffect (() => {
-        if (db) {
-            const unsubscribe = db
-            db.collection('users')
-            .doc(fire.auth().currentUser.email)
-            .onSnapshot((doc) => {
-                if (doc.exists) { 
-                setUser(doc.data())
-                }
-                console.log(doc.data())
-            })
-            var storage = firebase.storage()
-    var pathReference = storage.ref(`images/${userEmail}`)
-    pathReference.getDownloadURL().then((url) => {
-      setImageURL(url)
-    })
-            return unsubscribe
-        }
-    }, [db])
-return (<>
-    <Navbar handleLogout = {handleLogout} />
-     
-    <Card className={classes.root}>
-      <CardContent>
-        
-        
-        <div className={avatarclasses.root}>
-        <Avatar className = {avatarclasses.sizeAvatar} src = {imageURL}/>
-        <MyProfileFollow></MyProfileFollow>
-        </div>
-        <Typography className={classes.center} variant = 'h6' color="textSecondary">
-        {user.gender}, {calculate_age(user.dob)}
-        </Typography>
-        <Typography className={classes.email} variant = 'h6' color="textSecondary">
-          <FileCopyIcon onClick = {() => {handleCopy(user.email)}} className = 'atIcon' color = 'black'></FileCopyIcon> {user.email}
-        </Typography>
-      </CardContent>
-    </Card>
-    </>
-)
-}
+  const { handleLogout } = props;
+  const db = firebase.firestore();
+  const userEmail = fire.auth().currentUser.email;
+  const [user, setUser] = useState([]);
+  const classes = useStyles();
+  const bull = <span className={classes.bullet}>•</span>;
+  const avatarclasses = useAvatarStyles();
+  const [imageURL, setImageURL] = useState("");
+  const [opensnack, setOpenSnack] = useState(false);
+  const [message, setMessage] = useState("Copied Email to Clipboard");
 
-export default MyProfile
+  const handleClickSnack = () => {
+    setOpenSnack(true);
+  };
+
+  const handleCloseSnack = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenSnack(false);
+  };
+  const calculate_age = (dob1) => {
+    var today = new Date();
+    var birthDate = new Date(dob1); // create a date object directly from `dob1` argument
+    var age_now = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age_now--;
+    }
+    console.log(age_now);
+    return age_now;
+  };
+  const handleCopy = (content) => {
+    const el = document.createElement("textarea");
+    el.value = content;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+  };
+  useEffect(() => {
+    if (db) {
+      const unsubscribe = db;
+      db.collection("users")
+        .doc(fire.auth().currentUser.email)
+        .onSnapshot((doc) => {
+          if (doc.exists) {
+            setUser(doc.data());
+          }
+          console.log(doc.data());
+        });
+      var storage = firebase.storage();
+      var pathReference = storage.ref(`images/${userEmail}`);
+      pathReference.getDownloadURL().then((url) => {
+        setImageURL(url);
+      });
+      return unsubscribe;
+    }
+  }, [db]);
+  return (
+    <>
+      <Navbar handleLogout={handleLogout} />
+
+      <Card className={classes.root}>
+        <CardContent>
+          <div className={avatarclasses.root}>
+            <Avatar className={avatarclasses.sizeAvatar} src={imageURL} />
+            <MyProfileFollow></MyProfileFollow>
+          </div>
+          <div className="profileDiv">
+            <Typography
+              className={classes.center}
+              variant="h6"
+              color="textSecondary"
+            >
+              {user.gender}, {calculate_age(user.dob)}
+            </Typography>
+            <Typography
+              className={classes.email}
+              variant="h6"
+              color="textSecondary"
+            >
+              <FileCopyIcon
+                onClick={() => {
+                  handleCopy(user.email);
+                  handleClickSnack();
+                }}
+                className="atIcon"
+                color="black"
+              ></FileCopyIcon>{" "}
+              {user.email}
+            </Typography>
+            <Snackbar
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              open={opensnack}
+              autoHideDuration={4000}
+              message={message}
+              onClose={() => setOpenSnack(false)}
+              action={
+                <>
+                  <IconButton
+                    size="small"
+                    aria-label="close"
+                    color="inherit"
+                    onClick={handleCloseSnack}
+                  >
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
+                </>
+              }
+            />
+          </div>
+        </CardContent>
+      </Card>
+    </>
+  );
+};
+
+export default MyProfile;
+
+
+
+
 
 
 

@@ -13,6 +13,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import { deepOrange, deepPurple } from "@material-ui/core/colors";
 import UserAvatar from "./userAvatar";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -49,6 +55,14 @@ const useAvatarStyles = makeStyles((theme) => ({
   },
 }));
 const Feed = (props) => {
+  const handleClose = () => {
+    setDOpen(false);
+  };
+  const handleClose2 = () => {
+    setOpen(false);
+  }
+  const [open, setOpen] = useState(false)
+  const [dOpen, setDOpen] = useState(false)
   const avatarclasses = useAvatarStyles();
   const classes = useStyles();
   const db = firebase.firestore();
@@ -272,6 +286,7 @@ const Feed = (props) => {
             ) {
               return (
                 <>
+                
                   <div class="post3">
                     <div class="header__left">
                       <div class="post__author author">
@@ -297,10 +312,38 @@ const Feed = (props) => {
                         <>
                           <DeleteIcon
                             className="post_options" style = {{fontSize: 50}}
-                            onClick={() => handleDeletePost(post.id)}
+                            onClick={() => setDOpen(true)}
                           />
                         </>
                       ) : null}
+                      <Dialog
+        open={dOpen}
+        onClose={() => handleClose()}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="Confirm Delete?">{"Confirm Delete?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Your action cannot be reversed
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => handleClose()} color="primary">
+            No
+          </Button>
+          <Button
+            onClick={() => {
+              handleDeletePost(post.id);
+              handleClose()
+            }}
+            color="primary"
+            autoFocus
+          >
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
                       <Button
                         className="post_options"
                         onClick={() => {
@@ -322,6 +365,7 @@ const Feed = (props) => {
                       >
                         Reply
                       </Button>
+                      
                     </div>
                     <div className = 'replyDiv'>
                     {replyOn && post.id === currReply ? (
@@ -372,9 +416,37 @@ const Feed = (props) => {
                                         <DeleteIcon style = {{fontSize: 50}}
                                           className="post_options"
                                           onClick={() =>
-                                            handleDeleteComment(comment.id)
+                                            setOpen(true)
                                           }
                                         />
+                                        <Dialog
+        open={open}
+        onClose={() => handleClose2()}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="Confirm Delete?">{"Confirm Delete?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Your action cannot be reversed
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => handleClose2()} color="primary">
+            No
+          </Button>
+          <Button
+            onClick={() => {
+              handleDeleteComment(comment.id);
+              handleClose2()
+            }}
+            color="primary"
+            autoFocus
+          >
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
                                       </>
                                     ) : null}{" "}
                                   </div>
@@ -394,6 +466,8 @@ const Feed = (props) => {
             }
           })}
         </Grid>
+        
+        
       </div>
     </div>
   );

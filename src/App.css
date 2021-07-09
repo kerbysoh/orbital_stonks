@@ -477,10 +477,15 @@ button {
   padding: 5px;
   flex: 1;
 }
+.profileDiv {
+  text-align: center;
+  width: 252px;
+}
 .post_options:hover {
   color: #000000;
   background-color: #f1efef;
   border-radius: 0.2rem;
+  cursor: pointer;
 }
 
 .content2 {

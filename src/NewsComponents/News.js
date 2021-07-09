@@ -33,27 +33,32 @@ const News = (props) => {
     }
     
     return (
-      
       <div className="news_page">
-        <Navbar handleLogout = {handleLogout} />
-        
-       
-        <div className="all__news">
-          <div>
-            
-            </div>
-            <div>
-              
-            </div>
+        <Navbar handleLogout={handleLogout} />
         <div class="topnav">
-        <input className ='searchbox' type="text" placeholder="Search.." handleChange={(e) => setSearch(e.target.value)} ></input>
-        <SearchIcon className = 'search2' onClick={handleSearch} fontSize = 'large'/>
+          <input
+            className="searchbox"
+            type="text"
+            placeholder="Search.."
+            handleChange={(e) => setSearch(e.target.value)}
+          ></input>
+          <SearchIcon
+            className="search2"
+            onClick={handleSearch}
+            fontSize="large"
+          />
         </div>
-          {data
-            ? data.articles.map((news) => (
-                <NewsArticle data={news} key={news.url} />
-              ))
-            : <div className ="loader"></div>}
+        <div className="all__news">
+          <div></div>
+          <div></div>
+          <div class="topnav"></div>
+          {data ? (
+            data.articles.map((news) => (
+              <NewsArticle data={news} key={news.url} />
+            ))
+          ) : (
+            <div className="loader"></div>
+          )}
         </div>
       </div>
     );

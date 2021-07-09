@@ -3,7 +3,6 @@ import "firebase/firestore";
 import firebase from "firebase/app";
 import fire from "../fire";
 import Navbar from "../components/Navbar";
-
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -15,6 +14,9 @@ import { deepOrange, deepPurple } from "@material-ui/core/colors";
 import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import MyProfileFollow from "./myProfileFollow.js";
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,17 +40,16 @@ const useStyles = makeStyles((theme) => ({
   },
   center: {
     color: "black",
-    marginLeft: "7.5rem",
   },
   email: {
     color: "black",
-    marginLeft: "3rem",
   },
   pos: {
     textAlign: "center",
     marginBottom: 24,
     color: "black",
   },
+
   root2: {
     "& > *": {
       margin: theme.spacing(2),
@@ -57,20 +58,20 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 30,
   },
   center2: {
-    marginLeft: "7rem",
+    marginLeft: "6rem",
 
     marginTop: "0rem",
   },
   badge: {
-    marginLeft: "7rem",
+    marginLeft: "6rem",
     marginRight: "6rem",
     marginTop: "0rem",
-    fontSize: 30,
+    fontSize: 25,
   },
   Description: {
-    marginTop: "=1rem",
+    marginTop: "1rem",
     display: "flex",
-    marginLeft: "7rem",
+    marginLeft: "26rem",
     fontSize: 20,
   },
 }));
@@ -85,8 +86,8 @@ const useAvatarStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   sizeAvatar: {
-    height: theme.spacing(40),
-    width: theme.spacing(40),
+    height: theme.spacing(30),
+    width: theme.spacing(30),
   },
   orange: {
     color: theme.palette.getContrastText(deepOrange[500]),
@@ -106,6 +107,21 @@ const MyProfile = (props) => {
   const bull = <span className={classes.bullet}>•</span>;
   const avatarclasses = useAvatarStyles();
   const [imageURL, setImageURL] = useState("");
+  const [opensnack, setOpenSnack] = useState(false);
+  const [message, setMessage] = useState("Copied Email to Clipboard");
+
+  const handleClickSnack = () => {
+    setOpenSnack(true);
+  };
+
+  const handleCloseSnack = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenSnack(false);
+  };
+
   const calculate_age = (dob1) => {
     var today = new Date();
     var birthDate = new Date(dob1); // create a date object directly from `dob1` argument
@@ -161,10 +177,10 @@ const MyProfile = (props) => {
                 {user.firstname} {user.lastname}{" "}
                 <Button
                   variant="contained"
-                  color="primary"
+                  color="black"
                   className="editButton"
                 >
-                  Edit Profile
+                  Edit
                 </Button>
               </Typography>
 
@@ -184,27 +200,51 @@ const MyProfile = (props) => {
               <span className={classes.Description}>{user.Description}</span>
             </div>
           </div>
-          <Typography
-            className={classes.center}
-            variant="h6"
-            color="textSecondary"
-          >
-            {user.gender}, {calculate_age(user.dob)}
-          </Typography>
-          <Typography
-            className={classes.email}
-            variant="h6"
-            color="textSecondary"
-          >
-            <FileCopyIcon
-              onClick={() => {
-                handleCopy(user.email);
+          <div className="profileDiv">
+            <Typography
+              className={classes.center}
+              variant="h6"
+              color="textSecondary"
+            >
+              {user.gender}, {calculate_age(user.dob)}
+            </Typography>
+            <Typography
+              className={classes.email}
+              variant="h6"
+              color="textSecondary"
+            >
+              <FileCopyIcon
+                onClick={() => {
+                  handleCopy(user.email); handleClickSnack();
+                }}
+                className="atIcon"
+                color="black"
+              ></FileCopyIcon>{" "}
+              {user.email}
+            </Typography>
+            <Snackbar
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
               }}
-              className="atIcon"
-              color="primary"
-            ></FileCopyIcon>{" "}
-            {user.email}
-          </Typography>
+              open={opensnack}
+              autoHideDuration={4000}
+              message={message}
+              onClose={() => setOpenSnack(false)}
+              action={
+                <>
+                  <IconButton
+                    size="small"
+                    aria-label="close"
+                    color="inherit"
+                    onClick={handleCloseSnack}
+                  >
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
+                </>
+              }
+            />
+          </div>
         </CardContent>
       </Card>
     </>

@@ -52,10 +52,40 @@ import {
 
 
 const ViewFriends = (props) => {
+  const userEmail = fire.auth().currentUser.email
+  const increment = firebase.firestore.FieldValue.increment(1)
+    const decrement = firebase.firestore.FieldValue.increment(-1)
+    const handleUnfollow = (currSearch) => {
+      var str = currSearch.email
+      str = str.slice(0, str.length - 4)
+      var str2 = userEmail
+      str2 = str2.slice(0, str.length - 4)
+      db.collection("users").doc(currSearch.email).update({
+          followers: decrement
+      })
+      db.collection("users").doc(`${userEmail}`).update({
+          followed: decrement
+      })
+      db.collection("friends").doc(`${userEmail}`).update({
+          [str] : firebase.firestore.FieldValue.delete()
+      })
+
+      db.collection("followers").doc(currSearch.email).update({
+          [str2] : firebase.firestore.FieldValue.delete()
+      })
+      db.collection('followers').doc().get(currSearch.email)
+      .then((docSnapshot) => {
+          if (!docSnapshot.exists) {
+              db.collection('followers').doc(currSearch.email).set({})
+      }
+  })
+  }
+
+  
     const classes = useStyles()
     const db = firebase.firestore()
     const [friends, setFriends] = useState({})
-    const {profile, setProfile} = props 
+    const {profile,setProfile} = props 
     
     useEffect (() => {
         if (db) {
@@ -78,6 +108,7 @@ const ViewFriends = (props) => {
         <Grid container direction = "row">
         {Object.values(friends).map((key, i) => {
             return (
+              <>
                 <Grid
         container
         direction="column"
@@ -104,7 +135,18 @@ const ViewFriends = (props) => {
         {key.email}
       </Typography>
     </div>
+    <Button
+      disableElevation
+      color="primary"
+      variant="contained"
+      size="small"
+      className={classes.followButton}
+      onClick = {() => handleUnfollow(key)}
+    >Unfollow
+                </Button> 
     </Grid>
+    
+    </>
             )
             
         })}

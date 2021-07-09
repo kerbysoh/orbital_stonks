@@ -52,21 +52,25 @@ const Stock = (props) => {
             )
             .then(
               function(data){
-                if(data.Symbol) {    
-                    for(const x of Object.values(stock)) {
-                      if(x === search) {
+                if(data.Symbol) {  
+                  if (stock === {}) {
+                    setOpenSnack(false);
+                    setSearchOn(true)
+                  } 
+                  else {
+                   if (Object.values(stock).includes(search)) {
+    
                         setMessage("Stock Already Added!");
                         setOpenSnack(true);
                         setSearchOn(false);
-
-                        break;
-                      }else {
+                   } else {
                         setOpenSnack(false);
                         setSearchOn(true);
 
                       }
                     }
-                } else {
+                  }
+                  else {
                   setSearchOn(false)
                 }
               }
@@ -103,54 +107,67 @@ const Stock = (props) => {
     return (
       <div>
         <Navbar handleLogout={handleLogout} />
-        <div className = "page-background">
+        <div className="page-background">
           <div class="topnav">
             <input
-              className ='searchbox' type="text"
+              className="searchbox"
+              type="text"
               placeholder="Stock ticker..."
-                    onChange={(e) => {
-                      setSearch(e.target.value);
-                      setSearchOn(false);
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setSearchOn(false);
               }}
             ></input>
-           
-            <SearchIcon className = 'search2' onClick={(e) => {handleStockSearch(e);}} fontSize = 'large'/>
-            </div>
-            {searchOn ? (
-                    <h2 className="suggested">
-                      Suggested: {search}
-                      {" "}
-                      <Button
-                        variant="contained"
-                        color="black"
-                        className="postButton"
-                        type="submit"
-                        onClick={handleAddStock}
-                      >
-                        Add
-                      </Button>
-                      
-                    </h2>
-                    
-                  ) : null} 
-                  <Snackbar
-                        anchorOrigin={{
-                          vertical: 'bottom',
-                          horizontal: 'left',
-                        }}
-                        open={opensnack}
-                        autoHideDuration={3000}
-                        message={message}
-                        onClose={() => setOpenSnack(false)}
-                        action={
-                          <>
-                            <IconButton size="small" aria-label="close" color="inherit" onClick={handleCloseSnack}>
-                              <CloseIcon fontSize="small" />
-                            </IconButton>
-                          </>
-                        }
-                      />           
-          <BasicTable stock = {stock} setStock = {setStock} removeItem = {removeItem}/>
+
+            <SearchIcon
+              className="search2"
+              onClick={(e) => {
+                handleStockSearch(e);
+              }}
+              fontSize="large"
+            />
+          </div>
+          {searchOn ? (
+            <h2 className="suggested">
+              Suggested: {search}{" "}
+              <Button
+                variant="contained"
+                color="black"
+                className="postButton"
+                type="submit"
+                onClick={(e) => handleAddStock(e)}
+              >
+                Add
+              </Button>
+            </h2>
+          ) : null}
+          <Snackbar
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+            open={opensnack}
+            autoHideDuration={3000}
+            message={message}
+            onClose={() => setOpenSnack(false)}
+            action={
+              <>
+                <IconButton
+                  size="small"
+                  aria-label="close"
+                  color="inherit"
+                  onClick={() => handleCloseSnack}
+                >
+                  <CloseIcon fontSize="small" />
+                </IconButton>
+              </>
+            }
+          />
+          <BasicTable
+            stock={stock}
+            setStock={setStock}
+            removeItem={removeItem}
+          />
         </div>
       </div>
     );

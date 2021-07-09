@@ -71,6 +71,8 @@ const StockGraphs = (props) => {
 
   return (
     <>
+    <head>
+    </head>
       <Navbar handleLogout={handleLogout} />
       <div className="cards">
         <div className="cards__container">
@@ -121,6 +123,7 @@ const StockGraphs = (props) => {
           </div>
         </div>
       </div>
+
     </>
   );
 }
