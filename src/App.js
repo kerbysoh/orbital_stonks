@@ -16,6 +16,8 @@ import Stock from './StockComponents/Stock'
 import StockGraphs from './StockComponents/StockGraphs'
 import MyProfile from './ChatComponents/myProfile'
 import UserProfile from './ChatComponents/userProfile'
+import FriendsStock from './StockComponents/FriendsStock'
+
 import 'firebase/firestore'
 import "./App.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -414,7 +416,7 @@ const App = () => {
         />}
         </Route>
         <Route path = '/userProfile'>
-        {user ? <UserProfile handleLogout = {handleLogout} profile = {profile} setProfile = {setProfile}/> : <Login email = {email} 
+        {((user) ? (profile) ? ( <UserProfile handleLogout = {handleLogout} profile = {profile} setProfile = {setProfile}/> ): (<Friends handleLogout = {handleLogout} profile = {profile} setProfile = {setProfile} />) : (<Login email = {email} 
         setEmail  = {setEmail}
         password = {password} 
         setPassword = {setPassword}
@@ -452,7 +454,48 @@ const App = () => {
         image = {image}
         setImage = {setImage}
         imageError = {imageError}
-        />}
+        />))}
+        </Route>
+        <Route path = '/FriendsStock'>
+        {(user) ? (profile) ? (<FriendsStock stock = {stock} setStock = {setStock} handleLogout = {handleLogout} profile = {profile} setProfile = {setProfile}/>) : (<Friends handleLogout = {handleLogout} profile = {profile} setProfile = {setProfile} />) : (<Login email = {email} 
+        setEmail  = {setEmail}
+        password = {password} 
+        setPassword = {setPassword}
+        passwordError = {passwordError} 
+        emailError = {emailError}
+        handleLogin = {handleLogin}
+        handleLogout = {handleLogout}
+        handleSignup = {handleSignup} 
+        hasAccount = {hasAccount}
+        setHasAccount = {setHasAccount}
+        confirmPassword = {confirmPassword}
+        setConfirmPassword = {setConfirmPassword}
+        clearErrors = {clearErrors}
+        clearInputs = {clearInputs}
+        description = {description}
+        setDescription = {setDescription}
+        gender = {gender}
+        setGender = {setGender}
+        firstName = {firstName}
+        setFirstName = {setFirstName}
+        lastName = {lastName}
+        setLastName = {setLastName}
+        dob = {dob}
+        setDob = {setDob}
+        firstNameError = {firstNameError}
+        setFirstNameError = {setFirstNameError}
+        lastNameError = {lastNameError}
+        setLastNameError = {setLastNameError}
+        dobError = {dobError}
+        setDobError = {setDobError}
+        descriptionError = {descriptionError}
+        setDescriptionError = {setDescriptionError}
+        genderError = {genderError}
+        setGenderError = {setGenderError}
+        image = {image}
+        setImage = {setImage}
+        imageError = {imageError}
+        />)}
         </Route>
         <Route path = '/Trade'>
           {user ? <Trade handleLogout = {handleLogout} /> :<Login email = {email} 

@@ -17,6 +17,7 @@ import MyProfileFollow from "./myProfileFollow.js";
 import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
+import {Link} from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -175,13 +176,14 @@ const MyProfile = (props) => {
                 component="h2"
               >
                 {user.firstname} {user.lastname}{" "}
+                <Link className = 'links' to = 'FriendsStock' onClick = {() => setProfile(user.email)}> 
                 <Button
                   variant="contained"
                   color="black"
-                  className="editButton"
-                >
-                  Edit
+                  className="editButton">
+                  WatchList
                 </Button>
+                </Link>
               </Typography>
 
               {<span className={classes.badge}> {user.posts} Posts</span>}
