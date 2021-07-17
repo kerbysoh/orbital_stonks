@@ -101,8 +101,13 @@ const useAvatarStyles = makeStyles((theme) => ({
 }));
 
 const MyProfile = (props) => {
-  const { handleLogout, profile, setProfile } = props;
+  const [self, setSelf] = useState({})
+  const [users, setUsers] = useState([])
+    const [friends, setFriends] = useState({})
+  const {userz, setUserz,  handleLogout, profile, setProfile } = props;
   const db = firebase.firestore();
+  const [currSearch, setCurrSearch] = useState(userz)
+  const userEmail = fire.auth().currentUser.email
   const [user, setUser] = useState([]);
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
@@ -110,6 +115,88 @@ const MyProfile = (props) => {
   const [imageURL, setImageURL] = useState("");
   const [opensnack, setOpenSnack] = useState(false);
   const [message, setMessage] = useState("Copied Email to Clipboard");
+  const increment = firebase.firestore.FieldValue.increment(1)
+    const decrement = firebase.firestore.FieldValue.increment(-1)
+  const handleUnfollow = () => {
+    var str = currSearch.email
+    str = str.slice(0, str.length - 4)
+    var str2 = userEmail
+    str2 = str2.slice(0, str.length - 4)
+    db.collection("users").doc(currSearch.email).update({
+        followers: decrement
+    })
+    db.collection("users").doc(`${userEmail}`).update({
+        followed: decrement
+    })
+    currSearch.followers -= 1
+    self.followed -= 1
+    db.collection("friends").doc(`${userEmail}`).update({
+        [str] : firebase.firestore.FieldValue.delete()
+    })
+
+    db.collection("followers").doc(currSearch.email).update({
+        [str2] : firebase.firestore.FieldValue.delete()
+    })
+    db.collection('followers').doc().get(currSearch.email)
+    .then((docSnapshot) => {
+        if (!docSnapshot.exists) {
+            db.collection('followers').doc(currSearch.email).set({})
+    }
+})
+db.collection("friends").doc().get(`${userEmail}`)
+    .then((docSnapshot) => {
+        if (!docSnapshot.exists) {
+            db.collection("friends").doc(`${userEmail}`).set({})
+    }
+})
+}
+
+const handleAddFriend = () => {
+    var str = currSearch.email
+    str = str.slice(0, str.length - 4)
+    var str2 = userEmail
+    str2 = str2.slice(0, str2.length - 4)
+    db.collection("users").doc(currSearch.email).update({
+        followers: increment
+    })
+    db.collection("users").doc(`${userEmail}`).update({
+        followed: increment
+    })
+    currSearch.followers += 1
+    self.followed += 1
+    db.collection("friends").doc(`${userEmail}`).update({
+        [str] : currSearch
+    })
+
+    db.collection("followers").doc(currSearch.email).update({
+        [str2] : self
+    })
+
+    
+}
+useEffect (() => {
+  if (db) {
+      const unsubscribe = db
+      db.collection('users')
+      .limit(10000)
+      .onSnapshot(querySnapshot => {
+          const data = querySnapshot.docs.map(doc => ({
+              ...doc.data(),
+              id: doc.id,
+
+          })) 
+          setUsers(data)
+      })
+      db.collection('friends')
+      .doc(fire.auth().currentUser.email)
+      .onSnapshot((doc) => {
+          if (doc.exists) { 
+          setFriends(doc.data())
+          }
+      })
+      return unsubscribe
+  }
+}, [db])
 
   const handleClickSnack = () => {
     setOpenSnack(true);
@@ -176,14 +263,24 @@ const MyProfile = (props) => {
                 component="h2"
               >
                 {user.firstname} {user.lastname}{" "}
-                <Link className = 'links' to = 'FriendsStock' onClick = {() => setProfile(user.email)}> 
+                {(currSearch.email !== userEmail && !(Object.keys(friends).includes(currSearch.email.slice(0,currSearch.email.length - 4))) ) ? <>
                 <Button
-                  variant="contained"
-                  color="black"
-                  className="editButton">
-                  WatchList
-                </Button>
-                </Link>
+                disableElevation
+                color="primary"
+                variant="contained"
+                size="small"
+                className={classes.followButton}
+                onClick = {() => {handleAddFriend()}}
+              >Follow
+                </Button>  </> :<> {(currSearch.email !== userEmail) ? <> <Button
+      disableElevation
+      color="primary"
+      variant="contained"
+      size="small"
+      className={classes.followButton}
+      onClick = {() => handleUnfollow()}
+    >Unfollow
+                </Button> </>: <></>}</>}
               </Typography>
 
               {<span className={classes.badge}> {user.posts} Posts</span>}

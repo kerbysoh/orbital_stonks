@@ -61,6 +61,7 @@ const Feed = (props) => {
   const handleClose2 = () => {
     setOpen(false);
   }
+  const [currDel, setCurrDel] = useState('')
   const [open, setOpen] = useState(false)
   const [dOpen, setDOpen] = useState(false)
   const avatarclasses = useAvatarStyles();
@@ -249,7 +250,7 @@ const Feed = (props) => {
         });
       return unsubscribe;
     }
-  }, [db]);
+  }, [db, currDel]);
 
   return (
     <div>
@@ -312,7 +313,7 @@ const Feed = (props) => {
                         <>
                           <DeleteIcon
                             className="post_options" style = {{fontSize: 50}}
-                            onClick={() => setDOpen(true)}
+                            onClick={() => {setDOpen(true) ; setCurrDel(post.id)}}
                           />
                         </>
                       ) : null}
@@ -334,7 +335,7 @@ const Feed = (props) => {
           </Button>
           <Button
             onClick={() => {
-              handleDeletePost(post.id);
+              handleDeletePost(currDel);
               handleClose()
             }}
             color="primary"

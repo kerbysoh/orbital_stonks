@@ -335,7 +335,7 @@ button {
 .chatPage {
   width: 100%;
   min-height: 100vh;
-  background: white;
+  background: url("./images/bg.jpg") center center/cover no-repeat;
 }
 
 .listMsgItems {
@@ -381,7 +381,6 @@ button {
   }
 }
 .form-container {
-  background: rgb(255, 255, 255);
   display: flex;
   align-items: baseline;
   padding: 10px 15px;
@@ -586,32 +585,39 @@ button {
 }
 .chatBubbleLeft {
   padding: 10px 14px;
-  background: #eee;
-  margin: 10px 300px;
+  background: rgb(255, 255, 255);
+  margin: 10px 700px;
   border-radius: 9px;
   position: relative;
   animation: fadeIn 1s ease-in;
   left: 0;
   border-right-color: #eee;
   border-left: 0;
-  margin-left: -20px;
+  margin-left: 0;
   text-align: left;
+  display: inline-table;
 }
 
 .chatBubbleRight {
   padding: 10px 14px;
   background: #eee;
-  margin: 10px 300px;
+  margin: 10px 800px;
   border-radius: 9px;
   position: relative;
   animation: fadeIn 1s ease-in;
-  right: 8rem;
+  right: 0;
   border-left-color: blue;
   border-right: 0;
   margin-right: -20px;
   background: #1982fc;
   color: #fff;
   text-align: right;
+  display: inline-flex;
+}
+.chatBubbleRight:after {
+  clear: both;
+  content: "";
+  display: block;
 }
 
 .listMsg {
@@ -620,7 +626,6 @@ button {
   margin-top: auto;
   border-width: 0.2px;
   max-width: 99%;
-  background-color: white;
   list-style-type: none;
 }
 .search2:hover {

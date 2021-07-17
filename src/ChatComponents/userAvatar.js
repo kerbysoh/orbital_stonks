@@ -58,7 +58,6 @@ const UserAvatar = (props) => {
     var pathReference = storage.ref(`images/${data}`)
     pathReference.getDownloadURL().then((url) => {
       setImageURL(url)
-      console.log(url)
     })
         }, [imageURL])
     const avatarclasses = useAvatarStyles();

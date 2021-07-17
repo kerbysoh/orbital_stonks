@@ -67,7 +67,7 @@ const Chat = (props) => {
 
   const classes = useStyles();
   const [email, setEmail] = useState("");
-  const [openmenu, setOpenMenu] = useState(false);
+  const [openmenu, setOpenMenu] = useState(true);
 
   const [opensnack, setOpenSnack] = useState(false);
   const [message, setMessage] = useState("User is Not Your Friend");
@@ -123,10 +123,20 @@ const Chat = (props) => {
     setOpen(true);
     setMessageDisplay("");
     setNewUser(true);
-    setPeople([]);
   };
 
   useEffect(() => {
+    let x = [];
+    for (const y of messages) {
+      if (userEmail === y.receiver && !x.includes(y.email)) {
+        x.push(y.email);
+      }
+      if (userEmail === y.email && !x.includes(y.receiver)) {
+        x.push(y.receiver);
+      }
+    }
+    setPeople(x);
+  
     if (db) {
       const unsubscribe = db
         .collection("messages")
@@ -149,6 +159,7 @@ const Chat = (props) => {
       return unsubscribe;
     }
   }, [db, messageDisplay]);
+
   const handleUserSearch = () => {
     messages.map((message) => {
       if (
@@ -258,26 +269,15 @@ const Chat = (props) => {
         <div className="scrollable sidebar">
           <div className="conversation-list">
             <FormControl>
-              <InputLabel id="demo-controlled-open-select-label">
-                View Chats
-              </InputLabel>
-              <Select
-                MenuProps={{
-                  getContentAnchorEl: null,
-                  anchorOrigin: {
-                    vertical: "bottom",
-                    horizontal: "left",
-                  },
-                }}
-                onOpen={() => {
-                  handleOpenMenu();
+              <Button id="demo-controlled-open-select-label" 
+              onClick={() => {
                   newFunc();
-                }}
-                onChange={() => {
-                  handleChange();
-                }}
-              >
-                {people.map((person) => {
+                }}>
+                View Chats
+              </Button>
+            </FormControl>
+            
+            {people.map((person) => {
                   return (
                     <div
                       className="conversation-list-item"
@@ -294,8 +294,6 @@ const Chat = (props) => {
                     </div>
                   );
                 })}
-              </Select>
-            </FormControl>
           </div>
         </div>
         <div className="scrollable content">
@@ -338,6 +336,7 @@ const Chat = (props) => {
                         }}
                       />
                     </li>
+                    
                   );
                 }
               }

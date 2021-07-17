@@ -8,6 +8,7 @@ import Navbar from '../components/Navbar'
 import Button from '@material-ui/core/Button'
 import SearchIcon from '@material-ui/icons/Search';
 import ViewFriends from './viewFriends'
+import FriendsStock from '../StockComponents/FriendsStock'
 import {
     Typography,
     Grid,
@@ -67,7 +68,7 @@ const Friends = (props) => {
     const [currSearch, setCurrSearch] = useState({})
     const [users, setUsers] = useState([])
     const [friends, setFriends] = useState({})
-    const {handleLogout, profile, setProfile } = props
+    const {userz, setUserz, handleLogout, profile, setProfile} = props
     const [searchOn, setSearchOn] = useState(false)
     const [self, setSelf] = useState({})
     const increment = firebase.firestore.FieldValue.increment(1)
@@ -221,10 +222,12 @@ const Friends = (props) => {
     </Grid>
     <div className={classes.photoContainer}>
     <Link to = 'userProfile' onClick = {() => setProfile(currSearch.email)}> 
+    <Button onClick = {() => setUserz(currSearch)}>
       <Avatar
         className={classes.avatar}
         src = {imageURL} 
       ></Avatar>
+      </Button>
       </Link> 
     </div>
     <Grid container justify="center" alignItems="center" spacing={5}>
@@ -249,15 +252,15 @@ const Friends = (props) => {
                 className={classes.followButton}
                 onClick = {handleAddFriend}
               >Follow
-                </Button>  </> :<> {(currSearch.email !== userEmail) ? <> <Button
+                </Button>  </> :<> {(currSearch.email !== userEmail) ? <> <Link to = {'/FriendsStock'}><Button
       disableElevation
       color="primary"
       variant="contained"
       size="small"
       className={classes.followButton}
-      onClick = {handleUnfollow}
-    >Unfollow
-                </Button> </>: <></>}</>}
+      onClick = {() => setProfile(currSearch.email)}
+    >Watchlist
+                </Button></Link> </>: <></>}</>}
             </Grid> : null
         }
             

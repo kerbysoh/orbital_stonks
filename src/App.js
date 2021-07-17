@@ -25,6 +25,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const App = () => {
+  const [userz, setUserz] = useState({})
   const [profile, setProfile] = useState('')
   const [stock, setStock] = useState('')
   const storage = firebase.storage()
@@ -293,7 +294,7 @@ const App = () => {
         />}
         </Route>
         <Route path = '/Friends'>
-          {user ? <Friends handleLogout = {handleLogout} profile = {profile} setProfile = {setProfile} /> :<Login email = {email} 
+          {user ? <Friends userz = {userz} setUserz = {setUserz} handleLogout = {handleLogout} profile = {profile} setProfile = {setProfile} /> :<Login email = {email} 
         setEmail  = {setEmail}
         password = {password} 
         setPassword = {setPassword}
@@ -334,7 +335,7 @@ const App = () => {
         />}
         </Route>
         <Route path = '/viewFriends'>
-          {user ? <ViewFriends handleLogout = {handleLogout} /> :<Login email = {email} 
+          {user ? <ViewFriends profile = {profile} setProfile = {setProfile} userz = {userz} setUserz = {setUserz} handleLogout = {handleLogout} /> :<Login email = {email} 
         setEmail  = {setEmail}
         password = {password} 
         setPassword = {setPassword}
@@ -416,7 +417,7 @@ const App = () => {
         />}
         </Route>
         <Route path = '/userProfile'>
-        {((user) ? (profile) ? ( <UserProfile handleLogout = {handleLogout} profile = {profile} setProfile = {setProfile}/> ): (<Friends handleLogout = {handleLogout} profile = {profile} setProfile = {setProfile} />) : (<Login email = {email} 
+        {((user) ? (profile) ? ( <UserProfile userz = {userz} setUserz = {setUserz} handleLogout = {handleLogout} profile = {profile} setProfile = {setProfile}/> ): (<Friends handleLogout = {handleLogout} profile = {profile} setProfile = {setProfile} />) : (<Login email = {email} 
         setEmail  = {setEmail}
         password = {password} 
         setPassword = {setPassword}

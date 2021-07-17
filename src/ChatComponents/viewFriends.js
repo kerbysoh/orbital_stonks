@@ -85,7 +85,7 @@ const ViewFriends = (props) => {
     const classes = useStyles()
     const db = firebase.firestore()
     const [friends, setFriends] = useState({})
-    const {profile,setProfile} = props 
+    const {profile,setProfile, userz, setUserz} = props 
     
     useEffect (() => {
         if (db) {
@@ -119,7 +119,7 @@ const ViewFriends = (props) => {
             <Grid container justify="flex-end">
     </Grid>
     <div className={classes.photoContainer}>
-    <Link to = 'userProfile' onClick = {() => setProfile(key.email)}>
+    <Link to = 'userProfile' onClick = {() => {setProfile(key.email); setUserz(key)}}>
       <Av data = {key.email} />
       </Link>
     </div>
@@ -135,15 +135,15 @@ const ViewFriends = (props) => {
         {key.email}
       </Typography>
     </div>
-    <Button
+    <Link to = {'/FriendsStock'}><Button
       disableElevation
       color="primary"
       variant="contained"
       size="small"
       className={classes.followButton}
-      onClick = {() => handleUnfollow(key)}
-    >Unfollow
-                </Button> 
+      onClick = {() => setProfile(key.email)}
+    >Watchlist
+                </Button></Link>
     </Grid>
     
     </>
