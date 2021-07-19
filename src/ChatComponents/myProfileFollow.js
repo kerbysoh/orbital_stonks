@@ -67,68 +67,85 @@ const MyProfileFollow = () => {
       marginLeft: "26rem",
       fontSize: 20,
     },
-    changes: {
-      display: "center",
-    },
+
+    button: {
+      marginLeft: "10%",
+      maxWidth: "15rem"
+    }
   }));
 
   const classes = useStyles();
 
+  const handleChanges = () => {
+    setEditing(false);
+     db.collection("users").doc(`${fire.auth().currentUser.email}`).update({
+             Description : newdescription,
+             dob: newbirthday,
+             firstname: newfirstname,
+             lastname: newlastname,
+             gender: newgender,
+
+
+        })
+  }
   return (
     <div className={classes.root}>
       {editing ? (
-        <div className={classes.changes}>
-          <br />
-
-          <input
-            className="searchbox"
-            type="text"
-            value={newfirstname}
-            onChange={(e) => {
-              setNewFirstName(e.target.value);
-            }}
-          />
+        <>
           <TextField
             onChange={(e) => {
               setNewFirstName(e.target.value);
             }}
-            id="date"
-            label="Birth Date"
-            type="date"
-            value={newbirthday}
+            id="text"
+            label="First Name"
+            type="text"
+            value={newfirstname}
             className={classes.textField}
             InputLabelProps={{
               shrink: true,
             }}
           />
-          <br />
-          <input
-            className="searchbox"
-            type="text"
-            value={newlastname}
+          <TextField
             onChange={(e) => {
               setNewLastName(e.target.value);
             }}
-          />
-          <br />
-          <input
-            className="searchbox"
+            id="text"
+            label="Last Name"
             type="text"
-            value={newgender}
+            value={newlastname}
+            className={classes.textField}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <br/>
+          <TextField
             onChange={(e) => {
               setNewGender(e.target.value);
             }}
-          />
-          <br />
-          <input
-            className="searchbox"
+            id="text"
+            label="Gender"
             type="text"
-            value={newdescription}
+            value={newgender}
+            className={classes.textField}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <TextField
             onChange={(e) => {
               setNewDescription(e.target.value);
             }}
+            id="text"
+            label="Description"
+            type="text"
+            value={newdescription}
+            className={classes.textField}
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
-          <br />
+          <br/>
           <TextField
             onChange={(e) => {
               setNewBirthday(e.target.value);
@@ -137,21 +154,22 @@ const MyProfileFollow = () => {
             label="Birth Date"
             type="date"
             value={newbirthday}
-            className={classes.textField}
+            className={classes.textFieldDate}
             InputLabelProps={{
               shrink: true,
             }}
           />
-          <br />
+          <br/>
           <Button
             variant="contained"
             color="black"
-            className="editButton"
-            onClick={() => setEditing(false)}
+            className={classes.button}
+
+            onClick={() => handleChanges()}
           >
-            Confirm
+            Confirm Changes
           </Button>
-        </div>
+          </>
       ) : (
         <>
           <Typography className={classes.center} variant="h3" component="h2">

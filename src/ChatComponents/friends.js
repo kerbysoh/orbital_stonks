@@ -257,7 +257,7 @@ const Friends = (props) => {
             <>
               <Button
                 disableElevation
-                color="primary"
+                color='black'
                 variant="contained"
                 size="small"
                 className={classes.followButton}
@@ -275,7 +275,7 @@ const Friends = (props) => {
                   <Link to={"/FriendsStock"}>
                     <Button
                       disableElevation
-                      color="primary"
+                      color="black"
                       variant="contained"
                       size="small"
                       className={classes.followButton}

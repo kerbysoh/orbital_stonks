@@ -94,12 +94,12 @@ const Feed = (props) => {
       return (
         <>
           <Link to="userProfile" className="userData">
-            <Button
+            {/* <Button
               onClick={() => {
                 setProfile(email);
                 setUserz(user2);
               }}
-            ></Button>{" "}
+            ></Button>{" "} */}
             {user2.firstname} {user2.lastname}{" "}
           </Link>
         </>
@@ -289,7 +289,9 @@ const Feed = (props) => {
                   <div class="post3">
                     <div class="header__left">
                       <div class="post__author">
-                        <UserAvatar data={post.email} />
+                        <Link to="userProfile" className="userData">
+                          <UserAvatar data={post.email} />
+                        </Link>
                         <span class="author__name">
                           <h3>{handleData(post.email)}</h3>
 

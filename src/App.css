@@ -555,6 +555,7 @@ button {
   border-radius: 20px;
   text-align: center;
   margin-right: 1rem;
+  outline: none;
 }
 .sendMessage {
   width: 100px;

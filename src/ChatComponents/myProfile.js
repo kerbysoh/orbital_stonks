@@ -49,6 +49,9 @@ const useStyles = makeStyles({
     marginBottom: 24,
     color: "black",
   },
+  profilefollow: {
+    margin: "auto",
+  }
 });
 
 const useAvatarStyles = makeStyles((theme) => ({
