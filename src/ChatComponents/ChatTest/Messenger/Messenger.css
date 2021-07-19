@@ -21,15 +21,13 @@
 }
 
 .sidebar {
-  grid-row-start: 1;
-  grid-row-end: span 3;
-  padding-right: 0.5rem;
   padding-left: 20px;
 }
 
 .content {
   grid-row-start: 1;
   grid-row-end: span 3;
+  border-right: 0.5px solid black;
 }
 
 .footer {

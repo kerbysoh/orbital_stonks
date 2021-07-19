@@ -11,6 +11,8 @@
   margin-top: 10px;
   margin-bottom: 10px;
   padding: 15px 25px;
+  margin-left: 30px;
+  border-left: 1px solid grey;
 }
 .links:hover {
   text-decoration: none;
@@ -28,9 +30,10 @@
   text-decoration: none;
 }
 .post3 {
+  margin-left: 10px;
   background: var(--white);
   width: 100%;
-  max-width: 50rem;
+
   padding-bottom: 5rem;
   border-radius: 1rem;
   box-shadow: 0 0.1rem 0.2rem var(--box-shadow);
@@ -381,6 +384,7 @@ button {
   }
 }
 .form-container {
+  clear: right;
   display: flex;
   align-items: baseline;
   padding: 10px 15px;
@@ -388,7 +392,7 @@ button {
   margin-top: 19px;
   bottom: 0;
 }
-.content {
+.content3 {
   margin-top: 10px;
   margin-bottom: 10px;
   padding: 15px 25px;
@@ -417,7 +421,7 @@ button {
 .userData {
   display: inline-block;
   margin-left: 20px;
-  margin-top: 0px;
+  margin-bottom: 30px;
 }
 .editButton {
   padding: 4px 0;
@@ -586,14 +590,14 @@ button {
 .chatBubbleLeft {
   padding: 10px 14px;
   background: rgb(255, 255, 255);
-  margin: 10px 700px;
+  margin: 10px 1000px;
   border-radius: 9px;
   position: relative;
   animation: fadeIn 1s ease-in;
   left: 0;
   border-right-color: #eee;
   border-left: 0;
-  margin-left: 0;
+  margin-left: 1rem;
   text-align: left;
   display: inline-table;
 }
@@ -601,18 +605,19 @@ button {
 .chatBubbleRight {
   padding: 10px 14px;
   background: #eee;
-  margin: 10px 800px;
+  margin: 10px 600px;
   border-radius: 9px;
   position: relative;
   animation: fadeIn 1s ease-in;
   right: 0;
   border-left-color: blue;
   border-right: 0;
-  margin-right: -20px;
+  margin-right: 10%;
   background: #1982fc;
   color: #fff;
   text-align: right;
   display: inline-flex;
+  float: right;
 }
 .chatBubbleRight:after {
   clear: both;

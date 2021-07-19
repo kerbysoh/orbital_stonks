@@ -1,19 +1,19 @@
-import React, {useState, useEffect} from 'react';
-import 'firebase/firestore'
-import firebase from 'firebase/app'
-import fire from '../fire'
-import Navbar from "../components/Navbar"
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
-import { deepOrange, deepPurple } from '@material-ui/core/colors';
-import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
-import MyProfileFollow from './myProfileFollow.js';
+import React, { useState, useEffect } from "react";
+import "firebase/firestore";
+import firebase from "firebase/app";
+import fire from "../fire";
+import Navbar from "../components/Navbar";
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import Avatar from "@material-ui/core/Avatar";
+import { deepOrange, deepPurple } from "@material-ui/core/colors";
+import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
+import FileCopyIcon from "@material-ui/icons/FileCopy";
+import MyProfileFollow from "./myProfileFollow.js";
 import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
@@ -53,17 +53,16 @@ const useStyles = makeStyles({
 
 const useAvatarStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    '& > *': {
+    display: "flex",
+    "& > *": {
       margin: theme.spacing(1),
     },
-    justifyContent:'left', 
-      alignItems:'center',
+    justifyContent: "left",
+    alignItems: "center",
   },
   sizeAvatar: {
     height: theme.spacing(30),
     width: theme.spacing(30),
-
   },
   orange: {
     color: theme.palette.getContrastText(deepOrange[500]),
@@ -199,11 +198,3 @@ const MyProfile = (props) => {
 };
 
 export default MyProfile;
-
-
-
-
-
-
-
-

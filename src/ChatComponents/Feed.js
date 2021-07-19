@@ -60,10 +60,10 @@ const Feed = (props) => {
   };
   const handleClose2 = () => {
     setOpen(false);
-  }
-  const [currDel, setCurrDel] = useState('')
-  const [open, setOpen] = useState(false)
-  const [dOpen, setDOpen] = useState(false)
+  };
+  const [currDel, setCurrDel] = useState("");
+  const [open, setOpen] = useState(false);
+  const [dOpen, setDOpen] = useState(false);
   const avatarclasses = useAvatarStyles();
   const classes = useStyles();
   const db = firebase.firestore();
@@ -78,7 +78,7 @@ const Feed = (props) => {
   const [reply, setReply] = useState("");
   const [users, setUsers] = useState([]);
   const [comments, setComments] = useState([]);
-  const { handleLogout, profile, setProfile } = props;
+  const { handleLogout, userz, setUserz, profile, setProfile } = props;
 
   const increment = firebase.firestore.FieldValue.increment(1);
   const decrement = firebase.firestore.FieldValue.increment(-1);
@@ -93,14 +93,13 @@ const Feed = (props) => {
     if (user2) {
       return (
         <>
-          <Link
-            to="userProfile"
-            className="userData"
-            onClick={() => {
-              setProfile(email);
-            }}
-          >
-            {" "}
+          <Link to="userProfile" className="userData">
+            <Button
+              onClick={() => {
+                setProfile(email);
+                setUserz(user2);
+              }}
+            ></Button>{" "}
             {user2.firstname} {user2.lastname}{" "}
           </Link>
         </>
@@ -211,7 +210,7 @@ const Feed = (props) => {
             ...doc.data(),
             id: doc.id,
           }));
-          setPosts(data);
+          setPosts(data.reverse());
         });
       db.collection("users")
         .limit(10000)
@@ -271,7 +270,7 @@ const Feed = (props) => {
           className="postButton"
           type="submit"
           onClick={handleNewPost}
-          disabled ={!newPost}
+          disabled={!newPost}
         >
           Post
         </Button>
@@ -287,10 +286,9 @@ const Feed = (props) => {
             ) {
               return (
                 <>
-                
                   <div class="post3">
                     <div class="header__left">
-                      <div class="post__author author">
+                      <div class="post__author">
                         <UserAvatar data={post.email} />
                         <span class="author__name">
                           <h3>{handleData(post.email)}</h3>
@@ -299,52 +297,56 @@ const Feed = (props) => {
                         </span>
                       </div>
                     </div>
-
-                    <div className="content"> {post.text} </div>
-
+                    <div className="content3"> {post.text} </div>
                     <div className="content2">{post.likes} likes</div>
-
                     <div className="post_option">
-                      <FavoriteIcon style = {{fontSize: 50}}
+                      <FavoriteIcon
+                        style={{ fontSize: 50 }}
                         className="post_options"
                         onClick={() => handleLike(post.id)}
                       />
                       {post.email === fire.auth().currentUser.email ? (
                         <>
                           <DeleteIcon
-                            className="post_options" style = {{fontSize: 50}}
-                            onClick={() => {setDOpen(true) ; setCurrDel(post.id)}}
+                            className="post_options"
+                            style={{ fontSize: 50 }}
+                            onClick={() => {
+                              setDOpen(true);
+                              setCurrDel(post.id);
+                            }}
                           />
                         </>
                       ) : null}
                       <Dialog
-        open={dOpen}
-        onClose={() => handleClose()}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="Confirm Delete?">{"Confirm Delete?"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Your action cannot be reversed
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => handleClose()} color="primary">
-            No
-          </Button>
-          <Button
-            onClick={() => {
-              handleDeletePost(currDel);
-              handleClose()
-            }}
-            color="primary"
-            autoFocus
-          >
-            Yes
-          </Button>
-        </DialogActions>
-      </Dialog>
+                        open={dOpen}
+                        onClose={() => handleClose()}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                      >
+                        <DialogTitle id="Confirm Delete?">
+                          {"Confirm Delete?"}
+                        </DialogTitle>
+                        <DialogContent>
+                          <DialogContentText id="alert-dialog-description">
+                            Your action cannot be reversed
+                          </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                          <Button onClick={() => handleClose()} color="primary">
+                            No
+                          </Button>
+                          <Button
+                            onClick={() => {
+                              handleDeletePost(currDel);
+                              handleClose();
+                            }}
+                            color="primary"
+                            autoFocus
+                          >
+                            Yes
+                          </Button>
+                        </DialogActions>
+                      </Dialog>
                       <Button
                         className="post_options"
                         onClick={() => {
@@ -352,12 +354,10 @@ const Feed = (props) => {
                           setReply("");
                           setReplyOn(false);
                         }}
-
                       >
                         View Comments
                       </Button>
                       <Button
-                      
                         className="post_options"
                         onClick={() => {
                           setReplyOn(true);
@@ -366,99 +366,99 @@ const Feed = (props) => {
                       >
                         Reply
                       </Button>
-                      
                     </div>
-                    <div className = 'replyDiv'>
                     {replyOn && post.id === currReply ? (
                       <>
-                        {" "}
-                        <textarea className = "searchbox2" placeholder = "Type your comment here..."
-                          onChange={(e) => setReply(e.target.value)}
-                        ></textarea>{" "}
-                        <Button
-                        disabled ={!reply}
-                          variant="contained"
-                          color="black"
-                          className="postButton2"
-                          type="submit"
-                          onClick={() => handleReply()}
-                        >
-                          Reply
-                        </Button>{" "}
+                        <div className="replyDiv">
+                          {" "}
+                          <textarea
+                            className="searchbox2"
+                            placeholder="Type your comment here..."
+                            onChange={(e) => setReply(e.target.value)}
+                          ></textarea>{" "}
+                          <Button
+                            disabled={!reply}
+                            variant="contained"
+                            color="black"
+                            className="postButton2"
+                            type="submit"
+                            onClick={() => handleReply()}
+                          >
+                            Reply
+                          </Button>{" "}
+                        </div>
                       </>
                     ) : (
                       <></>
                     )}
-
-                    </div>
-                    
-                    <div className="comments">
-                      {currView === post.id ? (
-                        <>
+                    {currView === post.id ? (
+                      <>
+                        <div className="comments">
                           {" "}
                           {comments.map((comment) => {
                             if (comment.postID === currView) {
                               return (
-                                <p className="comment">
+                                <>
                                   <UserAvatar data={comment.email} />
                                   <span class="author__name">
                                     <h3>{handleData(comment.email)}</h3>
 
                                     <p>{post.date}</p>
-                                  </span>{" "}
-                                  <div className="content">
-                                    {" "}
-                                    {comment.text}{" "}
-                                  </div>
+                                  </span>
+                                  <div className="content3">{comment.text}</div>
                                   <div className="post_option">
                                     {comment.email ===
                                     fire.auth().currentUser.email ? (
                                       <>
-                                        <DeleteIcon style = {{fontSize: 50}}
+                                        <DeleteIcon
+                                          style={{ fontSize: 50 }}
                                           className="post_options"
-                                          onClick={() =>
-                                            setOpen(true)
-                                          }
+                                          onClick={() => setOpen(true)}
                                         />
                                         <Dialog
-        open={open}
-        onClose={() => handleClose2()}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="Confirm Delete?">{"Confirm Delete?"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Your action cannot be reversed
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => handleClose2()} color="primary">
-            No
-          </Button>
-          <Button
-            onClick={() => {
-              handleDeleteComment(comment.id);
-              handleClose2()
-            }}
-            color="primary"
-            autoFocus
-          >
-            Yes
-          </Button>
-        </DialogActions>
-      </Dialog>
+                                          open={open}
+                                          onClose={() => handleClose2()}
+                                          aria-labelledby="alert-dialog-title"
+                                          aria-describedby="alert-dialog-description"
+                                        >
+                                          <DialogTitle id="Confirm Delete?">
+                                            {"Confirm Delete?"}
+                                          </DialogTitle>
+                                          <DialogContent>
+                                            <DialogContentText id="alert-dialog-description">
+                                              Your action cannot be reversed
+                                            </DialogContentText>
+                                          </DialogContent>
+                                          <DialogActions>
+                                            <Button
+                                              onClick={() => handleClose2()}
+                                              color="primary"
+                                            >
+                                              No
+                                            </Button>
+                                            <Button
+                                              onClick={() => {
+                                                handleDeleteComment(comment.id);
+                                                handleClose2();
+                                              }}
+                                              color="primary"
+                                              autoFocus
+                                            >
+                                              Yes
+                                            </Button>
+                                          </DialogActions>
+                                        </Dialog>
                                       </>
                                     ) : null}{" "}
                                   </div>
-                                </p>
+                                </>
                               );
                             }
                             return null;
                           })}
-                        </>
-                      ) : null}{" "}
-                    </div>
+                        </div>
+                      </>
+                    ) : null}{" "}
                   </div>
                 </>
               );
@@ -467,8 +467,6 @@ const Feed = (props) => {
             }
           })}
         </Grid>
-        
-        
       </div>
     </div>
   );

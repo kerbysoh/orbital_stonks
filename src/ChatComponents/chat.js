@@ -13,12 +13,13 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import ChatTest from "./ChatTest/Messenger";
 import "./ChatTest/ConversationSearch/ConversationSearch.css";
 import "./ChatTest/Message/Message.css";
+import "./ChatTest/Messenger/Messenger.css";
 import ConversationListItem from "./ChatTest/ConversationListItem";
 import "./ChatTest/ConversationListItem/ConversationListItem.css";
 import Toolbar from "./ChatTest/Toolbar";
 import { CenterFocusStrongOutlined } from "@material-ui/icons";
-import SearchIcon from '@material-ui/icons/Search';
-import Button from '@material-ui/core/Button'
+import SearchIcon from "@material-ui/icons/Search";
+import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -44,9 +45,9 @@ const useStyles = makeStyles((theme) => ({
 const Chat = (props) => {
   const handleClose = () => {
     setDOpen(false);
-    setMsgSel('')
+    setMsgSel("");
   };
-  const [dOpen, setDOpen] = useState(false)
+  const [dOpen, setDOpen] = useState(false);
   const [messages, setMessages] = useState([]); // collection of latest 100 messages in database
   const [newMessage, setNewMessage] = useState(""); // new message string
   const [receiver, setReceiver] = useState(prevUser); //who receives the new message
@@ -61,7 +62,7 @@ const Chat = (props) => {
   const db = firebase.firestore();
   const [errMsg, setErrMsg] = useState("");
   const [friends, setFriends] = useState({});
-  const [msgSel, setMsgSel] = useState('')
+  const [msgSel, setMsgSel] = useState("");
   const { handleLogout } = props;
   const userEmail = fire.auth().currentUser.email;
 
@@ -73,7 +74,7 @@ const Chat = (props) => {
   const [message, setMessage] = useState("User is Not Your Friend");
 
   const handleClickSnack = () => {
-      setOpenSnack(true);
+    setOpenSnack(true);
   };
 
   const handleCloseSnack = (event, reason) => {
@@ -136,7 +137,7 @@ const Chat = (props) => {
       }
     }
     setPeople(x);
-  
+
     if (db) {
       const unsubscribe = db
         .collection("messages")
@@ -207,7 +208,7 @@ const Chat = (props) => {
       handleClickSnack();
     }
   };
-  
+
   return (
     <div className="chatPage">
       <Navbar handleLogout={handleLogout} />
@@ -266,37 +267,39 @@ const Chat = (props) => {
       <h1>{errMsg}</h1>
 
       <div className="messenger">
-        <div className="scrollable sidebar">
+        <div className="content">
           <div className="conversation-list">
             <FormControl>
-              <Button id="demo-controlled-open-select-label" 
-              onClick={() => {
+              <Button
+                id="demo-controlled-open-select-label"
+                onClick={() => {
                   newFunc();
-                }}>
+                }}
+              >
                 View Chats
               </Button>
             </FormControl>
-            
+
             {people.map((person) => {
-                  return (
-                    <div
-                      className="conversation-list-item"
-                      onClick={() => {
-                        setMessageDisplay(person);
-                        setReceiver(person);
-                        setCurrUser(person);
-                        setSeeUser(true);
-                      }}
-                    >
-                      <div className="conversation-info">
-                        <h1 className="conversation-title">{person}</h1>
-                      </div>
-                    </div>
-                  );
-                })}
+              return (
+                <div
+                  className="conversation-list-item"
+                  onClick={() => {
+                    setMessageDisplay(person);
+                    setReceiver(person);
+                    setCurrUser(person);
+                    setSeeUser(true);
+                  }}
+                >
+                  <div className="conversation-info">
+                    <h1 className="conversation-title">{person}</h1>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
-        <div className="scrollable content">
+        <div className="sidebar">
           <ul className="listMsg">
             <div className="chatHeader">
               {currUser ? (
@@ -336,7 +339,6 @@ const Chat = (props) => {
                         }}
                       />
                     </li>
-                    
                   );
                 }
               }
