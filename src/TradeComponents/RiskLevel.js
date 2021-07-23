@@ -20,6 +20,12 @@ export default function RiskLevel() {
   const [databasevalue, setDatabaseValue] = useState('')
   
   useEffect (()=> {
+    if(!databasevalue) {
+      db.collection("RiskLevel").doc(`${fire.auth().currentUser.email}`).update({
+             Risk : value
+        })
+    }
+
         if (db) {
             const unsubscribe = db
             db.collection('RiskLevel')
@@ -65,7 +71,8 @@ export default function RiskLevel() {
 
 
     const handleChange = (event) => {
-        setValue(event.target.value);        
+        setValue(event.target.value);
+        setDatabaseValue(event.target.value);        
         db.collection("RiskLevel").doc(`${fire.auth().currentUser.email}`).update({
              Risk : event.target.value
         })
