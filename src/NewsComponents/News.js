@@ -26,9 +26,11 @@ const News = (props) => {
             .then((response) => setData(response.data))
             .catch((error) => console.log(error));
 
+      if(data) {
       db.collection("news").doc("news").update({
             news : data
         })
+      }
             
     if (db & !data) {
             const unsubscribe = db
