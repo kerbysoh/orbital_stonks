@@ -19,7 +19,7 @@ const News = (props) => {
       const db = firebase.firestore()
 
      useEffect (() => {
-      axios
+      /* axios
             .get(
                 `${proxyUrl}https://newsapi.org/v2/everything?pageSize=100&q=stocks&domains=marketwatch.com,investing.com,seekingalpha.com,fool.co.uk,ino.com/blog,moneycontrol.com,ragingbull.com,bbc.com,&sortBy=popularity&apiKey=${apiKey}`
             )
@@ -30,9 +30,9 @@ const News = (props) => {
       db.collection("news").doc("news").update({
             news : data
         })
-      }
+      } */
             
-    if (db & !data) {
+    if (db) {
             const unsubscribe = db
             db.collection("news")
             .doc("news")
