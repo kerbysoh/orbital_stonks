@@ -47,12 +47,12 @@ const News = (props) => {
     }, [db])
         
     const handleSearch = () => {
-        axios
+        /* axios
             .get(
                 `${proxyUrl}https://newsapi.org/v2/everything?pageSize=100&q=${search}&domains=marketwatch.com,investing.com,seekingalpha.com,fool.co.uk,ino.com/blog,moneycontrol.com,ragingbull.com,bbc.com,&sortBy=popularity&apiKey=${apiKey}`
             )
             .then((response) => setData(response.data))
-            .catch((error) => console.log(error));
+            .catch((error) => console.log(error)); */
     }
     
     return (
