@@ -486,6 +486,18 @@ const MyProfile = (props) => {
                         >
                           Unfollow
                         </Button>{" "}
+                        <Link to={"/FriendsStock"}>
+                          <Button
+                          variant="contained"
+                          color="black"
+                          className="postButton"
+                          type="submit"
+                          onClick={() => setProfile(currSearch.email)}
+                        >
+                          Watchlist
+                        </Button>
+                        </Link>
+                        
                       </>
                     ) : (
                       <></>

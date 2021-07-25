@@ -19,7 +19,7 @@ import "./ChatTest/Messenger/Messenger.css";
 import ConversationListItem from "./ChatTest/ConversationListItem";
 import "./ChatTest/ConversationListItem/ConversationListItem.css";
 import Toolbar from "./ChatTest/Toolbar";
-import { CenterFocusStrongOutlined } from "@material-ui/icons";
+import { CenterFocusStrongOutlined, ShowChartTwoTone } from "@material-ui/icons";
 import SearchIcon from "@material-ui/icons/Search";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -30,6 +30,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
+import InputEmoji from "react-input-emoji";
 
 var prevUser = "";
 
@@ -68,14 +69,14 @@ const Chat = (props) => {
   const [msgSel, setMsgSel] = useState("");
   const { handleLogout , profile, setProfile, setUserz, userz} = props;
   const userEmail = fire.auth().currentUser.email;
-
+  const [showchat, setShowChat] = useState(false);
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [openmenu, setOpenMenu] = useState(true);
-
   const [opensnack, setOpenSnack] = useState(false);
   const [message, setMessage] = useState("User is Not Your Friend");
-
+ 
+  
   const handleClickSnack = () => {
     setOpenSnack(true);
   };
@@ -95,6 +96,9 @@ const Chat = (props) => {
   const handleCloseMenu = () => {
     setOpenMenu(false);
   };
+  const handleOpenMenu = () => {
+    setOpenMenu(true);
+  };
 const handleData2 = (email) => {
   var user2;
 
@@ -113,9 +117,6 @@ const handleData2 = (email) => {
       );
     }
 }
-  const handleOpenMenu = () => {
-    setOpenMenu(true);
-  };
 
   const newFunc = () => {
     setErrMsg("");
@@ -239,6 +240,13 @@ const handleData2 = (email) => {
     setReceiver(e.target.value);
   };
 
+  const showChat = () => {
+      if(showchat){
+        setShowChat(false);
+      } else {
+        setShowChat(true);
+      }
+  }
   const handleOnSubmit = (e) => {
     e.preventDefault();
     const key = receiver.slice(0, receiver.length - 4);
@@ -259,6 +267,11 @@ const handleData2 = (email) => {
       handleClickSnack();
     }
   };
+  const [text, setText] = useState("");
+
+  const handleOnEnter = (text) => {
+    console.log("enter", text);
+  }
 
   return (
     <div className="chatPage">
@@ -325,13 +338,14 @@ const handleData2 = (email) => {
                 id="demo-controlled-open-select-label"
                 onClick={() => {
                   newFunc();
+                  showChat();
                 }}
               >
                 View Chats
               </Button>
             </FormControl>
-
-            {people.map((person) => {
+            {showchat ? 
+             people.map((person) => {
               return (
                 <div
                   className="conversation-list-item"
@@ -348,7 +362,8 @@ const handleData2 = (email) => {
                   </div>
                 </div>
               );
-            })}
+            }): null}
+            
           </div>
         </div>
         <div className="sidebar">
@@ -420,11 +435,19 @@ const handleData2 = (email) => {
                   className="messagePosting"
                   type="text"
                   value={newMessage}
+                  //value={text}
                   onChange={handleOnChange}
                   placeholder="Type message.."
                   name="msg"
                   required
                 ></textarea>
+                <InputEmoji
+                  value={text}
+                  onChange={setText}
+                  cleanOnEnter
+                  onEnter={handleOnEnter}
+                  maxLength = "5rem"
+                />
                 <Button
                   variant="contained"
                   color="black"
