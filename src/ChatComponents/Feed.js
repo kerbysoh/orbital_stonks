@@ -93,13 +93,11 @@ const Feed = (props) => {
     if (user2) {
       return (
         <>
-          <Link to="userProfile" className="userData">
-            {/* <Button
-              onClick={() => {
+          <Link to="userProfile" onClick={() => {
                 setProfile(email);
                 setUserz(user2);
-              }}
-            ></Button>{" "} */}
+              }}className="userData">
+            
             {user2.firstname} {user2.lastname}{" "}
           </Link>
         </>
@@ -250,6 +248,19 @@ const Feed = (props) => {
       return unsubscribe;
     }
   }, [db, currDel]);
+  const handleViewComment = (post) => {
+    if (currView === post) {
+      setCurrView('')
+      setReply("");
+                          setReplyOn(false);
+    } else {
+      setCurrView(post);
+      setReply("");
+      setReplyOn(false);
+    }
+   
+
+  }
 
   return (
     <div>
@@ -352,9 +363,8 @@ const Feed = (props) => {
                       <Button
                         className="post_options"
                         onClick={() => {
-                          setCurrView(post.id);
-                          setReply("");
-                          setReplyOn(false);
+                          handleViewComment(post.id);
+                         
                         }}
                       >
                         View Comments
@@ -369,30 +379,7 @@ const Feed = (props) => {
                         Reply
                       </Button>
                     </div>
-                    {replyOn && post.id === currReply ? (
-                      <>
-                        <div className="replyDiv">
-                          {" "}
-                          <textarea
-                            className="searchbox2"
-                            placeholder="Type your comment here..."
-                            onChange={(e) => setReply(e.target.value)}
-                          ></textarea>{" "}
-                          <Button
-                            disabled={!reply}
-                            variant="contained"
-                            color="black"
-                            className="postButton2"
-                            type="submit"
-                            onClick={() => handleReply()}
-                          >
-                            Reply
-                          </Button>{" "}
-                        </div>
-                      </>
-                    ) : (
-                      <></>
-                    )}
+                    
                     {currView === post.id ? (
                       <>
                         <div className="comments">
@@ -460,7 +447,31 @@ const Feed = (props) => {
                           })}
                         </div>
                       </>
-                    ) : null}{" "}
+                    ) : null}
+                    {replyOn && post.id === currReply ? (
+                      <>
+                        <div className="postForm">
+                          {" "}
+                          <textarea
+                            className="post"
+                            placeholder="Type your comment here..."
+                            onChange={(e) => setReply(e.target.value)}
+                          ></textarea>{" "}
+                          <Button
+                            disabled={!reply}
+                            variant="contained"
+                            color="black"
+                            className="postButton"
+                            type="submit"
+                            onClick={() => handleReply()}
+                          >
+                            Reply
+                          </Button>{" "}
+                        </div>
+                      </>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 </>
               );

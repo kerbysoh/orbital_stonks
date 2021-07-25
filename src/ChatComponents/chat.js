@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import firebase from "firebase/app";
 import fire from "../fire";
+import { Link } from "react-router-dom";
 import "firebase/firestore";
+import UserAvatar from "./userAvatar";
 import Navbar from "../components/Navbar";
 import SearchBox from "../Search/SearchBox";
 import { makeStyles } from "@material-ui/core/styles";
@@ -47,6 +49,7 @@ const Chat = (props) => {
     setDOpen(false);
     setMsgSel("");
   };
+  const [users, setUsers] = useState([])
   const [dOpen, setDOpen] = useState(false);
   const [messages, setMessages] = useState([]); // collection of latest 100 messages in database
   const [newMessage, setNewMessage] = useState(""); // new message string
@@ -63,7 +66,7 @@ const Chat = (props) => {
   const [errMsg, setErrMsg] = useState("");
   const [friends, setFriends] = useState({});
   const [msgSel, setMsgSel] = useState("");
-  const { handleLogout } = props;
+  const { handleLogout , profile, setProfile, setUserz, userz} = props;
   const userEmail = fire.auth().currentUser.email;
 
   const classes = useStyles();
@@ -116,6 +119,28 @@ const Chat = (props) => {
     }
     setPeople(x);
   };
+  const handleData = (email) => {
+    var user2;
+
+    users.map((user) => {
+      if (user.id === email) {
+        user2 = user;
+      }
+    });
+    if (user2) {
+      return (
+        <>
+          <Link to="userProfile" onClick={() => {
+                setProfile(email);
+                setUserz(user2);
+              }}className="userData">
+          
+            {user2.firstname} {user2.lastname}{" "}
+          </Link>
+        </>
+      );
+    }
+  };
   const handleNew = () => {
     setCurrUser("");
     setSeeUser(false);
@@ -157,9 +182,18 @@ const Chat = (props) => {
             setFriends(doc.data());
           }
         });
+        db.collection("users")
+        .limit(10000)
+        .onSnapshot((querySnapshot) => {
+          const data = querySnapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }));
+          setUsers(data);
+        });
       return unsubscribe;
     }
-  }, [db, messageDisplay]);
+  }, [db, messageDisplay. currUser]);
 
   const handleUserSearch = () => {
     messages.map((message) => {
@@ -305,7 +339,8 @@ const Chat = (props) => {
               {currUser ? (
                 <>
                   {" "}
-                  <Toolbar title={currUser} />
+                  
+                        <h3>{handleData(currUser)}</h3>
                 </>
               ) : (
                 <></>
@@ -364,7 +399,7 @@ const Chat = (props) => {
             {currUser || newUser ? (
               <>
                 <textarea
-                  className="messageSend"
+                  className="messagePosting"
                   type="text"
                   value={newMessage}
                   onChange={handleOnChange}

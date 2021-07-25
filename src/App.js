@@ -202,7 +202,10 @@ const App = () => {
         <Switch>
           <Route path="/Chat">
             {user ? (
-              <Chat handleLogout={handleLogout} user={user} db={db} />
+              <Chat profile={profile}
+              setProfile={setProfile}
+              userz={userz}
+              setUserz={setUserz} handleLogout={handleLogout} user={user} db={db} />
             ) : (
               <Login
                 email={email}
