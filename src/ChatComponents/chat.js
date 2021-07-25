@@ -441,13 +441,13 @@ const handleData2 = (email) => {
                   name="msg"
                   required
                 ></textarea>
-                <InputEmoji
+                {/* <InputEmoji
                   value={text}
                   onChange={setText}
                   cleanOnEnter
                   onEnter={handleOnEnter}
                   maxLength = "5rem"
-                />
+                /> */}
                 <Button
                   variant="contained"
                   color="black"
