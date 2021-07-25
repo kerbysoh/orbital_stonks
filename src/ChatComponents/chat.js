@@ -95,7 +95,24 @@ const Chat = (props) => {
   const handleCloseMenu = () => {
     setOpenMenu(false);
   };
+const handleData2 = (email) => {
+  var user2;
 
+    users.map((user) => {
+      if (user.id === email) {
+        user2 = user;
+      }
+    });
+    if (user2) {
+      return (
+        <>
+         {user2.firstname} {user2.lastname}
+          <h4 className = "username2">{user2.Description}</h4>
+          
+        </>
+      );
+    }
+}
   const handleOpenMenu = () => {
     setOpenMenu(true);
   };
@@ -325,8 +342,9 @@ const Chat = (props) => {
                     setSeeUser(true);
                   }}
                 >
-                  <div className="conversation-info">
-                    <h1 className="conversation-title">{person}</h1>
+                  <div className="conversation">
+                  <UserAvatar className = "avatar3" data={person} />
+                  <h4 className = "username">{handleData2(person)}</h4>
                   </div>
                 </div>
               );
